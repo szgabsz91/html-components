@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-resizable" constructor="ResizableComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-wrapper {
+            position: relative;
+          }
+          
+          .ui-resizable-e {
+            cursor: e-resize;
+            width: 7px;
+            right: -5px;
+            top: 0;
+            height: 100%;
+          }
+          
+          .ui-resizable-handle {
+            position: absolute;
+            display: block;
+          }
+          
+          .ui-resizable-s {
+            cursor: s-resize;
+            height: 7px;
+            width: 100%;
+            bottom: -5px;
+            left: 0;
+          }
+          
+          .ui-resizable-handle {
+            position: absolute;
+            font-size: 0.1px;
+            display: block;
+            z-index: 1024;
+          }
+          
+          .ui-resizable-se {
+            cursor: se-resize;
+            width: 12px;
+            height: 12px;
+            right: 1px;
+            bottom: 1px;
+          }
+          
+          .ui-resizable-handle {
+            position: absolute;
+            display: block;
+          }
+          
+          .ui-icon {
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-image: url("../../../../html_components/lib/images/ui-icons.png");
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+          }
+          
+          .ui-icon-gripsmall-diagonal-se {
+            background-position: -64px -224px;
+          }
+          
+          .ghost {
+            opacity: 0.5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-wrapper" style="width:{{model.currentSize.width}}px;height:{{model.currentSize.height}}px">
+          <content></content>
+          <div class="ui-resizable-handle ui-resizable-e" on-mouse-down="_onResizeStarted($event)"></div>
+          <div class="ui-resizable-handle ui-resizable-s" on-mouse-down="_onResizeStarted($event)"></div>
+          <div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" on-mouse-down="_onResizeStarted($event)"></div>
+        </div>
+      </template>
+      <script type="application/dart" src="resizable.dart"></script>
+    </element>
+  </body>
+</html>

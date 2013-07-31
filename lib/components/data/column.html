@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-column" constructor="ColumnComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content></content>
+        </div>
+      </template>
+      <script type="application/dart" src="column.dart"></script>
+    </element>
+  </body>
+</html>

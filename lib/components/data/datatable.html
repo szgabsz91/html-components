@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="import" href="paginator.html"/>
+  </head>
+  <body>
+    <element name="x-datatable" constructor="DatatableComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-datatable .ui-datatable-header {
+            border-bottom: 0px none;
+            text-align: center;
+            padding: 4px 10px;
+          }
+          
+          .ui-corner-top {
+            -moz-border-radius-topleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-topright: 3px;
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+          }
+          
+          .ui-datatable .ui-paginator-top {
+            border-bottom: 0px none;
+          }
+          
+          .ui-datatable .ui-paginator {
+            text-align: center;
+          }
+          
+          .ui-paginator {
+            margin: 0px;
+            text-align: center;
+            padding: 2px;
+          }
+          
+          .ui-corner-top {
+            -moz-border-radius-topleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-topright: 3px;
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+          }
+          
+          .ui-widget-header {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            color: #333;
+            font-weight: bold;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-paginator .ui-paginator-current {
+            margin-left: 1em;
+            margin-right: 1em;
+            background-image: none;
+          }
+          
+          .ui-paginator .ui-paginator-current {
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-paginator .ui-paginator-first {
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+          }
+          
+          .ui-state-disabled {
+            opacity: .35;
+            background-image: none;
+          }
+          
+          .ui-state-default {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+            -moz-box-shadow: inset 0px 1px 0px #fff;
+            -webkit-box-shadow: inset 0px 1px 0px #fff;
+            box-shadow: inset 0px 1px 0px #fff;
+          }
+          
+          .ui-state-disabled {
+            cursor: default !important;
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+          
+          .ui-paginator .ui-paginator-first .ui-icon {
+            height: auto !important;
+            overflow: inherit;
+          }
+          
+          .ui-icon {
+            background-image: url("../../../../../html_components/lib/images/ui-icons.png");
+            display: block;
+            text-indent: -99999px;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin-top: 3px;
+          }
+          
+          .ui-icon-seek-first {
+            background-position: -80px -160px;
+          }
+          
+          .ui-paginator .ui-paginator-prev {
+            cursor: pointer;
+          }
+          
+          .ui-paginator .ui-paginator-prev {
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-paginator .ui-paginator-prev .ui-icon {
+            height: auto !important;
+            overflow: inherit;
+          }
+          
+          .ui-icon-seek-prev {
+            background-position: -48px -160px;
+          }
+          
+          .ui-paginator .ui-paginator-pages {
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-paginator .ui-paginator-page {
+            cursor: pointer;
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-state-active {
+            border: 1px solid #7096ab;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0.4)));
+            font-weight: bold;
+            color: #1C4257;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+            -moz-box-shadow: inset 0px -1px 0px #fff;
+            -webkit-box-shadow: inset 0px 1px 0px #fff;
+            box-shadow: inset 0px 1px 0px #fff;
+          }
+          
+          .ui-paginator .ui-paginator-next {
+            cursor: pointer;
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-paginator .ui-paginator-next .ui-icon {
+            height: auto !important;
+            overflow: inherit;
+          }
+          
+          .ui-icon-seek-next {
+            background-position: -32px -160px;
+          }
+          
+          .ui-paginator .ui-paginator-last {
+            cursor: pointer;
+            display: inline-block;
+            padding: 2px 6px;
+            zoom: 1;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-paginator .ui-paginator-last .ui-icon {
+            height: auto !important;
+            overflow: inherit;
+          }
+          
+          .ui-icon-seek-end {
+            background-position: -64px -160px;
+          }
+          
+          .ui-paginator .ui-paginator-rpp-options {
+            margin-left: 1em;
+            margin-right: 1em;
+            background-image: none;
+            width: auto !important;
+            height: auto !important;
+            line-height: normal !important;
+            margin-top: 7px;
+          }
+          
+          .ui-corner-left {
+            -moz-border-radius-topleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+          }
+          
+          .ui-paginator .ui-paginator-rpp-options option {
+            background-image: none;
+            border: 0 none;
+            box-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+          }
+          
+          .ui-state-hover {
+            border: 1px solid #7096ab !important;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0))) !important;
+            font-weight: bold;
+            color: #313131 !important;
+            -moz-box-shadow: 0 0 5px #85b2cb !important;
+            -webkit-box-shadow: 0px 0px 8px #85b2cb !important;
+            box-shadow: 0px 0px 8px #85b2cb !important;
+          }
+          
+          .ui-datatable .ui-paginator-bottom {
+            border-top: 0px none;
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-datatable table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          
+          .ui-datatable .ui-sortable-column {
+            cursor: pointer;
+          }
+          
+          .ui-datatable thead th {
+            padding: 4px 10px;
+            white-space: nowrap;
+            border-width: 1px;
+            border-style: solid;
+            text-align: center;
+          }
+          
+          .ui-datatable .ui-sortable-column-icon {
+            display: inline-block;
+            margin: -3px 0px -3px 2px;
+          }
+          
+          .ui-icon-carat-2-n-s {
+            background-position: -128px 0;
+          }
+          
+          .ui-datatable tbody td {
+            border-color: inherit;
+            padding: 4px 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-width: 1px;
+            border-style: solid;
+          }
+          
+          .ui-datatable-odd {
+            background: none repeat scroll 0 0 #F2F5F9;
+          }
+          
+          .ui-datatable .ui-datatable-footer {
+            border-top: 0px none;
+            text-align: center;
+            padding: 4px 10px;
+          }
+          
+          .ui-corner-bottom {
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            -moz-border-radius-bottomright: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
+          
+          .ui-datatable tfoot td {
+            padding: 4px 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-width: 1px;
+            border-style: solid;
+          }
+          
+          .ui-datatable tfoot td {
+            text-align: center;
+          }
+          
+          .ui-icon-triangle-1-n {
+            background-position: 0 -16px;
+          }
+          
+          .ui-icon-triangle-1-s {
+            background-position: -64px -16px;
+          }
+          
+          .ui-datatable .ui-datatable-data {
+            height: 100px;
+            overflow: auto;
+          }
+          
+          .ui-datatable .ui-datatable-data tr.ui-state-hover {
+            border-color: inherit;
+            font-weight: inherit;
+            cursor: pointer;
+          }
+          
+          .ui-datatable tr.ui-state-highlight {
+            cursor: pointer;
+          }
+          
+          .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+            border: 1px solid #666666;
+            background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+            color: #ffffff;
+            text-shadow: 1px 1px 1px #333333;
+          }
+          
+          .ui-datatable .ui-expanded-row-content {
+            border-top: 0px none;
+            display: none;
+          }
+          
+          .ui-datatable .ui-row-toggler {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 10px -2px 0;
+          }
+          
+          .ui-icon-circle-triangle-s {
+            background-position: -64px -192px;
+          }
+          
+          .ui-icon-circle-triangle-e {
+            background-position: -48px -192px;
+          }
+          
+          .ui-datatable .ui-datatable-data td.ui-cell-editing {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+          }
+          
+          .ui-cell-editor input[type="text"], .ui-cell-editor input[type="number"] {
+            width: 93%;
+          }
+          
+          .ui-widget-content .ui-inputfield {
+            font-weight: normal;
+          }
+          
+          .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+            background: #ffffff;
+            -moz-box-shadow: inset 0 2px 2px #8f8f8f;
+            -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
+            box-shadow: inset 0 2px 2px #8f8f8f;
+            color: #313131;
+          }
+          
+          .ui-inputfield {
+            margin: 0 !important;
+            outline: medium none;
+            padding: 4px;
+          }
+          
+          .filter-icon-container {
+            opacity: 0;
+            float: right;
+            border-left: none;
+            height: 16px;
+            margin: 0;
+            margin-top: -3px;
+            padding-top: 2px;
+            margin-bottom: -100px;
+            padding-bottom: 10px;
+            position: relative;
+            cursor: pointer;
+          }
+          
+          table thead tr th:hover > .filter-icon-container {
+            opacity: 1;
+          }
+          
+          .filter-icon {
+            background-image: url("../../../../../html_components/lib/images/filter.png");
+            display: block;
+            text-indent: -99999px;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin-top: 3px;
+          }
+          
+          .filter-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+            padding: 8px 10px 10px 10px;
+            border-radius: 5px;
+            cursor: auto !important;
+          }
+          
+          .filter-content > * {
+            margin: 0 !important;
+            text-align: left;
+          }
+          
+          .filter-content input[type="checkbox"] {
+            float: left;
+            margin-top: 4px !important;
+            margin-right: 5px !important;
+          }
+          
+          .ui-datatable .ui-column-resizer {
+            width: 8px;
+            height: 20px;
+            padding: 0px;
+            cursor: col-resize;
+            margin: -4px -10px -4px 0px;
+            float: right;
+            position: relative;
+          }
+          
+          .column-left {
+            text-align: left;
+          }
+          
+          .column-center {
+            text-align: center;
+          }
+          
+          .column-right {
+            text-align: right;
+          }
+          
+          .invisible {
+            opacity: 0;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content></content>
+        </div>
+        
+        <div class="ui-datatable ui-widget">
+          <template instantiate="if model.header != null">
+            <div class="ui-datatable-header ui-widget-header ui-corner-top">{{model.header}}</div>
+          </template>
+          <template instantiate="if ['top', 'both'].contains(model.paginatorPosition)">
+            <div is="x-paginator"
+                 position="top"
+                 bind-currentpage="currentpage"
+                 bind-rows="rows">
+            </div>
+          </template>
+          <div class="ui-datatable-tablewrapper">
+            <table>
+              <thead template="template" instantiate="if model.showColumnHeader">
+                <tr template="template" iterate="column in model.columns">
+                  <th class="ui-state-default {{column.sortable ? 'x-datatable_ui-sortable-column' : ''}} {{_getSortByColumn(column) != null ? 'x-datatable_ui-state-active' : ''}}" on-mouse-over="_onMouseOverColumnHeader($event, column)" on-mouse-out="_onMouseOutColumnHeader($event)" on-click="_onColumnHeaderClicked($event, column)">
+                    <span>{{column.header == null ? '' : column.safeHeader}}</span>
+                    <template instantiate="if column.sortable">
+                      <span class="ui-sortable-column-icon ui-icon {{_getSortByColumn(column) == null ? 'x-datatable_ui-icon-carat-2-n-s' : _getSortByColumn(column).direction == SortDirection.ASCENDING ? 'x-datatable_ui-icon-triangle-1-n' : 'x-datatable_ui-icon-triangle-1-s'}}"></span>
+                    </template>
+                    <template instantiate="if column.filterable">
+                      <div class="filter-icon-container" on-click="_onFilterIconClicked($event)">
+                        <span class="filter-icon"></span>
+                        <div class="filter-content invisible" style="z-index:{{2000 - $index}}">
+                          <template instantiate="if column.type == 'string'">
+                            contains <input type="text" bind-value="model._filters[column].first.value"/>
+                          </template>
+                          <template instantiate="if column.type == 'numeric'">
+                            = <input type="number" bind-value="model._filters[column].first.value"/><br/>
+                            &lt; <input type="number" bind-value="model._filters[column].elementAt(1).value"/><br/>
+                            &gt; <input type="number" bind-value="model._filters[column].last.value"/>
+                          </template>
+                          <template instantiate="if column.type == 'boolean'">
+                            <label><input type="checkbox" bind-checked="model._filters[column].first.value"/> True</label>
+                            <label><input type="checkbox" bind-checked="model._filters[column].last.value"/> False</label>
+                          </template>
+                        </div>
+                      </div>
+                    </template>
+                    <template instantiate="if column.resizable">
+                      <span class="ui-column-resizer" on-mouse-down="_onColumnResizeStarted($event)">&nbsp;</span>
+                    </template>
+                  </th>
+                </tr>
+              </thead>
+              <tfoot template="template" instantiate="if model.showColumnFooter">
+                <tr template="template" iterate="column in model.columns">
+                  <td class="ui-state-default">{{column.footer == null ? '' : column.safeFooter}}</td>
+                </tr>
+              </tfoot>
+              <tbody class="ui-datatable-data ui-widget-content" template="template" iterate="item in model._visibleItems">
+                <tr class="ui-widget-content {{model.selectedItems.contains(item) ? 'x-datatable_ui-state-highlight' : ''}} {{$index % 2 == 0 ? 'x-datatable_ui-datatable-even' : 'x-datatable_ui-datatable-odd'}}" template="template" iterate="templateManager in model._columnTemplateManagers" on-mouse-over="_onMouseOverRow($event, item)" on-mouse-out="_onMouseOutRow($event, item)" on-click="_onRowClicked($event, item)">
+                  <td class="{{'x-datatable_column-${model.columns[$index].textAlign}'}}" template="template" instantiate="if !model.columns[$index].editing || _cellEditor.item != item" on-double-click="_onCellDoubleClicked($event, model.columns[$index], item)">
+                    <template instantiate="if model.rowExpansionTemplate != null && $index == 0">
+                      <div class="ui-row-toggler ui-icon ui-icon-circle-triangle-e" on-click="_onRowExpansionToggled($event)"></div>
+                    </template>
+                    {{_getItemAsHtml(item, templateManager)}}
+                  </td>
+                  <td class="ui-cell-editing" template="template" instantiate="if model.columns[$index].editing && _cellEditor.item == item">
+                    <div class="ui-cell-editor" on-key-up="_onEditKeyUp($event)">
+                      <template instantiate="if model.columns[$index].type == 'string'">
+                        <input type="text" value="{{_getItemProperty(item, model.columns[$index].property)}}" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                      </template>
+                      <template instantiate="if model.columns[$index].type == 'numeric'">
+                        <input type="number" value="{{_getItemProperty(item, model.columns[$index].property).toString()}}" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                      </template>
+                      <template instantiate="if model.columns[$index].type == 'boolean'">
+                        <input type="checkbox" checked="{{_getItemProperty(item, model.columns[$index].property)}}" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" on-mouse-down="_onCheckboxClicked($event)"/>
+                      </template>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="ui-expanded-row-content ui-widget-content" template="template" instantiate="if model.rowExpansionTemplate != null">
+                  <td colspan="{{model.columns.length}}">
+                    {{_getItemAsHtml(item, model.rowExpansionTemplate)}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <template instantiate="if ['bottom', 'both'].contains(model.paginatorPosition)">
+            <div is="x-paginator"
+                 position="bottom"
+                 bind-currentpage="currentpage"
+                 bind-rows="rows">
+            </div>
+          </template>
+          <template instantiate="if model.footer != null">
+            <div class="ui-datatable-footer ui-widget-header ui-corner-bottom">{{model._safeFooter}}</div>
+          </template>
+        </div>
+      </template>
+      <script type="application/dart" src="datatable.dart"></script>
+    </element>
+  </body>
+</html>

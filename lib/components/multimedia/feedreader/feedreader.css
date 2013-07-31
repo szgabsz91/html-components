@@ -1,0 +1,82 @@
+.ui-corner-all {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.ui-state-default {
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  color: #4f4f4f;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+}
+
+.container p {
+  line-height: 200%;
+}
+
+.container a img {
+  margin-right: 10px;
+}
+
+a img {
+  border: none;
+}
+
+.ui-icon {
+  background-image: url("../../../../../html_components/lib/images/ui-icons.png");
+  display: inline-block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.ui-icon-arrowrefresh-1-e {
+  background-position: -160px -64px;
+}
+
+.submenu-title {
+  padding: 0px 10px;
+}
+
+.ui-widget-header {
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+}
+
+hr {
+  margin: 20px 0 20px 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  color: #4f4f4f;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+}
+
+.feed-item {
+  padding: 0 50px 0 50px;
+}
+
+.hidden {
+  display: none;
+}

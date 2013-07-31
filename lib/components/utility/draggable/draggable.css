@@ -1,0 +1,9 @@
+.draggable {
+  position: relative;
+  transition: top 500ms, left 500ms;
+  -webkit-transition: top 500ms, left 500ms;
+}
+
+.draggable *:first-child {
+  cursor: move;
+}

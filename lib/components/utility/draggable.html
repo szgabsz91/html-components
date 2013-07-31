@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-draggable" constructor="DraggableComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .draggable {
+            position: relative;
+          }
+          
+          .draggable *:first-child {
+            cursor: move;
+          }
+        </style>
+        
+        <div class="draggable" on-mouse-down="_onDragStarted($event)" style="top:{{model.top}}px;left:{{model.left}}px">
+          <content></content>
+        </div>
+      </template>
+      <script type="application/dart" src="draggable.dart"></script>
+    </element>
+  </body>
+</html>

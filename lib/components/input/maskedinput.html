@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-maskedinput" constructor="MaskedInputComponent" extends="input">
+      <template>
+        <style scoped="scoped">
+          .ui-inputmask {
+            font-weight: normal;
+            background: #ffffff;
+            -moz-box-shadow: inset 0 2px 2px #8f8f8f !important;
+            -webkit-box-shadow: inset 0 2px 2px #8f8f8f !important;
+            box-shadow: inset 0 2px 2px #8f8f8f !important;
+            color: #313131;
+            margin: 0;
+            outline: medium none;
+            padding: 4px;
+          }
+          
+          .ui-state-default {
+            border: 1px solid #a8a8a8;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+        </style>
+        
+        <span>
+          <input type="text" class="ui-inputmask ui-state-default ui-corner-all" value="{{model.value}}" on-key-down="_onKeyDown($event)" on-key-up="_onKeyUp($event)" on-click="_onClicked()" on-blur="_onBlurred()"/>
+        </span>
+      </template>
+      <script type="application/dart" src="maskedinput.dart"></script>
+    </element>
+  </body>
+</html>

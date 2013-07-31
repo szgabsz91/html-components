@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="import" href="menubar.html"/>
+  </head>
+  <body>
+    <element name="x-menubutton" constructor="MenuButtonComponent" extends="button">
+      <template>
+        <style scoped="scoped">
+          .ui-menubutton {
+            padding: 0;
+          }
+          
+          .ui-menubutton .ui-button {
+            margin: 0;
+          }
+          
+          .ui-button {
+            display: inline-block;
+            position: relative;
+            padding: 0;
+            text-decoration: none !important;
+            cursor: pointer;
+            text-align: center;
+            zoom: 1;
+            overflow: visible;
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+          
+          .ui-state-default {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-state-focus {
+            border: 1px solid #7096ab;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #313131;
+            -moz-box-shadow: 0 0 5px #85b2cb;
+            -webkit-box-shadow: 0px 0px 8px #85b2cb;
+            box-shadow: 0px 0px 8px #85b2cb;
+          }
+          
+          .ui-button-text-icon-left .ui-icon {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+          }
+          
+          .ui-button-icon-left {
+            left: .5em;
+          }
+          
+          .ui-icon {
+            background-image: url("../../../../../html_components/lib/images/ui-icons.png");
+            display: block;
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+          }
+          
+          .ui-icon-triangle-1-s {
+            background-position: -64px -16px;
+          }
+          
+          .ui-button-text-icon-left .ui-button-text {
+            padding: .4em 1em .4em 2.1em;
+          }
+          
+          .ui-button .ui-button-text {
+            display: block;
+            line-height: 1.4;
+          }
+          
+          div[is="x-menubar"] {
+            position: absolute;
+            z-index: 1000;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <span class="ui-menubutton">
+          <button class="ui-button ui-state-default ui-corner-all ui-button-text-icon-left" on-mouse-over="_onMouseOver($event)" on-mouse-out="_onMouseOut($event)" on-click="_onClicked()">
+            <span class="ui-button-icon-left ui-icon ui-icon-triangle-1-s"></span>
+            <span class="ui-button-text">{{label}}</span>
+          </button>
+        </span>
+        
+        <div is="x-menubar" orientation="vertical" class="ui-helper-hidden">
+          <content></content>
+        </div>
+      </template>
+      <script type="application/dart" src="menubutton.dart"></script>
+    </element>
+  </body>
+</html>

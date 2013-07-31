@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-carousel" constructor="CarouselComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-carousel {
+            position: relative;
+            display: inline-block;
+            padding: 1px;
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-carousel .ui-carousel-header {
+            margin: 0 1px;
+            height: 16px;
+            overflow: hidden;
+            padding-top: 7px;
+            padding-bottom: 8px;
+            padding-right: 10px;
+            padding-left: 10px;
+          }
+          
+          .ui-widget-header {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            color: #333;
+            font-weight: bold;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-carousel .ui-carousel-header .ui-carousel-header-title {
+            display: inline-block;
+            width: 30%;
+            padding-top: 0;
+            overflow: hidden;
+          }
+          
+          .ui-carousel .ui-carousel-button {
+            cursor: pointer;
+          }
+          
+          .ui-carousel .ui-carousel-button {
+            float: right;
+            margin: 2px;
+          }
+          
+          .ui-icon {
+            background-image: url("../../../../../html_components/lib/images/ui-icons.png") !important;
+            display: block;
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+          }
+          
+          .ui-icon-circle-triangle-e {
+            background-position: -48px -192px;
+          }
+          
+          .ui-state-disabled {
+            opacity: .35;
+            background-image: none;
+            cursor: default !important;
+          }
+          
+          .ui-icon-circle-triangle-w {
+            background-position: -80px -192px;
+          }
+          
+          .ui-carousel .ui-carousel-page-links {
+            margin: 0px 9px;
+            margin-top: 1px;
+            display: inline-table;
+            float: right;
+          }
+          
+          .ui-carousel .ui-carousel-page-link {
+            cursor: pointer;
+            float: left;
+            margin: 0 2px;
+          }
+          
+          .ui-widget-header a {
+            color: #4f4f4f;
+          }
+          
+          .ui-icon-radio-off {
+            background-position: -96px -144px;
+          }
+          
+          .ui-icon-radio-on {
+            background-position: -112px -144px;
+          }
+          
+          a {
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-carousel .ui-carousel-viewport {
+            overflow: hidden;
+            position: relative;
+            border: 0;
+          }
+          
+          .ui-carousel .ui-carousel-viewport ul {
+            list-style: none outside none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 0;
+            width: 32000px;
+          }
+          
+          .ui-carousel .ui-carousel-viewport ul li {
+            margin: 1px;
+            padding: 0;
+            float: left;
+          }
+          
+          .ui-carousel .ui-carousel-footer {
+            margin: 1px 1px 0px 1px;
+            height: 16px;
+            padding-top: 9px;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: hidden;
+          }
+          
+          .ui-icon-search {
+            background-position: -160px -112px;
+            margin: 0 auto;
+          }
+          
+          a.ui-commandlink {
+            display: inline-block;
+          }
+          
+          .ui-carousel .ui-carousel-dropdown {
+            float: right;
+            margin: 0px 10px;
+            background-image: none;
+            width: auto !important;
+            height: auto !important;
+            padding: 0 !important;
+          }
+          
+          .ui-corner-left {
+            -moz-border-radius-topleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+          }
+          
+          .ui-state-default {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+            -moz-box-shadow: inset 0px 1px 0px #fff;
+            -webkit-box-shadow: inset 0px 1px 0px #fff;
+            box-shadow: inset 0px 1px 0px #fff;
+          }
+          
+          .ui-state-hover {
+            border: 1px solid #7096ab;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #313131;
+            -moz-box-shadow: 0 0 5px #85b2cb;
+            -webkit-box-shadow: 0px 0px 8px #85b2cb;
+            box-shadow: 0px 0px 8px #85b2cb;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+          
+          img {
+            max-width: none;
+            max-height: none;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content></content>
+        </div>
+        
+        <div class="ui-carousel ui-widget ui-widget-content ui-corner-all" style="width:{{model._itemWidth * model.visibleItems + model.visibleItems * 4}}px">
+          <div class="ui-carousel-header ui-widget-header ui-corner-all">
+            <div class="ui-carousel-header-title">{{_getHeaderContent()}}</div>
+            <span class="ui-carousel-button ui-carousel-next-button ui-icon ui-icon-circle-triangle-e {{model.currentPage == model.totalPages && !model.circular ? 'x-carousel_ui-state-disabled' : ''}}" on-click="navigateToNextPage()"></span>
+            <span class="ui-carousel-button ui-carousel-prev-button ui-icon ui-icon-circle-triangle-w {{model.currentPage == 1 && !model.circular ? 'x-carousel_ui-state-disabled' : ''}}" on-click="navigateToPreviousPage()"></span>
+            <template instantiate="if model.pageLinks >= model.totalPages">
+              <div class="ui-carousel-page-links">
+                <template iterate="page in generators.getIndices(model.totalPages)">
+                  <a href="#" class="ui-icon ui-carousel-page-link {{model.currentPage == page ? 'x-carousel_ui-icon-radio-on' : 'x-carousel_ui-icon-radio-off'}}" on-click="_onPageLinkClicked($event, page)"></a>
+                </template>
+              </div>
+            </template>
+            <template instantiate="if model.pageLinks < model.totalPages">
+              <select class="ui-carousel-dropdown ui-widget ui-state-default ui-corner-left" template="template" iterate="page in generators.getIndices(model.totalPages)" bind-value="_currentPage" on-mouse-over="_onSelectFocused($event)" on-mouse-out="_onSelectBlurred($event)" on-focus="_onSelectFocused($event)" on-blur="_onSelectBlurred($event)" on-click="_onSelectBlurred($event)">
+                <option>{{page}}</option>
+              </select>
+            </template>
+          </div>
+          <div class="ui-carousel-viewport" style="width:{{model._itemWidth * model.visibleItems + model.visibleItems * 4}}px;height:{{model._itemHeight + 3}}px">
+            <ul>
+              <template iterate="item in model.items">
+                <li class="ui-carousel-item ui-widget-content ui-corner-all carItem" on-click="_onItemClicked($event, item)">
+                  {{_getItemAsHtml(item)}}
+                </li>
+              </template>
+            </ul>
+          </div>
+          <template instantiate="if model.footer != null">
+            <div class="ui-carousel-footer ui-widget-header ui-corner-all">
+              {{model._safeFooter}}
+            </div>
+          </template>
+        </div>
+      </template>
+      <script type="application/dart" src="carousel.dart"></script>
+    </element>
+  </body>
+</html>

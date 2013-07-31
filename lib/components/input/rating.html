@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-rating" constructor="RatingComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-rating-cancel, .ui-rating-star {
+            float: left;
+            display: block;
+            overflow: hidden;
+            text-indent: -999em;
+            cursor: pointer;
+          }
+          
+          .ui-rating-cancel a, .ui-rating-star a {
+            width: 16px;
+            height: 15px;
+            display: block;
+            background: url("../../../../html_components/lib/images/rating.png") no-repeat 0 0;
+          }
+          
+          a {
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-rating-cancel-hover a {
+            background-position: 0 -16px;
+          }
+          
+          .ui-rating-star a {
+            background-position: 0 -32px;
+          }
+          
+          .ui-rating-star-on a {
+            background-position: 0 -48px;
+          }
+          
+          .ui-state-disabled {
+            cursor: default !important;
+            opacity: .35;
+            filter: Alpha(Opacity=35);
+            background-image: none;
+          }
+          
+          .ui-state-disabled a {
+            cursor: default !important;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+          
+          .readonly, .readonly a {
+            cursor: default;
+          }
+        </style>
+        
+        <div class="ui-rating {{readonly ? 'x-rating_readonly' : ''}} {{disabled ? 'x-rating_ui-state-disabled' : ''}}">
+          <div class="ui-rating-cancel {{!cancelable || readonly || disabled ? 'x-rating_ui-helper-hidden' : ''}}" on-mouse-over="_onMouseOverCancel()" on-mouse-out="_onMouseOutCancel()" on-click="_onCancelClicked()">
+            <a></a>
+          </div>
+          
+          <template iterate="index in generators.getIndices(model.stars)">
+            <div class="ui-rating-star {{index <= value ? 'x-rating_ui-rating-star-on' : ''}}" on-click="_onStarClicked(index)">
+              <a></a>
+            </div>
+          </template>
+        </div>
+      </template>
+      <script type="application/dart" src="rating.dart"></script>
+    </element>
+  </body>
+</html>

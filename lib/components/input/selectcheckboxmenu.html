@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-selectcheckboxmenu" constructor="SelectCheckboxMenuComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-selectcheckboxmenu {
+            display: inline-block !important;
+            position: relative;
+            width: auto;
+            zoom: 1;
+            cursor: pointer;
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+          
+          .ui-state-default {
+            -moz-box-shadow: inset 0px 1px 0px #fff;
+            -webkit-box-shadow: inset 0px 1px 0px #fff;
+            box-shadow: inset 0px 1px 0px #fff;
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-state-default a {
+            color: #4f4f4f;
+            text-decoration: none;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+            outline: none;
+          }
+          
+          .ui-state-hover, .ui-state-hover .ui-selectcheckboxmenu-trigger {
+            -moz-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
+            -webkit-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
+            box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0))) !important;
+            font-weight: bold;
+            color: #313131;
+          }
+          
+          .ui-state-active {
+            border: 1px solid #7096ab;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0.4)));
+            font-weight: bold;
+            color: #1C4257;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+          }
+          
+          .ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {
+            display: block;
+            padding: 3px 5px 0px 5px;
+            width: auto;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            float: left;
+          }
+          
+          .ui-corner-right {
+            -moz-border-radius-topright: 3px;
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+            -moz-border-radius-bottomright: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
+          
+          .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
+            cursor: pointer;
+            width: 16px;
+            height: 28px;
+            padding: 0 3px;
+            float: left;
+          }
+          
+          .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {
+            margin-top: 6px;
+          }
+          
+          .ui-icon {
+            background-image: url("../../../../../html_components/lib/images/ui-icons.png");
+            display: block;
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+          }
+          
+          .ui-icon-triangle-1-s {
+            background-position: -64px -16px;
+          }
+          
+          .ui-selectcheckboxmenu-panel {
+            padding: 0.2em;
+            position: absolute;
+            overflow: hidden;
+            -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+            -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+            margin-top: -5px;
+            z-index: 1008;
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-selectcheckboxmenu-header {
+            margin-bottom: 0.3em;
+            padding: 0.95em 0 0.3em 0.4em;
+          }
+          
+          .ui-helper-clearfix {
+            display: block;
+          }
+          
+          .ui-widget-header {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            color: #333;
+            font-weight: bold;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+            float: left;
+          }
+          
+          .ui-selectcheckboxmenu-header .ui-chkbox {
+            float: left;
+            cursor: pointer;
+          }
+          
+          .ui-chkbox {
+            display: inline-block;
+          }
+          
+          .ui-chkbox .ui-chkbox-box {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+          }
+          
+          .ui-selectcheckboxmenu-header .ui-selectcheckboxmenu-filter-container {
+            float: left;
+            position: relative;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: -3px;
+          }
+          
+          .ui-selectcheckboxmenu-header .ui-inputfield {
+            padding: 1px 20px 1px 2px;
+          }
+          
+          .ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+            font-weight: normal !important;
+          }
+          
+          .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+            background: #ffffff;
+            -moz-box-shadow: inset 0 2px 2px #8f8f8f;
+            -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
+            box-shadow: inset 0 2px 2px #8f8f8f;
+            color: #313131;
+          }
+          
+          .ui-inputfield {
+            margin: 0;
+            outline: medium none;
+          }
+          
+          .ui-selectcheckboxmenu-header .ui-selectcheckboxmenu-filter-container .ui-icon {
+            position: absolute;
+            right: 5px;
+            top: 2px;
+          }
+          
+          .ui-selectcheckboxmenu-header span.ui-icon {
+            float: left;
+          }
+          
+          .ui-icon-search {
+            background-position: -160px -112px;
+          }
+          
+          .ui-selectcheckboxmenu-header .ui-selectcheckboxmenu-close {
+            float: right;
+            padding: 1px;
+            margin-right: 0.2em;
+            display: block;
+          }
+          
+          .ui-widget-header a {
+            color: #4f4f4f;
+          }
+          
+          a {
+            text-decoration: none;
+            outline: none;
+          }
+          
+          .ui-selectcheckboxmenu-header span.ui-icon {
+            float: left;
+          }
+          
+          .ui-icon-circle-close {
+            background-position: -32px -192px;
+          }
+          
+          .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-items-wrapper {
+            overflow: auto;
+            clear: both;
+          }
+          
+          .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list {
+            border: 0 none;
+          }
+          
+          .ui-helper-reset {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            line-height: 1.3;
+            text-decoration: none;
+            list-style: none;
+          }
+          
+          .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list-item {
+            display: block;
+            position: relative;
+            border: 0px none;
+            cursor: pointer;
+            font-weight: normal;
+            margin: 1px 0;
+            padding: 3px 5px;
+            text-align: left;
+            white-space: nowrap;
+          }
+          
+          .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list-item .ui-chkbox {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+          }
+          
+          .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list-item label {
+            display: block;
+            padding-left: 2.2em;
+            margin-top: 6px;
+          }
+          
+          .ui-icon-check {
+            background-position: -64px -144px;
+          }
+          
+          .displayed {
+            display: block;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content></content>
+        </div>
+        
+        <div class="ui-selectcheckboxmenu ui-state-default ui-corner-all ui-helper-clearfix" on-mouse-over="_onMouseOver()" on-mouse-out="_onMouseOut()" on-click="_onToggleClicked()">
+          <a href="#">
+            <label class="ui-selectcheckboxmenu-label ui-corner-all">{{model.label}}</label>
+          </a>
+          <div class="ui-selectcheckboxmenu-trigger ui-state-default ui-corner-right">
+            <span class="ui-icon ui-icon-triangle-1-s"></span>
+          </div>
+        </div>
+        
+        <div class="ui-selectcheckboxmenu-panel ui-widget-content ui-corner-all ui-helper-hidden">
+          <div class="ui-widget-header ui-corner-all ui-selectcheckboxmenu-header ui-helper-clearfix">
+            <div class="ui-chkbox" on-click="_onSelectAllClicked()">
+              <div class="ui-chkbox-box ui-corner-all ui-state-default">
+                <span></span>
+              </div>
+            </div>
+            <div class="ui-selectcheckboxmenu-filter-container">
+              <input type="text" bind-value="model.queryExpression" class="ui-inputfield ui-state-default ui-corner-all"/>
+              <span class="ui-icon ui-icon-search"></span>
+            </div>
+            <a class="ui-selectcheckboxmenu-close ui-corner-all" href="#" on-click="_onCloseClicked($event)">
+              <span class="ui-icon ui-icon-circle-close"></span>
+            </a>
+          </div>
+          <div class="ui-selectcheckboxmenu-items-wrapper">
+            <ul class="ui-selectcheckboxmenu-items ui-selectcheckboxmenu-list ui-widget-content ui-corner-all ui-helper-reset">
+              <template iterate="item in model._visibleItems">
+                <li class="ui-selectcheckboxmenu-item ui-selectcheckboxmenu-list-item ui-corner-all" on-click="_onClicked(item)">
+                  <div class="ui-chkbox">
+                    <div class="ui-chkbox-box ui-corner-all ui-state-default {{item.selected ? 'x-selectcheckboxmenu_ui-state-active' : ''}}">
+                      <span class="{{item.selected ? 'x-selectcheckboxmenu_ui-icon x-selectcheckboxmenu_ui-icon-check' : ''}}"></span>
+                    </div>
+                  </div>
+                  <label>{{item.label}}</label>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </template>
+      <script type="application/dart" src="selectcheckboxmenu.dart"></script>
+    </element>
+  </body>
+</html>

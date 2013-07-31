@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-clock" constructor="ClockComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+        
+        <div id="container" style="width:{{model.size}}px;height:{{model.size}}px"></div>
+      </template>
+      <script type="application/dart" src="clock.dart"></script>
+    </element>
+  </body>
+</html>

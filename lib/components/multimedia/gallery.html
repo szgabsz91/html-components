@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-gallery" constructor="GalleryComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-gallery {
+            overflow: hidden;
+            position: relative;
+          }
+          
+          .ui-corner-all {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-gallery-panel-wrapper {
+            position: relative;
+            padding: 0px;
+            margin: 0px;
+          }
+          
+          .ui-gallery-panel {
+            filter: inherit;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            list-style-type: none;
+          }
+          
+          .ui-gallery-caption {
+            position: absolute;
+            left: 0px;
+            background-color: rgba(0,0,0,0.5);
+            color: #FFFFFF;
+            padding: 0.2em 1em;
+            bottom: 0;
+            height: 0;
+            display: block;
+          }
+          
+          p {
+            line-height: 200%;
+            font-size: 12px;
+          }
+          
+          h4 {
+            font-size: 12px;
+          }
+          
+          img {
+            opacity: 0;
+            transition: opacity 500ms;
+            -webkit-transition: opacity 500ms;
+          }
+          
+          .ui-helper-hidden {
+            width: 1000px;
+            height: 1000px;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content select="img"></content>
+        </div>
+        
+        <div class="ui-gallery ui-widget-content ui-corner-all" style="width:{{model.imageSize.width}}px;height:{{model.imageSize.height}}px">
+          <ul class="ui-gallery-panel-wrapper">
+            <template iterate="image in model.images">
+              <li class="ui-gallery-panel">
+                <img src="{{image.src}}" alt="{{image.alt}}" title="{{image.title}}"/>
+              </li>
+            </template>
+          </ul>
+          <div class="ui-gallery-caption" style="width:{{model.imageSize.width}}px">
+            <h4>{{model.currentTitle}}</h4>
+            <p>{{model.currentAlt}}</p>
+          </div>
+        </div>
+      </template>
+      <script type="application/dart" src="gallery.dart"></script>
+    </element>
+  </body>
+</html>

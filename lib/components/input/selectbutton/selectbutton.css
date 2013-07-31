@@ -1,0 +1,19 @@
+.ui-selectbutton {
+  display: inline-block;
+  padding: 1px;
+}
+
+.ui-buttonset {
+  margin-right: 7px;
+}
+
+.ui-corner-all {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+div[is="x-selectitem"] {
+  display: inline-block;
+  margin-right: -4px;
+}

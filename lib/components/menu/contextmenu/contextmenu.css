@@ -1,0 +1,8 @@
+.menu-root {
+  z-index: 1001;
+  position: fixed;
+}
+
+.hidden {
+  display: none;
+}

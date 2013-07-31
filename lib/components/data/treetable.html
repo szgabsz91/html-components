@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <element name="x-treetable" constructor="TreetableComponent" extends="div">
+      <template>
+        <style scoped="scoped">
+          .ui-treetable .ui-treetable-header {
+            border-bottom: 0px none;
+            text-align: center;
+            padding: 4px 10px;
+          }
+          
+          .ui-corner-top {
+            -moz-border-radius-topleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-topright: 3px;
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+          }
+          
+          .ui-widget-header {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            color: #333;
+            font-weight: bold;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-treetable table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          
+          .ui-treetable thead th {
+            padding: 4px 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-width: 1px;
+            border-style: solid;
+          }
+          
+          .ui-treetable th, .ui-treetable tfoot td {
+            text-align: center;
+          }
+          
+          .ui-state-default {
+            -moz-box-shadow: inset 0px 1px 0px #fff;
+            -webkit-box-shadow: inset 0px 1px 0px #fff;
+            box-shadow: inset 0px 1px 0px #fff;
+          }
+          
+          .ui-state-default {
+            border: 1px solid #a8a8a8;
+            background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            font-weight: bold;
+            color: #4f4f4f;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-treetable tbody td {
+            border-color: inherit;
+            padding: 4px 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-width: 1px;
+            border-style: solid;
+          }
+          
+          .ui-treetable .ui-treetable-toggler {
+            float: left;
+            margin-top: 2px;
+            margin-right: 2px;
+            cursor: pointer;
+          }
+          
+          .ui-icon {
+            background-image: url("../../../../../html_components/lib/images/ui-icons.png");
+            display: block;
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin-top: 3px;
+          }
+          
+          .ui-icon-triangle-1-e {
+            background-position: -32px -16px;
+          }
+          
+          .ui-icon-triangle-1-s {
+            background-position: -64px -16px;
+          }
+          
+          .ui-treetable .ui-treetable-indent {
+            width: 16px;
+            height: 16px;
+            float: left;
+          }
+          
+          .ui-treetable .ui-treetable-footer {
+            border-top: 0px none;
+            text-align: center;
+            padding: 4px 10px;
+          }
+          
+          .ui-corner-bottom {
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            -moz-border-radius-bottomright: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
+          
+          .ui-treetable-data {
+          }
+          
+          .ui-treetable .ui-column-resizer {
+            width: 8px;
+            height: 20px;
+            padding: 0px;
+            cursor: col-resize;
+            margin: -4px -10px -4px 0px;
+            float: right;
+            position: relative;
+          }
+          
+          .ui-state-hover {
+            border: 1px solid #7096ab !important;
+            background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0))) !important;
+            color: #313131 !important;
+            -moz-box-shadow: 0 0 5px #85b2cb !important;
+            -webkit-box-shadow: 0px 0px 8px #85b2cb !important;
+            box-shadow: 0px 0px 8px #85b2cb !important;
+            cursor: pointer;
+          }
+          
+          .ui-datatable tr.ui-state-highlight {
+            cursor: pointer;
+          }
+          
+          .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+            border: 1px solid #666666;
+            background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+            color: #ffffff;
+            text-shadow: 1px 1px 1px #333333;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-helper-hidden">
+          <content></content>
+        </div>
+        
+        <div class="ui-treetable ui-widget">
+          <template instantiate="if model.header != null">
+            <div class="ui-treetable-header ui-widget-header ui-corner-top">{{model._safeHeader}}</div>
+          </template>
+          <table>
+            <thead template="template" instantiate="if model.showColumnHeader">
+              <tr template="template" iterate="column in model.columns">
+                <th class="ui-state-default">
+                  <span>{{column.header == null ? '' : column.safeHeader}}</span>
+                  <template instantiate="if column.resizable">
+                    <span class="ui-column-resizer" on-mouse-down="_onColumnResizeStarted($event)">&nbsp;</span>
+                  </template>
+                </th>
+              </tr>
+            </thead>
+            <tfoot template="template" instantiate="if model.showColumnFooter">
+                <tr template="template" iterate="column in model.columns">
+                  <td class="ui-state-default">{{column.footer == null ? '' : column.safeFooter}}</td>
+                </tr>
+              </tfoot>
+            <tbody class="ui-treetable-data ui-widget-content">
+            </tbody>
+          </table>
+          <template instantiate="if model.footer != null">
+            <div class="ui-treetable-footer ui-widget-header ui-corner-bottom">{{model._safeFooter}}</div>
+          </template>
+        </div>
+      </template>
+      <script type="application/dart" src="treetable.dart"></script>
+    </element>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+.ui-growl {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  width: 301px;
+  z-index: 1003;
+}
+
+.hidden {
+  display: none;
+}
