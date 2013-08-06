@@ -1,6 +1,6 @@
 part of growl;
 
-@observable
-class GrowlModel {
-  int lifetime = 0;
+class GrowlModel extends Object with ObservableMixin {
+  @observable int lifetime = 0;
+  @observable ObservableList<GrowlMessageModel> messages = new ObservableList();
 }

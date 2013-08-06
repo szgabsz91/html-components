@@ -1,11 +1,11 @@
-part of growl_message;
+part of enums;
 
-class GrowlMessageSeverity {
+class Severity {
   final int _index;
   
-  const GrowlMessageSeverity(int this._index);
+  const Severity(int this._index);
   
-  factory GrowlMessageSeverity.fromString(final String severity) {
+  factory Severity.fromString(final String severity) {
     switch (severity) {
       case "info":
         return INFO;
@@ -24,12 +24,12 @@ class GrowlMessageSeverity {
     }
   }
   
-  static const INFO = const GrowlMessageSeverity(0);
-  static const WARN = const GrowlMessageSeverity(1);
-  static const ERROR = const GrowlMessageSeverity(2);
-  static const FATAL = const GrowlMessageSeverity(3);
+  static const Severity INFO = const Severity(0);
+  static const Severity WARN = const Severity(1);
+  static const Severity ERROR = const Severity(2);
+  static const Severity FATAL = const Severity(3);
   
-  static const values = const [
+  static const List<Severity> values = const [
     INFO,
     WARN,
     ERROR,

@@ -4,7 +4,7 @@
     <link rel="import" href="growl_message.html"/>
   </head>
   <body>
-    <element name="x-growl" constructor="GrowlComponent" extends="div">
+    <polymer-element name="h-growl" extends="div">
       <template>
         <style scoped="scoped">
           .ui-growl {
@@ -21,16 +21,16 @@
         </style>
         
         <div class="ui-helper-hidden">
-          <content select="div[is='x-growl-message']"></content>
+          <content></content>
         </div>
         
         <div class="ui-growl">
-          <template iterate="message in _messages">
-            <div is="x-growl-message" model="{{message}}"></div>
+          <template id="repeatTemplate" repeat>
+            <h-growl-message summary="{{summary}}" detail="{{detail}}" severity="{{severity}}" on-closed="onGrowlMessageClosed"></h-growl-message>
           </template>
         </div>
       </template>
       <script type="application/dart" src="growl.dart"></script>
-    </element>
+    </polymer-element>
   </body>
 </html>

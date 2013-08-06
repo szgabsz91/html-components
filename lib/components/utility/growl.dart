@@ -1,47 +1,40 @@
 library growl;
 
-import "package:web_ui/web_ui.dart";
+import "package:polymer/polymer.dart";
 import "dart:html";
 import "dart:async";
 import "growl_message.dart";
+import "../common/enums.dart";
 
 part "growl/model.dart";
 part "growl/event_detail.dart";
 
-class GrowlComponent extends WebComponent implements GrowlMessageListener {
-  GrowlModel model = new GrowlModel();
+@CustomTag("h-growl")
+class GrowlComponent extends PolymerElement with ObservableMixin {
+  @observable GrowlModel model = new GrowlModel();
   
-  // TODO Replace into model
-  @observable
-  ObservableList<GrowlMessageModel> _messages = new ObservableList();
-  
-  DivElement get _hiddenArea => this.query(".x-growl_ui-helper-hidden");
-  List<DivElement> get _growlMessageElements => this.queryAll('div[is="x-growl-message"]');
+  DivElement get _hiddenArea => getShadowRoot("h-growl").query(".ui-helper-hidden");
+  List<DivElement> get _growlMessageElements => host.queryAll("h-growl-message");
+  TemplateElement get _repeatTemplate => getShadowRoot("h-growl").query("#repeatTemplate");
   DivElement _getGrowlMessageElementByIndex(int index) {
     return _growlMessageElements.elementAt(index);
   }
   
   void inserted() {
-    _growlMessageElements.forEach((DivElement messageDiv) {
-      GrowlMessageComponent growlMessageComponent = messageDiv.xtag;
-      GrowlMessageModel growlMessageModel = growlMessageComponent.model;
-      addMessage(growlMessageModel, append: true);
+    new Future.delayed(const Duration(milliseconds: 0), () {
+      _growlMessageElements.forEach((Element growlMessageElement) {
+        var growlMessageComponent = growlMessageElement.xtag;
+        var growlMessageModel = growlMessageComponent.model;
+        addMessage(growlMessageModel, append: true);
+      });
+      
+      _hiddenArea.remove();
+      
+      _repeatTemplate.model = model.messages;
     });
     
-    _hiddenArea.remove();
-    
     window.on["growl"].listen((CustomEvent event) {
-      GrowlMessageModel message;
-      
-      // in Dart VM, event.detail is String, in dart2js it is an object
-      if (event.detail is String) {
-        message = new GrowlEventDetail.fromString(event.detail).message;
-      }
-      else if (event.detail is GrowlEventDetail) {
-        GrowlEventDetail detail = event.detail;
-        message = detail.message;
-      }
-      
+      GrowlMessageModel message = new GrowlEventDetail.fromString(event.detail).message;
       addMessage(message);
     });
   }
@@ -59,26 +52,24 @@ class GrowlComponent extends WebComponent implements GrowlMessageListener {
     }
   }
   
-  void addMessage(GrowlMessageModel message, {bool append: false}) {
-    message.addGrowlMessageListener(this);
-    
+  void addMessage(var message, {bool append: false}) {
     if (append) {
-      _messages.add(message);
+      model.messages.add(message);
     }
     else {
-      _messages.insert(0, message);
+      model.messages.insert(0, message);
     }
     
     if (model.lifetime > 0) {
       new Future.delayed(new Duration(milliseconds: model.lifetime), () {
         try {
-          int index = _messages.indexOf(message);
+          int index = model.messages.indexOf(message);
           DivElement messageDiv = _getGrowlMessageElementByIndex(index);
           GrowlMessageComponent growlMessageComponent = messageDiv.xtag;
           growlMessageComponent.close();
         }
         on RangeError catch (error) {
-          int index = _messages.length - 1;
+          int index = model.messages.length - 1;
           DivElement messageDiv = _getGrowlMessageElementByIndex(index);
           GrowlMessageComponent growlMessageComponent = messageDiv.xtag;
           growlMessageComponent.close();
@@ -87,14 +78,16 @@ class GrowlComponent extends WebComponent implements GrowlMessageListener {
     }
   }
   
-  void onGrowlMessageClosed(GrowlMessageModel message) {
-    _messages.remove(message);
+  void onGrowlMessageClosed(Event event, var detail, Element target) {
+    var growlMessageComponent = target.xtag;
+    var growlMessageModel = growlMessageComponent.model;
+    model.messages.remove(growlMessageModel);
   }
   
   static void postMessage(String summary, String detail, [String severity = "info"]) {
-    GrowlMessageSeverity severityObject = new GrowlMessageSeverity.fromString(severity);
+    Severity severityObject = new Severity.fromString(severity);
     GrowlMessageModel message = new GrowlMessageModel.initialized(summary, detail, severityObject);
-    // toString is called because of a dart2js bug - Uncaught UnimplementedError: structured clone of other type
+    // toString is called because only serialized objects can be event details
     window.dispatchEvent(new CustomEvent("growl", detail: new GrowlEventDetail(message).toString()));
   }
 }

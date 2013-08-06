@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <element name="x-growl-message" constructor="GrowlMessageComponent" extends="div">
+    <polymer-element name="h-growl-message" extends="div" attributes="summary detail severity">
       <template>
         <style scoped="scoped">
           .ui-growl-item-container {
@@ -43,7 +43,7 @@
           }
           
           .ui-icon {
-            background-image: url("../../../../html_components/lib/images/ui-icons.png");
+            background-image: url("../../images/ui-icons.png");
             text-indent: -99999px;
             overflow: hidden;
             background-repeat: no-repeat;
@@ -64,7 +64,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            background: url("../../../../html_components/lib/images/messages.png") no-repeat;
+            background: url("../../images/messages.png") no-repeat;
             background-position: 0 -264px !important;
           }
           
@@ -75,7 +75,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            background: url("../../../../html_components/lib/images/messages.png") no-repeat;
+            background: url("../../images/messages.png") no-repeat;
             background-position: 0 -396px !important;
           }
           
@@ -86,7 +86,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            background: url("../../../../html_components/lib/images/messages.png") no-repeat;
+            background: url("../../images/messages.png") no-repeat;
             background-position: 0 0px !important;
           }
           
@@ -97,7 +97,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            background: url("../../../../html_components/lib/images/messages.png") no-repeat;
+            background: url("../../images/messages.png") no-repeat;
             background-position: 0 -133px !important;
           }
           
@@ -124,17 +124,17 @@
         
         <div class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow">
           <div class="ui-growl-item">
-            <div class="ui-growl-icon-close ui-icon ui-icon-closethick" on-click="close()"></div>
-            <span class="{{'x-growl-message_ui-growl-image-${model.severity}'}}"></span>
+            <div class="ui-growl-icon-close ui-icon ui-icon-closethick" on-click="close"></div>
+            <span class="ui-growl-image-{{model.severity}}"></span>
             <div class="ui-growl-message">
-              <span class="ui-growl-title">{{model.summary}}</span>
-              <p>{{model.detail}}</p>
+              <span class="ui-growl-title">{{summary}}</span>
+              <p>{{detail}}</p>
             </div>
             <div class="clear"></div>
           </div>
         </div>
       </template>
       <script type="application/dart" src="growl_message.dart"></script>
-    </element>
+    </polymer-element>
   </body>
 </html>
