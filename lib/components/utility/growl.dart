@@ -13,15 +13,16 @@ part "growl/event_detail.dart";
 class GrowlComponent extends PolymerElement with ObservableMixin {
   @observable GrowlModel model = new GrowlModel();
   
-  DivElement get _hiddenArea => getShadowRoot("h-growl").query(".ui-helper-hidden");
+  ShadowRoot get _shadowRoot => getShadowRoot("h-growl");
+  DivElement get _hiddenArea => _shadowRoot.query(".ui-helper-hidden");
   List<DivElement> get _growlMessageElements => host.queryAll("h-growl-message");
-  TemplateElement get _repeatTemplate => getShadowRoot("h-growl").query("#repeatTemplate");
+  TemplateElement get _repeatTemplate => _shadowRoot.query("#repeatTemplate");
   DivElement _getGrowlMessageElementByIndex(int index) {
     return _growlMessageElements.elementAt(index);
   }
   
   void inserted() {
-    new Future.delayed(const Duration(milliseconds: 0), () {
+    Timer.run(() {
       _growlMessageElements.forEach((Element growlMessageElement) {
         var growlMessageComponent = growlMessageElement.xtag;
         var growlMessageModel = growlMessageComponent.model;
@@ -40,7 +41,7 @@ class GrowlComponent extends PolymerElement with ObservableMixin {
   }
   
   int get lifetime => model.lifetime;
-  set lifetime(var lifetime) {
+  void set lifetime(var lifetime) {
     if (lifetime is int) {
       model.lifetime = lifetime;
     }
@@ -84,9 +85,8 @@ class GrowlComponent extends PolymerElement with ObservableMixin {
     model.messages.remove(growlMessageModel);
   }
   
-  static void postMessage(String summary, String detail, [String severity = "info"]) {
-    Severity severityObject = new Severity.fromString(severity);
-    GrowlMessageModel message = new GrowlMessageModel.initialized(summary, detail, severityObject);
+  static void postMessage(String summary, String detail, [Severity severity = Severity.INFO]) {
+    GrowlMessageModel message = new GrowlMessageModel.initialized(summary, detail, severity);
     // toString is called because only serialized objects can be event details
     window.dispatchEvent(new CustomEvent("growl", detail: new GrowlEventDetail(message).toString()));
   }

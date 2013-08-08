@@ -3,7 +3,7 @@ part of growl_message;
 class GrowlMessageModel extends Object with ObservableMixin {
   @observable String summary;
   @observable String detail;
-  @observable Severity severity = new Severity.fromString("info");
+  @observable Severity severity;
   
   GrowlMessageModel();
   GrowlMessageModel.initialized(String this.summary, String this.detail, Severity this.severity);

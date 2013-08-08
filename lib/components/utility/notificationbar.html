@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <polymer-element name="h-notificationbar" extends="div">
+      <template>
+        <style scoped>
+          :root {
+            -webkit-var-top: 0px;
+          }
+          
+          .top {
+            filter: alpha(opacity=80);
+            opacity: 0.9;
+            padding-left: 50px;
+            top: -webkit-var(top);
+            content: -webkit-var(top);
+            overflow: hidden;
+            display: block;
+            padding: 0 auto;
+            height: 0;
+          }
+          
+          .ui-notificationbar {
+            position: fixed;
+            width: 100%;
+          }
+          
+          .ui-widget-content {
+            border: 1px solid #a8a8a8;
+            background: #ffffff;
+            color: #4f4f4f;
+          }
+          
+          .ui-helper-hidden {
+            display: none;
+          }
+        </style>
+        
+        <div class="ui-notificationbar ui-widget-content top">
+          <content></content>
+        </div>
+      </template>
+      <script type="application/dart" src="notificationbar.dart"></script>
+    </polymer-element>
+  </body>
+</html>
