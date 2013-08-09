@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <polymer-element name="h-draggable" extends="div" attributes="axis">
+      <template>
+        <style scoped="scoped">
+          .draggable {
+            position: relative;
+          }
+          
+          .draggable *:first-child {
+            cursor: move;
+          }
+        </style>
+        
+        <div class="draggable" on-mouse-down="_onDragStarted" style="top:{{model.top}}px;left:{{model.left}}px">
+          <content></content>
+        </div>
+      </template>
+      <script type="application/dart" src="draggable.dart"></script>
+    </polymer-element>
+  </body>
+</html>

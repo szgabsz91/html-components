@@ -8,7 +8,7 @@ part "clock/model.dart";
 
 @CustomTag("h-clock")
 class ClockComponent extends PolymerElement with ObservableMixin {
-  ClockModel model = new ClockModel();
+  @observable ClockModel model = new ClockModel();
   
   ShadowRoot get _shadowRoot => getShadowRoot("h-clock");
   GElement get _hourHand => _shadowRoot.query("#hour");
