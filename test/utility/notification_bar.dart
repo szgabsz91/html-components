@@ -34,31 +34,32 @@ void main() {
         expect(heading.text, equals('Message'));
       });
       
-      /*test('show and hide should animate the container', () {
+      test('show and hide should animate the container', () {
         DivElement container = notificationBar.shadowRoot.querySelector('#container');
         
         expect(container.style.height, equals('0px'));
+        expect(notificationBar.visible, isFalse);
+        
+        Completer completer = new Completer();
         
         notificationBar.show();
         
-        void testHidden() {
-          expect(container.style.height, '0px');
-          expect(notificationBar.visible, isFalse);
-        }
-        
-        void testShown() {
+        new Timer(const Duration(milliseconds: 500), () {
           expect(container.style.height, '${notificationBar.contentHeight}px');
           expect(notificationBar.visible, isTrue);
           
           notificationBar.hide();
-          new Timer(const Duration(milliseconds: 500), testHidden);
-        }
+          
+          new Timer(const Duration(milliseconds: 500), () {
+            expect(container.style.height, '0px');
+            expect(notificationBar.visible, isFalse);
+            
+            completer.complete();
+          });
+        });
         
-        new Timer(const Duration(milliseconds: 500), testShown);
-        
-        expectAsync0(testShown);
-        expectAsync0(testHidden);
-      });*/
+        return completer.future;
+      });
     });
   });
 }
