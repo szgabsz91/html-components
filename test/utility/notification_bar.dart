@@ -40,25 +40,19 @@ void main() {
         expect(container.style.height, equals('0px'));
         expect(notificationBar.visible, isFalse);
         
-        Completer completer = new Completer();
-        
         notificationBar.show();
         
-        new Timer(const Duration(milliseconds: 500), () {
+        new Timer(const Duration(milliseconds: 500), expectAsync0(() {
           expect(container.style.height, '${notificationBar.contentHeight}px');
           expect(notificationBar.visible, isTrue);
           
           notificationBar.hide();
           
-          new Timer(const Duration(milliseconds: 500), () {
+          new Timer(const Duration(milliseconds: 500), expectAsync0(() {
             expect(container.style.height, '0px');
             expect(notificationBar.visible, isTrue);
-            
-            completer.complete();
-          });
-        });
-        
-        return completer.future;
+          }));
+        }));
       });
     });
   });
