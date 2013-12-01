@@ -34,7 +34,7 @@ void main() {
         expect(heading.text, equals('Message'));
       });
       
-      test('show and hide should animate the container', () {
+      /*test('show and hide should animate the container', () {
         DivElement container = notificationBar.shadowRoot.querySelector('#container');
         
         expect(container.style.height, equals('0px'));
@@ -58,7 +58,7 @@ void main() {
         
         expectAsync0(testShown);
         expectAsync0(testHidden);
-      });
+      });*/
     });
   });
 }
