@@ -4,5 +4,6 @@ author: Gabor Szabo <szgabsz91@gmail.com>
 description: A reusable component library written in HTML and Dart.
 homepage: http://html-components.appspot.com
 dependencies:
+  animation: any
   polymer: any
   unittest: any

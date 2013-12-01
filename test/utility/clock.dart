@@ -14,6 +14,10 @@ void main() {
       ClockComponent clock = null;
       int size;
       
+      tearDown(() {
+        clock.remove();
+      });
+      
       group('with default attribute values', () {
         setUp(() {
           size = 270;
