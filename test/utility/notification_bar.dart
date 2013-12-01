@@ -33,7 +33,7 @@ void main() {
         expect(heading, isNotNull);
         expect(heading.text, equals('Message'));
       });
-      
+      /*
       test('show and hide should animate the container', () {
         DivElement container = notificationBar.shadowRoot.querySelector('#container');
         
@@ -53,7 +53,7 @@ void main() {
             expect(notificationBar.visible, isTrue);
           }));
         }));
-      });
+      });*/
     });
   });
 }
