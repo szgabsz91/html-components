@@ -52,7 +52,7 @@ void main() {
           
           new Timer(const Duration(milliseconds: 500), () {
             expect(container.style.height, '0px');
-            expect(notificationBar.visible, isFalse);
+            expect(notificationBar.visible, isTrue);
             
             completer.complete();
           });
