@@ -23,10 +23,9 @@ class ClockComponent extends PolymerElement {
     double minute = (m + s / 60) * 6;
     double hour = (h + m / 60 + s / 3600) * 30;
     
-    this.shadowRoot
-      ..querySelector('#hour').attributes['transform'] = 'rotate($hour)'
-      ..querySelector('#minute').attributes['transform'] = 'rotate($minute)'
-      ..querySelector('#second').attributes['transform'] = 'rotate($second)';
+    $['hour'].attributes['transform'] = 'rotate($hour)';
+    $['minute'].attributes['transform'] = 'rotate($minute)';
+    $['second'].attributes['transform'] = 'rotate($second)';
   }
   
 }

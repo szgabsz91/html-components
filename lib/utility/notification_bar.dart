@@ -8,16 +8,15 @@ class NotificationBarComponent extends PolymerElement {
   bool _visible = false;
   int _contentHeight = 0;
   
-  DivElement get _contentContainer => this.shadowRoot.querySelector('#container');
-  
   NotificationBarComponent.created() : super.created();
   
   @override
   void enteredView() {
     super.enteredView();
     
-    _contentHeight = _contentContainer.clientHeight;
-    _contentContainer.style.height = '0px';
+    DivElement container = $['container'];
+    _contentHeight = container.clientHeight;
+    container.style.height = '0px';
   }
   
   bool get visible => _visible;
@@ -29,10 +28,10 @@ class NotificationBarComponent extends PolymerElement {
     }
     
     Map<String, Object> animationProperties = {
-      "height": _contentHeight
+      'height': _contentHeight
     };
     
-    animation.animate(_contentContainer, properties: animationProperties, duration: 500);
+    animation.animate($['container'], properties: animationProperties, duration: 500);
     
     _visible = true;
   }
@@ -43,10 +42,10 @@ class NotificationBarComponent extends PolymerElement {
     }
     
     Map<String, Object> animationProperties = {
-      "height": 0
+      'height': 0
     };
     
-    animation.animate(_contentContainer, properties: animationProperties, duration: 500);
+    animation.animate($['container'], properties: animationProperties, duration: 500);
     
     _visible = false;
   }

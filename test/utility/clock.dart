@@ -1,17 +1,19 @@
 library clock_tests;
 
 import 'package:unittest/unittest.dart';
-import 'package:html_components/utility/clock.dart';
+import 'package:polymer/polymer.dart';
+import 'package:html_components/html_components.dart';
 import 'dart:html';
-
-class NullTreeSanitizer implements NodeTreeSanitizer {
-  void sanitizeTree(node) {}
-}
+import 'dart:async';
 
 void main() {
   group('utility', () {
     group('clock', () {
       ClockComponent clock = null;
+      Element svg = null;
+      Element hour = null;
+      Element minute = null;
+      Element second = null;
       int size;
       
       tearDown(() {
@@ -24,17 +26,18 @@ void main() {
           
           clock = new Element.html('<h-clock></h-clock>', treeSanitizer: new NullTreeSanitizer());
           document.body.append(clock);
+          
+          svg = clock.shadowRoot.querySelector('svg');
+          hour = clock.shadowRoot.querySelector('#hour');
+          minute = clock.shadowRoot.querySelector('#minute');
+          second = clock.shadowRoot.querySelector('#second');
         });
         
         test('check if SVG is present', () {
-          Element svg = clock.shadowRoot.querySelector('svg');
-          
           expect(svg, isNotNull);
         });
         
         test('initial size property must be 270', () {
-          Element svg = clock.shadowRoot.querySelector('svg');
-          
           expect(clock.size, equals(size));
           expect(svg.style.width, equals('${size}px'));
           expect(svg.style.height, equals('${size}px'));
@@ -48,17 +51,25 @@ void main() {
           int m = date.minute;
           int s = date.second;
           
-          int second = 6 * s;
-          double minute = (m + s / 60) * 6;
-          double hour = (h + m / 60 + s / 3600) * 30;
+          int seconds = 6 * s;
+          double minutes = (m + s / 60) * 6;
+          double hours = (h + m / 60 + s / 3600) * 30;
           
-          Element hourElement = clock.shadowRoot.querySelector('#hour');
-          Element minuteElement = clock.shadowRoot.querySelector('#minute');
-          Element secondElement = clock.shadowRoot.querySelector('#second');
+          expect(hour.attributes['transform'], equals('rotate(${hours})'));
+          expect(minute.attributes['transform'], equals('rotate(${minutes})'));
+          expect(second.attributes['transform'], equals('rotate(${seconds})'));
+        });
+        
+        test('changing the size property should resize the SVG', () {
+          clock.setAttribute('size', '500');
           
-          expect(hourElement.attributes['transform'], equals('rotate(${hour})'));
-          expect(minuteElement.attributes['transform'], equals('rotate(${minute})'));
-          expect(secondElement.attributes['transform'], equals('rotate(${second})'));
+          Observable.dirtyCheck();
+          
+          Timer.run(expectAsync0(() {
+            expect(clock.size, equals(500));
+            expect(svg.style.width, equals('500px'));
+            expect(svg.style.height, equals('500px'));
+          }));
         });
       });
       
@@ -68,11 +79,14 @@ void main() {
           
           clock = new Element.html('<h-clock size="${size}"></h-clock>', treeSanitizer: new NullTreeSanitizer());
           document.body.append(clock);
+          
+          svg = clock.shadowRoot.querySelector('svg');
+          hour = clock.shadowRoot.querySelector('#hour');
+          minute = clock.shadowRoot.querySelector('#minute');
+          second = clock.shadowRoot.querySelector('#second');
         });
         
         test('the size of the SVG must match the size property', () {
-          Element svg = clock.shadowRoot.querySelector('svg');
-          
           expect(clock.size, equals(size));
           expect(svg.style.width, equals('${size}px'));
           expect(svg.style.height, equals('${size}px'));

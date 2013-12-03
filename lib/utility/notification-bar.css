@@ -1,13 +1,13 @@
 #container {
-  opacity: 0.9;
-  padding-left: 50px;
   display: block;
   position: fixed;
   top: 0;
   left: 0;
-  overflow: hidden;
   width: 100%;
+  padding-left: 50px;
+  overflow: hidden;
   background: #ffffff;
   border: 1px solid #a8a8a8;
   color: #4f4f4f;
+  opacity: 0.9;
 }
