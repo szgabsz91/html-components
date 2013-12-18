@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Utility - Clock</title>
+    
+    <script src="clock.html_bootstrap.dart.js"></script>
+    
+  </head>
+  <body><polymer-element name="h-clock">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/utility/clock.css">
+    
+    <svg style="width:{{size}}px; height:{{size}}px" viewBox="0 0 270 270" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(150,150)">
+        <g>
+          <circle r="108" fill="none" stroke-width="4" stroke="gray"></circle>
+          <circle r="97" fill="none" stroke-width="11" stroke="black" stroke-dasharray="4,46.789082" transform="rotate(-1.5)"></circle>
+          <circle r="100" fill="none" stroke-width="5" stroke="black" stroke-dasharray="2,8.471976" transform="rotate(-.873)"></circle>
+        </g>
+        <g id="hands" transform="rotate(180)">
+          <g id="hour">
+            <line stroke-width="5" y2="75" stroke-linecap="round" stroke="blue" opacity=".5"></line>
+            <animateTransform type="rotate" dur="12h" by="360" attributeName="transform" repeatCount="indefinite"></animateTransform>
+            <circle r="7"></circle>
+          </g>
+          <g id="minute">
+            <line stroke-width="4" y2="93" stroke-linecap="round" stroke="green" opacity=".9"></line>
+            <animateTransform type="rotate" dur="60min" by="360" attributeName="transform" repeatCount="indefinite"></animateTransform>
+            <circle r="6" fill="red"></circle>
+          </g>
+          <g id="second">
+            <line stroke-width="2" y1="-20" y2="102" stroke-linecap="round" stroke="red"></line>
+            <animateTransform type="rotate" dur="60s" by="360" attributeName="transform" repeatCount="indefinite"></animateTransform>
+            <circle r="4" fill="blue"></circle>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </template>
+  
+  
+</polymer-element>
+    <h-clock></h-clock>
+    
+    <h-clock size="500"></h-clock>
+  
+</body></html>
