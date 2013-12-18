@@ -1,6 +1,6 @@
 # HTML Components
 ===============
 
-A reusable component library written in HTML and Dart.
+**WARNING!** This library is developed on the polymer branch. If the migration is ready, then I'll merge it to master.
 
-A sample application can be found on Google App Engine that demonstrates most of the features of the components: http://html-components.appspot.com
+Until then please visit https://github.com/szgabsz91/html-components/tree/polymer
