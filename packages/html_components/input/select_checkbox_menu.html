@@ -1,0 +1,52 @@
+<polymer-element name="h-select-checkbox-menu">
+  <template>
+    <link rel="stylesheet" href="select_checkbox_menu.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="button" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+      <a href="#">{{label}}</a>
+      <div id="trigger">
+        <span></span>
+      </div>
+    </div>
+    
+    <div id="panel" class="hidden">
+      <div id="header">
+        <div id="select-all-checkbox" class="checkbox" on-click="{{onSelectAllCheckboxClicked}}">
+          <div>
+            <span></span>
+          </div>
+        </div>
+        
+        <div id="filter">
+          <input type="text" value="{{queryExpression}}">
+          <span></span>
+        </div>
+        
+        <a id="close-thick" href="#" on-click="{{onCloseThickClicked}}">
+          <span></span>
+        </a>
+      </div>
+      
+      <div id="list-wrapper">
+        <ul>
+          <template repeat="{{item in visibleItems}}">
+            <li class="checkbox-item" on-click="{{onSelectItemClicked}}">
+              <div class="checkbox">
+                <div class="{{ {'checked': item.selected} }}">
+                  <span class="{{ {'icon-check': item.selected} }}"></span>
+                </div>
+              </div>
+              <label>{{item.label}}</label>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="select_checkbox_menu.dart"></script>
+</polymer-element>

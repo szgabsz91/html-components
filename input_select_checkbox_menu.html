@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Input - Select Checkbox Menu</title>
+    
+    
+    
+  </head>
+  <body><polymer-element name="h-select-item">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/input/select_item.css">
+    
+    <!-- class="{{ {'selected': selected} }}" -->
+    <div id="container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
+      <span>{{label}}</span>
+    </div>
+  </template>
+  
+  
+</polymer-element><polymer-element name="h-select-checkbox-menu">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/input/select_checkbox_menu.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="button" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+      <a href="#">{{label}}</a>
+      <div id="trigger">
+        <span></span>
+      </div>
+    </div>
+    
+    <div id="panel" class="hidden">
+      <div id="header">
+        <div id="select-all-checkbox" class="checkbox" on-click="{{onSelectAllCheckboxClicked}}">
+          <div>
+            <span></span>
+          </div>
+        </div>
+        
+        <div id="filter">
+          <input type="text" value="{{queryExpression}}">
+          <span></span>
+        </div>
+        
+        <a id="close-thick" href="#" on-click="{{onCloseThickClicked}}">
+          <span></span>
+        </a>
+      </div>
+      
+      <div id="list-wrapper">
+        <ul>
+          <template repeat="{{item in visibleItems}}">
+            <li class="checkbox-item" on-click="{{onSelectItemClicked}}">
+              <div class="checkbox">
+                <div class="{{ {'checked': item.selected} }}">
+                  <span class="{{ {'icon-check': item.selected} }}"></span>
+                </div>
+              </div>
+              <label>{{item.label}}</label>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </template>
+  
+  
+</polymer-element>
+    <h-select-checkbox-menu label="Movies">
+      <h-select-item label="Scarface" value="Scarface"></h-select-item>
+      <h-select-item label="Goodfellas" value="Goodfellas" selected=""></h-select-item>
+      <h-select-item label="Godfather" value="Godfather" selected=""></h-select-item>
+      <h-select-item label="Carlito's Way" value="Carlito's Way"></h-select-item>
+    </h-select-checkbox-menu>
+    
+    <script src="input_select_checkbox_menu.html_bootstrap.dart.js"></script>
+  
+</body></html>

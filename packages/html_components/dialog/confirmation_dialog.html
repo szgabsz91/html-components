@@ -1,0 +1,37 @@
+<link rel="import" href="../utility/item_template.html">
+
+<polymer-element name="h-confirmation-dialog">
+  <template>
+    <link rel="stylesheet" href="confirmation_dialog.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <!-- class="{{ {'hidden': hidden} }}" -->
+    <div id="container" style="left:{{left}}px; top:{{top}}px">
+      <div id="header">
+        <span>{{header}}</span>
+        <template if="{{closable}}">
+          <a href="#" on-click="{{onCloseThickClicked}}">
+            <span></span>
+          </a>
+        </template>
+      </div>
+      
+      <div id="content">
+        <p>
+          <span class="{{severity}}"></span>
+          <h-item-template content="{{message}}"></h-item-template>
+        </p>
+      </div>
+      
+      <div id="button-container"></div>
+    </div>
+    
+    <!-- class="{{ {'hidden': hidden || !modal} }}" -->
+    <div id="overlay" style="width:{{documentWidth}}px; height:{{windowHeight}}px"></div>
+  </template>
+  
+  <script type="application/dart" src="confirmation_dialog.dart"></script>
+</polymer-element>

@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Multimedia - Gallery</title>
+    
+    
+  </head>
+  <body><polymer-element name="h-gallery">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/multimedia/gallery.css">
+    
+    <div id="hidden">
+      <content select="img"></content>
+    </div>
+    
+    <div id="container" style="width:{{imageWidth}}px; height:{{imageHeight}}px">
+      <ul id="image-container-list">
+        <template repeat="{{image in images}}">
+          <li id="image-container">
+            <img src="{{image.src}}" alt="{{image.alt}}" style="opacity:{{image.opacity}}">
+          </li>
+        </template>
+      </ul>
+      
+      <div id="caption" style="width:{{imageWidth}}px">
+        <h4>{{currentTitle}}</h4>
+        <p>{{currentAlt}}</p>
+      </div>
+    </div>
+  </template>
+  
+  
+</polymer-element>
+    <h-gallery delay="5000">
+      <img src="img/gallery/gallery1.jpg" alt="Image Description for gallery1.jpg" title="gallery1.jpg">
+      <img src="img/gallery/gallery2.jpg" alt="Image Description for gallery2.jpg" title="gallery2.jpg">
+      <img src="img/gallery/gallery3.jpg" alt="Image Description for gallery3.jpg" title="gallery3.jpg">
+      <img src="img/gallery/gallery4.jpg" alt="Image Description for gallery4.jpg" title="gallery4.jpg">
+      <img src="img/gallery/gallery5.jpg" alt="Image Description for gallery5.jpg" title="gallery5.jpg">
+      <img src="img/gallery/gallery6.jpg" alt="Image Description for gallery6.jpg" title="gallery6.jpg">
+      <img src="img/gallery/gallery7.jpg" alt="Image Description for gallery7.jpg" title="gallery7.jpg">
+      <img src="img/gallery/gallery8.jpg" alt="Image Description for gallery8.jpg" title="gallery8.jpg">
+      <img src="img/gallery/gallery9.jpg" alt="Image Description for gallery9.jpg" title="gallery9.jpg">
+      <img src="img/gallery/gallery10.jpg" alt="Image Description for gallery10.jpg" title="gallery10.jpg">
+      <img src="img/gallery/gallery11.jpg" alt="Image Description for gallery11.jpg" title="gallery11.jpg">
+      <img src="img/gallery/gallery12.jpg" alt="Image Description for gallery12.jpg" title="gallery12.jpg">
+    </h-gallery>
+    
+    <script src="multimedia_gallery.html_bootstrap.dart.js"></script>
+  
+</body></html>

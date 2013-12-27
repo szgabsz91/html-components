@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Multimedia - Photocam</title>
+    
+    
+  </head>
+  <body><polymer-element name="h-photocam">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/multimedia/photocam.css">
+    
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <video id="video" autoplay="" class="{{effect}}" style="width:{{width}}px; height:{{height}}px"></video>
+          </td>
+          <td>
+            <button class="{{ {'button': true, 'disabled': started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onStartButtonClicked}}">
+              <span>Start</span>
+            </button>
+            <button class="{{ {'button': true, 'disabled': !started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onStopButtonClicked}}">
+              <span>Stop</span>
+            </button>
+            <button class="{{ {'button': true, 'disabled': !started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onSnapshotButtonClicked}}">
+              <span>Snapshot</span>
+            </button>
+          </td>
+          <td>
+            <canvas id="canvas"></canvas>
+            <img id="image" class="{{effect}}" style="width:{{width}}px; height:{{height}}px">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+  
+  
+</polymer-element>
+    <h-photocam audio=""></h-photocam>
+    
+    <h-photocam effect="blur"></h-photocam>
+    
+    <h-photocam effect="grayscale"></h-photocam>
+    
+    <h-photocam effect="sepia"></h-photocam>
+    
+    <h-photocam effect="invert"></h-photocam>
+    
+    <script src="multimedia_photocam.html_bootstrap.dart.js"></script>
+  
+</body></html>

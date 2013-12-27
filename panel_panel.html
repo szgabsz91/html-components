@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Panel - Panel</title>
+    
+    
+  </head>
+  <body><polymer-element name="h-item-template">
+  <template></template>
+  
+  
+</polymer-element><polymer-element name="h-panel">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/panel/panel.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="container">
+      <div id="header">
+        <span id="title">
+          <h-item-template content="{{header}}"></h-item-template>
+        </span>
+        
+        <template if="{{closable}}">
+          <a href="#" class="icon" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onClosed}}">
+            <span class="icon-closethick"></span>
+          </a>
+        </template>
+        
+        <template if="{{toggleable}}">
+          <a href="#" class="icon" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onToggled}}">
+            <span class="{{ {'icon-minusthick': !collapsed, 'icon-plusthick': collapsed} }}"></span>
+          </a>
+        </template>
+      </div>
+      
+      <div id="content">
+        <h-item-template content="{{content}}"></h-item-template>
+      </div>
+      
+      <template if="{{footer != null}}">
+        <div id="footer">
+          <h-item-template content="{{footer}}"></h-item-template>
+        </div>
+      </template>
+    </div>
+  </template>
+  
+  
+</polymer-element>
+    <h-panel>
+      <header>F.C. Barcelona</header>
+      <p>
+        FC Barcelona is one of only three clubs never to have been relegated
+        from La Liga and is the most successful club in Spanish football along
+        with Real Madrid, having won twenty La Liga titles, a record twenty-five
+        Spanish Cups, eight Spanish Super Cups, four Eva Duarte Cups and two
+        League Cups. They are also one of the most successful clubs  in European
+        football having won fourteen official major trophies in total, including
+        ten UEFA competitions. They have won three UEFA Champions League titles,
+        a record four UEFA Cup Winners' Cups, a record three InterCities Fairs
+        Cups (the forerunner to the UEFA Europa League), three UEFA Super Cups
+        and one FIFA Club World Cup. The club is also the only European side to
+        have played continental football in every season since its inception in
+        1955.
+      </p>
+    </h-panel>
+    
+    <h-panel closable="" toggleable="">
+      <header>F.C. Barcelona</header>
+      <p>
+        FC Barcelona is one of only three clubs never to have been relegated
+        from La Liga and is the most successful club in Spanish football along
+        with Real Madrid, having won twenty La Liga titles, a record twenty-five
+        Spanish Cups, eight Spanish Super Cups, four Eva Duarte Cups and two
+        League Cups. They are also one of the most successful clubs  in European
+        football having won fourteen official major trophies in total, including
+        ten UEFA competitions. They have won three UEFA Champions League titles,
+        a record four UEFA Cup Winners' Cups, a record three InterCities Fairs
+        Cups (the forerunner to the UEFA Europa League), three UEFA Super Cups
+        and one FIFA Club World Cup. The club is also the only European side to
+        have played continental football in every season since its inception in
+        1955.
+      </p>
+      <footer>
+        <i>Visca el Barca!</i>
+      </footer>
+    </h-panel>
+    
+    <h-panel toggleable="" collapsed="">
+      <header>F.C. Barcelona</header>
+      <p>
+        FC Barcelona is one of only three clubs never to have been relegated
+        from La Liga and is the most successful club in Spanish football along
+        with Real Madrid, having won twenty La Liga titles, a record twenty-five
+        Spanish Cups, eight Spanish Super Cups, four Eva Duarte Cups and two
+        League Cups. They are also one of the most successful clubs  in European
+        football having won fourteen official major trophies in total, including
+        ten UEFA competitions. They have won three UEFA Champions League titles,
+        a record four UEFA Cup Winners' Cups, a record three InterCities Fairs
+        Cups (the forerunner to the UEFA Europa League), three UEFA Super Cups
+        and one FIFA Club World Cup. The club is also the only European side to
+        have played continental football in every season since its inception in
+        1955.
+      </p>
+    </h-panel>
+    
+    <script src="panel_panel.html_bootstrap.dart.js"></script>
+  
+</body></html>

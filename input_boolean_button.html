@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Input - Boolean Button</title>
+    
+    
+  </head>
+  <body><polymer-element name="h-boolean-button">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/input/boolean_button.css">
+    
+    <div id="container" class="{{ {'icon': showIcon, 'pressed': pressed} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+      <template if="{{showIcon}}">
+        <span class="{{ {'icon-check': pressed, 'icon-close': !pressed} }}"></span>
+      </template>
+      
+      <template if="{{pressed}}">
+        <span class="label">{{labelOn}}</span>
+      </template>
+      <template if="{{!pressed}}">
+        <span class="label">{{labelOff}}</span>
+      </template>
+    </div>
+  </template>
+  
+  
+</polymer-element>
+    <h-boolean-button></h-boolean-button>
+    
+    <h-boolean-button labelon="Yes" labeloff="No" showicon="" pressed=""></h-boolean-button>
+    
+    <script src="input_boolean_button.html_bootstrap.dart.js"></script>
+  
+</body></html>

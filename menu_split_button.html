@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Menu - Split Button</title>
+    
+    
+    
+    
+  </head>
+  <body><polymer-element name="h-menu-item">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menu_item.css">
+    
+    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
+      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">
+          <content></content>
+        </span>
+      </a>
+    </div>
+  </template>
+  
+  
+</polymer-element><polymer-element name="h-menu-separator" noscript="">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menu_separator.css">
+    
+    <div id="separator"></div>
+  </template>
+</polymer-element><polymer-element name="h-menubar">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menubar.css">
+    
+    <div id="menubar-container" class="{{orientation}}">
+      <ul>
+        <content></content>
+      </ul>
+    </div>
+  </template>
+  
+  
+</polymer-element><polymer-element name="h-split-button">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/split_button.css">
+    
+    <div id="split-button-container">
+      <button on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onMainActionClicked}}">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">{{label}}</span>
+      </button>
+      
+      <button on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+        <span id="icon-triangle"></span>
+        <span id="icon-text">ui-button</span>
+      </button>
+    </div>
+    <div class="clear"></div>
+    
+    <h-menubar id="menubar" orientation="vertical" class="hidden">
+      <content></content>
+    </h-menubar>
+  </template>
+  
+  
+</polymer-element>
+    <h-split-button label="Save" icon="disk">
+      <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
+      <h-menu-item icon="close">Delete</h-menu-item>
+      <h-menu-separator></h-menu-separator>
+      <h-menu-item url="/" target="_blank" icon="extlink">HTML Components</h-menu-item>
+    </h-split-button>
+    
+    <script src="menu_split_button.html_bootstrap.dart.js"></script>
+  
+</body></html>

@@ -1,0 +1,9 @@
+<polymer-element name="h-masked-input">
+  <template>
+    <link rel="stylesheet" href="masked_input.css">
+    
+    <input type="text" id="input" value="{{value}}" on-keydown="{{onInputKeyDown}}" on-keyup="{{onInputKeyUp}}" on-click="{{onInputClicked}}" on-blur="{{onInputBlur}}">
+  </template>
+  
+  <script type="application/dart" src="masked_input.dart"></script>
+</polymer-element>

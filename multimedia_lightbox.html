@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Multimedia - Lightbox</title>
+    
+    
+  </head>
+  <body><polymer-element name="h-lightbox">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/multimedia/lightbox.css">
+    
+    <div id="thumbnails">
+      <content select="a"></content>
+    </div>
+    
+    <div id="image-loader"></div>
+    
+    <div id="container" class="{{ {'hidden': hidden} }}" style="left:{{(documentWidth - currentWidth) / 2}}px; top:{{(windowHeight - currentHeight) / 2}}px">
+      <div id="image-wrapper">
+        <a id="previous-button" on-click="{{onPreviousButtonClicked}}">
+          <span>go</span>
+        </a>
+        <div id="image-placeholder" class="{{ {'loading': loading} }}"></div>
+        <a id="next-button" on-click="{{onNextButtonClicked}}">
+          <span id="icon-next">go</span>
+        </a>
+      </div>
+      <div id="caption">
+        <span>{{currentLabel}}</span>
+        <a href="#" on-click="{{onCloseThickClicked}}">
+          <span></span>
+        </a>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    <div id="overlay" class="{{ {'hidden': hidden} }}" style="width:{{documentWidth}}px; height:{{windowHeight}}px" on-click="{{onCloseThickClicked}}"></div>
+  </template>
+  
+  
+</polymer-element>
+    <h-lightbox>
+      <a href="img/sopranos/sopranos1.jpg" title="Sopranos 1">
+        <img src="img/sopranos/sopranos1_thumb.jpg" alt="Sopranos 1">
+      </a>
+      <a href="img/sopranos/sopranos2.jpg" title="Sopranos 2">
+        <img src="img/sopranos/sopranos2_thumb.jpg" alt="Sopranos 2">
+      </a>
+      <a href="img/sopranos/sopranos3.jpg" title="Sopranos 3">
+        <img src="img/sopranos/sopranos3_thumb.jpg" alt="Sopranos 3">
+      </a>
+      <a href="img/sopranos/sopranos4.jpg" title="Sopranos 4">
+        <img src="img/sopranos/sopranos4_thumb.jpg" alt="Sopranos 4">
+      </a>
+    </h-lightbox>
+    
+    <script src="multimedia_lightbox.html_bootstrap.dart.js"></script>
+  
+</body></html>

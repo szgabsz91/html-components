@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/custom_element/custom-elements.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+
+    <title>Menu - Menubar</title>
+    
+    
+    
+    
+    
+  </head>
+  <body><polymer-element name="h-menu-item">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menu_item.css">
+    
+    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
+      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">
+          <content></content>
+        </span>
+      </a>
+    </div>
+  </template>
+  
+  
+</polymer-element><polymer-element name="h-menu-separator" noscript="">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menu_separator.css">
+    
+    <div id="separator"></div>
+  </template>
+</polymer-element><polymer-element name="h-submenu">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/submenu.css">
+    
+    <div id="submenu-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
+      <a id="link" href="#">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">{{label}}</span>
+        <span id="icon-open" class="triangle-1-e"></span>
+      </a>
+      
+      <ul id="child-list" class="drop-left hidden">
+        <li id="child-item">
+          <content></content>
+        </li>
+      </ul>
+    </div>
+  </template>
+  
+  
+</polymer-element><polymer-element name="h-menubar">
+  <template>
+    <link rel="stylesheet" href="packages/html_components/menu/menubar.css">
+    
+    <div id="menubar-container" class="{{orientation}}">
+      <ul>
+        <content></content>
+      </ul>
+    </div>
+  </template>
+  
+  
+</polymer-element>
+    <h-menubar orientation="horizontal">
+      <h-submenu label="File" icon="document">
+        <h-submenu label="New" icon="contact">
+          <h-menu-item>Project</h-menu-item>
+          <h-menu-item>Other</h-menu-item>
+        </h-submenu>
+        <h-menu-item>Open</h-menu-item>
+        <h-menu-separator></h-menu-separator>
+        <h-menu-item>Quit</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Edit" icon="pencil">
+        <h-menu-item icon="arrowreturnthick-1-w">Undo</h-menu-item>
+        <h-menu-item icon="arrowreturnthick-1-e">Redo</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Help" icon="help">
+        <h-menu-item>Contents</h-menu-item>
+        <h-submenu label="Search" icon="search">
+          <h-submenu label="Text">
+            <h-menu-item>Workspace</h-menu-item>
+          </h-submenu>
+          <h-menu-item>File</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-submenu label="Actions" icon="gear">
+        <h-submenu label="Ajax" icon="refresh">
+          <h-menu-item icon="disk">Save</h-menu-item>
+          <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
+        </h-submenu>
+        <h-submenu label="Non-Ajax" icon="newwin">
+          <h-menu-item icon="close">Delete</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
+    </h-menubar>
+    
+    <h-menubar orientation="vertical">
+      <h-submenu label="File" icon="document">
+        <h-submenu label="New" icon="contact">
+          <h-menu-item>Project</h-menu-item>
+          <h-menu-item>Other</h-menu-item>
+        </h-submenu>
+        <h-menu-item>Open</h-menu-item>
+        <h-menu-separator></h-menu-separator>
+        <h-menu-item>Quit</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Edit" icon="pencil">
+        <h-menu-item icon="arrowreturnthick-1-w">Undo</h-menu-item>
+        <h-menu-item icon="arrowreturnthick-1-e">Redo</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Help" icon="help">
+        <h-menu-item>Contents</h-menu-item>
+        <h-submenu label="Search" icon="search">
+          <h-submenu label="Text">
+            <h-menu-item>Workspace</h-menu-item>
+          </h-submenu>
+          <h-menu-item>File</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-submenu label="Actions" icon="gear">
+        <h-submenu label="Ajax" icon="refresh">
+          <h-menu-item icon="disk">Save</h-menu-item>
+          <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
+        </h-submenu>
+        <h-submenu label="Non-Ajax" icon="newwin">
+          <h-menu-item icon="close">Delete</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
+    </h-menubar>
+    
+    <script src="menu_menubar.html_bootstrap.dart.js"></script>
+  
+</body></html>
