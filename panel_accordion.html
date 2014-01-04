@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="panel_accordion.css">
   </head>
   <body>
+    <polymer-element name="accordion-page">
+      <template>
+        <h-accordion>
+          <template repeat="{{tab in tabs}}">
+            <h-tab header="{{tab.header}}" content="{{tab.content}}" closable="{{tab.closable}}" disabled="{{tab.disabled}}" selected="{{tab.selected}}"></h-tab>
+          </template>
+        </h-accordion>
+      </template>
+    </polymer-element>
+    
+    <accordion-page></accordion-page>
+    
     <h-accordion>
       <h-tab header="Godfather Part I">
         <table>

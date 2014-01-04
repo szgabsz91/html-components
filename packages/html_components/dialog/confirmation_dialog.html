@@ -1,4 +1,4 @@
-<link rel="import" href="../utility/item_template.html">
+<link rel="import" href="../utility/safe_html.html">
 
 <polymer-element name="h-confirmation-dialog">
   <template>
@@ -22,7 +22,7 @@
       <div id="content">
         <p>
           <span class="{{severity}}"></span>
-          <h-item-template content="{{message}}"></h-item-template>
+          <h-safe-html content="{{message}}"></h-safe-html>
         </p>
       </div>
       

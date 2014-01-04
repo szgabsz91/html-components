@@ -12,10 +12,9 @@
     <polymer-element name="tabview-demo">
       <template>
         <h-tabview on-tabselected="{{onTabSelected}}" on-tabclosed="{{onTabClosed}}">
-          <h-tab header="Tab 1" content="Tab 1 content" closable="true"></h-tab>
-          <h-tab header="Tab 2" content="Tab 2 content" closable="true" selected="true"></h-tab>
-          <h-tab header="Tab 3" content="Tab 3 content" closable="true"></h-tab>
-          <h-tab header="Tab 4" content="Tab 4 content" disabled="true"></h-tab>
+          <template repeat="{{tab in tabs}}">
+            <h-tab header="{{tab.header}}" content="{{tab.content}}" closable="{{tab.closable}}" disabled="{{tab.disabled}}" selected="{{tab.selected}}"></h-tab>
+          </template>
         </h-tabview>
       </template>
     </polymer-element>

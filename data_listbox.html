@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data - Listbox</title>
+    <link rel="import" href="packages/html_components/data/listbox.html">
+    <script src="packages/browser/dart.js"></script>
+  </head>
+  <body>
+    <polymer-element name="listbox-page">
+      <template>
+        <h-listbox moveUpLabel="Up" moveTopLabel="Top" moveDownLabel="Down" moveBottomLabel="Bottom" data="{{playerNames}}">
+          <header>
+            <i>Players</i>
+          </header>
+        </h-listbox>
+        
+        <h-listbox sidebarPosition="right" height="500" data="{{players}}">
+          <header>Players</header>
+          <div>
+            <img src="img/players/${imagePath}" alt="${name}">
+            ${name} - ${number}
+          </div>
+        </h-listbox>
+        
+        <h-listbox sidebarPosition="left" selection="multiple" data="{{playerNames}}">
+          <header>
+            <i>Players</i>
+          </header>
+        </h-listbox>
+      </template>
+    </polymer-element>
+    
+    <listbox-page></listbox-page>
+    
+    <script type="application/dart" src="data_listbox.dart"></script>
+  </body>
+</html>

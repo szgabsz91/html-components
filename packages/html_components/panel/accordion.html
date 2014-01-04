@@ -1,4 +1,4 @@
-<link rel="import" href="../utility/item_template.html">
+<link rel="import" href="../utility/safe_html.html">
 
 <polymer-element name="h-accordion">
   <template>
@@ -16,7 +16,7 @@
         </h3>
         
         <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
-          <h-item-template content="{{tab.content}}"></h-item-template>
+          <h-safe-html content="{{tab.content}}"></h-safe-html>
         </div>
       </template>
     </div>
