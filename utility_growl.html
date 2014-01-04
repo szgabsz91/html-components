@@ -1,45 +1,12 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Utility - Growl</title>
-    
-    
-    
+    <link rel="import" href="packages/html_components/utility/growl_message.html">
+    <link rel="import" href="packages/html_components/utility/growl.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-growl-message">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/utility/growl_message.css">
-    
-    <div id="container">
-      <a id="close-thick" on-click="{{onClosing}}"></a>
-      <a id="icon" class="{{severity}}"></a>
-      <div id="message">
-        <span id="summary">{{summary}}</span>
-        <span id="detail">{{detail}}</span>
-      </div>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-growl">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/utility/growl.css">
-    
-    <div id="hidden">
-      <content select="h-growl-message"></content>
-    </div>
-    
-    <div id="message-container">
-      <template repeat="{{growlMessage in growlMessages}}">
-        <h-growl-message summary="{{growlMessage.summary}}" detail="{{growlMessage.detail}}" severity="{{growlMessage.severity}}" on-closed="{{onGrowlMessageClosed}}">
-        </h-growl-message>
-      </template>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <button>Add Message</button>
     
     <h-growl lifetime="5000">
@@ -50,6 +17,6 @@
       <h-growl-message summary="Summary4" detail="Detail4" severity="error"></h-growl-message>
     </h-growl>
     
-    <script src="utility_growl.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="utility_growl.dart"></script>
+  </body>
+</html>

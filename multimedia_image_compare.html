@@ -1,47 +1,21 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Multimedia - Image Compare</title>
-    
-    
+    <link rel="import" href="packages/html_components/multimedia/image_compare.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-image-compare">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/multimedia/image_compare.css">
-    
-    <div id="container" style="width:{{imageWidth}}px; height:{{imageHeight}}px" on-mouseover="{{onContainerMouseOver}}" on-mouseout="{{onContainerMouseOut}}" on-mousemove="{{onDragging}}" on-mouseup="{{onDragStopped}}">
-      <div id="draggable" style="left:{{draggablePosition - 4}}px; height:{{imageHeight}}px">
-        <div id="handle-container" style="height:{{imageHeight}}px" on-mousedown="{{onDragStarted}}">
-          <img src="packages/html_components/multimedia/packages/html_components/resources/handle.gif" alt="Handle" title="Drag me left or right to see the before and after images" style="top:{{((imageHeight - 56) / 2).floor()}}px">
-        </div>
-      </div>
-      
-      <div id="before-container" style="width:{{draggablePosition}}px; height:{{imageHeight}}px">
-        <content select="img:first-child"></content>
-      </div>
-      
-      <div id="after-container" style="width:{{imageWidth}}px; height:{{imageHeight}}px">
-        <content select="img:last-child"></content>
-      </div>
-      
-      <img id="handle-left" src="packages/html_components/multimedia/packages/html_components/resources/lt-small.png" style="top:{{((imageHeight - 15) / 2).floor()}}px; left:{{draggablePosition - handlePosition}}px; opacity:{{handleOpacity}}">
-      <img id="handle-right" src="packages/html_components/multimedia/packages/html_components/resources/rt-small.png" style="top:{{((imageHeight - 15) / 2).floor()}}px; left:{{draggablePosition + handlePosition - 8}}px; opacity:{{handleOpacity}}">
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-image-compare>
-      <img src="img/image-compare/xbox.png" alt="XBox 360">
-      <img src="img/image-compare/ps3.png" alt="PS3">
+      <img src="img/image-compare/xbox.png" alt="XBox 360"/>
+      <img src="img/image-compare/ps3.png" alt="PS3"/>
     </h-image-compare>
     
     <h-image-compare>
-      <img src="img/image-compare/xbox.jpg" alt="XBox 360">
-      <img src="img/image-compare/ps3.jpg" alt="PS3">
+      <img src="img/image-compare/xbox.jpg" alt="XBox 360"/>
+      <img src="img/image-compare/ps3.jpg" alt="PS3"/>
     </h-image-compare>
     
-    <script src="multimedia_image_compare.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="multimedia_image_compare.dart"></script>
+  </body>
+</html>

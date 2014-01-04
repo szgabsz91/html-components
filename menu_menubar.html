@@ -1,74 +1,14 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Menu - Menubar</title>
-    
-    
-    
-    
-    
+    <link rel="import" href="packages/html_components/menu/menu_item.html">
+    <link rel="import" href="packages/html_components/menu/menu_separator.html">
+    <link rel="import" href="packages/html_components/menu/submenu.html">
+    <link rel="import" href="packages/html_components/menu/menubar.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-menu-item">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/menu_item.css">
-    
-    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
-      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
-        <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
-        </template>
-        
-        <span id="text">
-          <content></content>
-        </span>
-      </a>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-menu-separator" noscript="">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/menu_separator.css">
-    
-    <div id="separator"></div>
-  </template>
-</polymer-element><polymer-element name="h-submenu">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/submenu.css">
-    
-    <div id="submenu-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
-      <a id="link" href="#">
-        <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
-        </template>
-        
-        <span id="text">{{label}}</span>
-        <span id="icon-open" class="triangle-1-e"></span>
-      </a>
-      
-      <ul id="child-list" class="drop-left hidden">
-        <li id="child-item">
-          <content></content>
-        </li>
-      </ul>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-menubar">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/menubar.css">
-    
-    <div id="menubar-container" class="{{orientation}}">
-      <ul>
-        <content></content>
-      </ul>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-menubar orientation="horizontal">
       <h-submenu label="File" icon="document">
         <h-submenu label="New" icon="contact">
@@ -147,6 +87,6 @@
       <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
     </h-menubar>
     
-    <script src="menu_menubar.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="menu_menubar.dart"></script>
+  </body>
+</html>

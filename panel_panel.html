@@ -1,56 +1,11 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Panel - Panel</title>
-    
-    
+    <link rel="import" href="packages/html_components/panel/panel.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-item-template">
-  <template></template>
-  
-  
-</polymer-element><polymer-element name="h-panel">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/panel/panel.css">
-    
-    <div id="hidden">
-      <content></content>
-    </div>
-    
-    <div id="container">
-      <div id="header">
-        <span id="title">
-          <h-item-template content="{{header}}"></h-item-template>
-        </span>
-        
-        <template if="{{closable}}">
-          <a href="#" class="icon" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onClosed}}">
-            <span class="icon-closethick"></span>
-          </a>
-        </template>
-        
-        <template if="{{toggleable}}">
-          <a href="#" class="icon" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onToggled}}">
-            <span class="{{ {'icon-minusthick': !collapsed, 'icon-plusthick': collapsed} }}"></span>
-          </a>
-        </template>
-      </div>
-      
-      <div id="content">
-        <h-item-template content="{{content}}"></h-item-template>
-      </div>
-      
-      <template if="{{footer != null}}">
-        <div id="footer">
-          <h-item-template content="{{footer}}"></h-item-template>
-        </div>
-      </template>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-panel>
       <header>F.C. Barcelona</header>
       <p>
@@ -69,7 +24,7 @@
       </p>
     </h-panel>
     
-    <h-panel closable="" toggleable="">
+    <h-panel closable toggleable>
       <header>F.C. Barcelona</header>
       <p>
         FC Barcelona is one of only three clubs never to have been relegated
@@ -90,7 +45,7 @@
       </footer>
     </h-panel>
     
-    <h-panel toggleable="" collapsed="">
+    <h-panel toggleable collapsed>
       <header>F.C. Barcelona</header>
       <p>
         FC Barcelona is one of only three clubs never to have been relegated
@@ -108,6 +63,6 @@
       </p>
     </h-panel>
     
-    <script src="panel_panel.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="panel_panel.dart"></script>
+  </body>
+</html>

@@ -1,77 +1,14 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Panel - Tabview</title>
-    
-    
+    <link rel="import" href="packages/html_components/panel/tab.html">
+    <link rel="import" href="packages/html_components/panel/tabview.html">
     <link rel="stylesheet" href="panel_tabview.css">
-    <script src="panel_tabview.html_bootstrap.dart.js"></script>
-    
+    <script type="application/dart" src="panel_tabview.dart"></script>
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-tab">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/panel/tab.css">
-    
-    <div id="hidden">
-      <content></content>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-item-template">
-  <template></template>
-  
-  
-</polymer-element><polymer-element name="h-tabview">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/panel/tabview.css">
-    
-    <div id="hidden">
-      <content select="h-tab"></content>
-    </div>
-    
-    <div id="container">
-      <template if="{{orientation == 'top' || orientation == 'left' || orientation == 'right'}}">
-        <ul id="header">
-          <template repeat="{{tab in tabs}}">
-            <li class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseover="{{onHeaderMouseOver}}" on-mouseout="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
-              <a href="#">{{tab.header}}</a>
-              <template if="{{tab.closable}}">
-                <span id="close-thick" on-click="{{onCloseThickClicked}}"></span>
-              </template>
-            </li>
-          </template>
-        </ul>
-      </template>
-      
-      <div id="content-container">
-        <template repeat="{{tab in tabs}}">
-          <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
-            <h-item-template content="{{tab.content}}"></h-item-template>
-          </div>
-        </template>
-      </div>
-      
-      <template if="{{orientation == 'bottom'}}">
-        <ul id="header">
-          <template repeat="{{tab in tabs}}">
-            <li class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseover="{{onHeaderMouseOver}}" on-mouseout="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
-              <a href="#">{{tab.header}}</a>
-              <template if="{{tab.closable}}">
-                <span id="close-thick" on-click="{{onCloseThickClicked}}"></span>
-              </template>
-            </li>
-          </template>
-        </ul>
-      </template>
-      
-      <div id="clear"></div>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <polymer-element name="tabview-demo">
       <template>
         <h-tabview on-tabselected="{{onTabSelected}}" on-tabclosed="{{onTabClosed}}">
@@ -88,7 +25,7 @@
     <h-tabview orientation="left">
       <h-tab header="Godfather Part I">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
               <img src="img/godfather/godfather1.jpg" alt="Godfather 1">
             </td>
@@ -100,12 +37,12 @@
               stands against the good of the family.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part II">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
               <img src="img/godfather/godfather2.jpg" alt="Godfather 2">
             </td>
@@ -119,12 +56,12 @@
               With Fanucci gone, Vito's communal stature grows.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part III">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
               <img src="img/godfather/godfather3.jpg" alt="Godfather 3">
             </td>
@@ -135,8 +72,8 @@
               succeeded in keeping his promise that his family would one day be completely legitimate.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
     </h-tabview>
-  
-</body></html>
+  </body>
+</html>

@@ -1,45 +1,12 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Menu - Breadcrumb</title>
-    
-    
-    
+    <link rel="import" href="packages/html_components/menu/menu_item.html">
+    <link rel="import" href="packages/html_components/menu/breadcrumb.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-menu-item">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/menu_item.css">
-    
-    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
-      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
-        <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
-        </template>
-        
-        <span id="text">
-          <content></content>
-        </span>
-      </a>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-breadcrumb">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/menu/breadcrumb.css">
-    
-    <div id="hidden">
-      <content select="h-menu-item"></content>
-    </div>
-    
-    <div id="breadcrumb-container">
-      <ul id="list"></ul>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-breadcrumb>
       <h-menu-item icon="home">Home</h-menu-item>
       <h-menu-item icon="document">Document</h-menu-item>
@@ -47,6 +14,6 @@
       <h-menu-item icon="extlink" url="/" target="_blank">Google I/O</h-menu-item>
     </h-breadcrumb>
     
-    <script src="menu_breadcrumb.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="menu_breadcrumb.dart"></script>
+  </body>
+</html>

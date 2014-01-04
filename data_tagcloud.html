@@ -1,37 +1,12 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Data - Tagcloud</title>
-    
-    
-    
+    <link rel="import" href="packages/html_components/data/tag.html">
+    <link rel="import" href="packages/html_components/data/tagcloud.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-tag">
-  <template></template>
-  
-  
-</polymer-element><polymer-element name="h-tagcloud">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/data/tagcloud.css">
-    
-    <div id="hidden">
-      <content select="h-tag"></content>
-    </div>
-    
-    <div id="container" style="width:{{width}}px">
-      <ul>
-        <template repeat="{{tag in tags}}">
-          <li class="strength-{{tag.strength}}">
-            <a href="{{tag.url}}" on-mouseover="{{onTagMouseOver}}" on-mouseout="{{onTagMouseOut}}" on-click="{{onTagClicked}}">{{tag.label}}</a>
-          </li>
-        </template>
-      </ul>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-tagcloud>
       <h-tag label="Transformers" strength="1"></h-tag>
       <h-tag label="RIA" url="/" strength="3"></h-tag>
@@ -45,6 +20,6 @@
       <h-tag label="Rocks" url="/" strength="1"></h-tag>
     </h-tagcloud>
     
-    <script src="data_tagcloud.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="data_tagcloud.dart"></script>
+  </body>
+</html>

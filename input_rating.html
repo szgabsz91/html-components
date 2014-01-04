@@ -1,37 +1,20 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Input - Rating</title>
-    
-    
+    <link rel="import" href="packages/html_components/input/rating.html">
+    <script src="packages/browser/dart.js"></script>
     <link rel="stylesheet" href="input_rating.css">
   </head>
-  <body><polymer-element name="h-rating">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/input/rating.css">
-    
-    <div id="container" class="{{ {'readonly': readonly, 'disabled': disabled} }}">
-      <a id="cancel-button" class="{{ {'hidden': !cancelable || readonly || disabled} }}" on-mouseover="{{onCancelMouseOver}}" on-mouseout="{{onCancelMouseOut}}" on-click="{{onCancelClicked}}"></a>
-      
-      <template repeat="{{index in indices}}">
-        <a class="{{ {'star': true, 'on': index <= value} }}" on-click="{{onStarClicked}}"></a>
-      </template>
-      
-      <div class="clear"></div>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-rating></h-rating>
     
     <h-rating stars="10" value="3"></h-rating>
     
-    <h-rating readonly="" cancelable="false"></h-rating>
+    <h-rating readonly cancelable="false"></h-rating>
     
-    <h-rating disabled=""></h-rating>
+    <h-rating disabled></h-rating>
     
-    <script src="input_rating.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="input_rating.dart"></script>
+  </body>
+</html>

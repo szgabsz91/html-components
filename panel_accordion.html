@@ -1,133 +1,95 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Panel - Accordion</title>
-    
-    
-    
+    <link rel="import" href="packages/html_components/panel/tab.html">
+    <link rel="import" href="packages/html_components/panel/accordion.html">
+    <script src="packages/browser/dart.js"></script>
     <link rel="stylesheet" href="panel_accordion.css">
   </head>
-  <body><polymer-element name="h-tab">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/panel/tab.css">
-    
-    <div id="hidden">
-      <content></content>
-    </div>
-  </template>
-  
-  
-</polymer-element><polymer-element name="h-item-template">
-  <template></template>
-  
-  
-</polymer-element><polymer-element name="h-accordion">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/panel/accordion.css">
-    
-    <div id="hidden">
-      <content select="h-tab"></content>
-    </div>
-    
-    <div id="container">
-      <template repeat="{{tab in tabs}}">
-        <h3 class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseover="{{onHeaderMouseOver}}" on-mouseout="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
-          <span class="{{ {'icon-triangle-east': tab.selected, 'icon-triangle-south': !tab.selected} }}"></span>
-          <a href="#">{{tab.header}}</a>
-        </h3>
-        
-        <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
-          <h-item-template content="{{tab.content}}"></h-item-template>
-        </div>
-      </template>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-accordion>
       <h-tab header="Godfather Part I">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather1.jpg" alt="Godfather 1">
+              <img src="img/godfather/godfather1.jpg" alt="Godfather 1"/>
             </td>
             <td>
               The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part II" selected="true">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather2.jpg" alt="Godfather 2">
+              <img src="img/godfather/godfather2.jpg" alt="Godfather 2"/>
             </td>
             <td>
               Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part III">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather3.jpg" alt="Godfather 3">
+              <img src="img/godfather/godfather3.jpg" alt="Godfather 3"/>
             </td>
             <td>
               After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the  well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
     </h-accordion>
     
     <h-accordion selection="multiple">
       <h-tab header="Godfather Part I">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather1.jpg" alt="Godfather 1">
+              <img src="img/godfather/godfather1.jpg" alt="Godfather 1"/>
             </td>
             <td>
               The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part II" disabled="true">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather2.jpg" alt="Godfather 2">
+              <img src="img/godfather/godfather2.jpg" alt="Godfather 2"/>
             </td>
             <td>
               Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
       
       <h-tab header="Godfather Part III">
         <table>
-          <tbody><tr>
+          <tr>
             <td>
-              <img src="img/godfather/godfather3.jpg" alt="Godfather 3">
+              <img src="img/godfather/godfather3.jpg" alt="Godfather 3"/>
             </td>
             <td>
               After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the  well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
             </td>
           </tr>
-        </tbody></table>
+        </table>
       </h-tab>
     </h-accordion>
     
-    <script src="panel_accordion.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="panel_accordion.dart"></script>
+  </body>
+</html>

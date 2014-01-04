@@ -1,61 +1,22 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Dialog - Confirmation Dialog</title>
-    
-    
+    <link rel="import" href="packages/html_components/dialog/confirmation_dialog.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-item-template">
-  <template></template>
-  
-  
-</polymer-element><polymer-element name="h-confirmation-dialog">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/dialog/confirmation_dialog.css">
-    
-    <div id="hidden">
-      <content></content>
-    </div>
-    
-    <!-- class="{{ {'hidden': hidden} }}" -->
-    <div id="container" style="left:{{left}}px; top:{{top}}px">
-      <div id="header">
-        <span>{{header}}</span>
-        <template if="{{closable}}">
-          <a href="#" on-click="{{onCloseThickClicked}}">
-            <span></span>
-          </a>
-        </template>
-      </div>
-      
-      <div id="content">
-        <p>
-          <span class="{{severity}}"></span>
-          <h-item-template content="{{message}}"></h-item-template>
-        </p>
-      </div>
-      
-      <div id="button-container"></div>
-    </div>
-    
-    <!-- class="{{ {'hidden': hidden || !modal} }}" -->
-    <div id="overlay" style="width:{{documentWidth}}px; height:{{windowHeight}}px"></div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <button>Alert</button>
     <button>Info</button>
     
-    <h-confirmation-dialog id="alert" modal="" severity="alert">
+    <h-confirmation-dialog id="alert" modal severity="alert">
       <header>Initiating destroy process</header>
       <span>Are you sure about destroying the world?</span>
       <button>Yes sure</button>
       <button>Not yet</button>
     </h-confirmation-dialog>
     
-    <h-confirmation-dialog id="info" closable="" severity="info">
+    <h-confirmation-dialog id="info" closable severity="info">
       <header>There are unsaved changes!</header>
       <span>Do you want to save the document?</span>
       <button>Yes</button>
@@ -63,6 +24,6 @@
       <button>Cancel</button>
     </h-confirmation-dialog>
     
-    <script src="dialog_confirmation_dialog.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="dialog_confirmation_dialog.dart"></script>
+  </body>
+</html>

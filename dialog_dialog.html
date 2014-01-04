@@ -1,74 +1,44 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Dialog - Dialog</title>
-    
-    
+    <link rel="import" href="packages/html_components/dialog/dialog.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-dialog">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/dialog/dialog.css">
-    
-    <div id="hidden">
-      <content select="header"></content>
-    </div>
-    
-    <!-- class="{{ {'hidden': hidden} }}" -->
-    <div id="container" style="left:{{left}}px; top:{{top}}px">
-      <div id="header">
-        <span>{{header}}</span>
-        <template if="{{closable}}">
-          <a href="#" on-click="{{onCloseThickClicked}}">
-            <span></span>
-          </a>
-        </template>
-      </div>
-      
-      <div id="content">
-        <content></content>
-      </div>
-    </div>
-    
-    <!-- class="{{ {'hidden': hidden || !modal} }}" -->
-    <div id="overlay" style="width:{{documentWidth}}px; height:{{windowHeight}}px"></div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <button>Non-Modal</button>
     <button>Modal</button>
     
-    <h-dialog id="nonmodal" closable="">
+    <h-dialog id="nonmodal" closable>
       <header>Login</header>
       <form>
         <label for="username1">Username:</label>
-        <input type="text" id="username1" placeholder="Username" required="">
+        <input type="text" id="username1" placeholder="Username" required>
         <br>
         
         <label for="password">Password:</label>
-        <input type="password" id="password1" placeholder="Password" required="">
+        <input type="password" id="password1" placeholder="Password" required>
         <br>
         
         <button>Login</button>
       </form>
     </h-dialog>
     
-    <h-dialog id="modal" modal="">
+    <h-dialog id="modal" modal>
       <header>Login</header>
       <form>
         <label for="username2">Username:</label>
-        <input type="text" id="username2" placeholder="Username" required="">
+        <input type="text" id="username2" placeholder="Username" required>
         <br>
         
         <label for="password2">Password:</label>
-        <input type="password" id="password2" placeholder="Password" required="">
+        <input type="password" id="password2" placeholder="Password" required>
         <br>
         
         <button>Login</button>
       </form>
     </h-dialog>
     
-    <script src="dialog_dialog.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="dialog_dialog.dart"></script>
+  </body>
+</html>

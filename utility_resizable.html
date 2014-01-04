@@ -1,41 +1,28 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Utility - Resizable</title>
-    
-    
+    <link rel="import" href="packages/html_components/utility/resizable.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-resizable">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/utility/resizable.css">
-    
-    <div id="container" style="width:{{currentWidth}}px; height:{{currentHeight}}px" on-mousemove="{{onResizing}}" on-mouseup="{{onResizeStopped}}">
-      <content></content>
-      <div id="handle-east" on-mousedown="{{onResizeStarted}}"></div>
-      <div id="handle-south" on-mousedown="{{onResizeStarted}}"></div>
-      <div id="handle-southeast" on-mousedown="{{onResizeStarted}}"></div>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-resizable>
       <img src="img/nature/nature1.jpg" alt="Nature">
     </h-resizable>
     
-    <h-resizable aspectratio="">
+    <h-resizable aspectRatio>
       <img src="img/nature/nature1.jpg" alt="Nature">
     </h-resizable>
     
-    <h-resizable ghost="">
+    <h-resizable ghost>
       <img src="img/nature/nature1.jpg" alt="Nature">
     </h-resizable>
     
-    <h-resizable minwidth="100" maxwidth="500" minheight="100" maxheight="500">
+    <h-resizable minWidth="100" maxWidth="500"
+                 minHeight="100" maxHeight="500">
       <img src="img/nature/nature1.jpg" alt="Nature">
     </h-resizable>
     
-    <script src="utility_resizable.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="utility_resizable.dart"></script>
+  </body>
+</html>

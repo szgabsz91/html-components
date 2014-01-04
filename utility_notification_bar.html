@@ -1,30 +1,19 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Utility - Notification Bar</title>
-    
-    
+    <link rel="import" href="packages/html_components/utility/notification_bar.html">
+    <script src="packages/browser/dart.js"></script>
     
     <link rel="stylesheet" href="utility_notification_bar.css">
   </head>
-  <body><polymer-element name="h-notification-bar">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/utility/notification_bar.css">
-    
-    <div id="container">
-      <content></content>
-    </div>
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <button>Show</button>
     
     <h-notification-bar>
       <h3>Hello from Polymer.dart!</h3>
     </h-notification-bar>
     
-    <script src="utility_notification_bar.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="utility_notification_bar.dart"></script>
+  </body>
+</html>

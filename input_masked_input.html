@@ -1,26 +1,17 @@
-<!DOCTYPE html><html><head><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
-<script src="packages/custom_element/custom-elements.debug.js"></script>
-<script src="packages/browser/interop.js"></script>
-
+<!DOCTYPE html>
+<html>
+  <head>
     <title>Input - Masked Input</title>
-    
-    
+    <link rel="import" href="packages/html_components/input/masked_input.html">
+    <script src="packages/browser/dart.js"></script>
   </head>
-  <body><polymer-element name="h-masked-input">
-  <template>
-    <link rel="stylesheet" href="packages/html_components/input/masked_input.css">
-    
-    <input type="text" id="input" value="{{value}}" on-keydown="{{onInputKeyDown}}" on-keyup="{{onInputKeyUp}}" on-click="{{onInputClicked}}" on-blur="{{onInputBlur}}">
-  </template>
-  
-  
-</polymer-element>
+  <body>
     <h-masked-input mask="99/99/9999"></h-masked-input>
     
     <h-masked-input mask="aaa-999"></h-masked-input>
     
     <h-masked-input mask="+3699/999-99-99" placeholder="*"></h-masked-input>
     
-    <script src="input_masked_input.html_bootstrap.dart.js"></script>
-  
-</body></html>
+    <script type="application/dart" src="input_masked_input.dart"></script>
+  </body>
+</html>
