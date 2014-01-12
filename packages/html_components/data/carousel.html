@@ -31,10 +31,10 @@
         </template>
       </div>
       
-      <div id="viewport" style="width:{{itemWidth * visibleItems + visibleItems * 4}}px; height:{{itemHeight + 20}}px">
+      <div id="viewport" style="width:{{itemWidth * visibleItems + visibleItems * 4}}px; height:{{itemHeight}}px">
         <ul id="item-list">
           <template repeat="{{item in data}}">
-            <li on-click="{{onItemClicked}}">
+            <li on-click="{{onItemClicked}}" style="width:{{itemWidth}}px; height:{{itemHeight}}px">
               <h-item-template template="{{template}}" model="{{item}}" customTemplates="{{CUSTOM_TEMPLATES}}"></h-item-template>
             </li>
           </template>

@@ -1,5 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
+import 'dart:async';
 
 @CustomTag('h-image-compare')
 class ImageCompareComponent extends PolymerElement {
@@ -18,14 +19,16 @@ class ImageCompareComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    ImageElement beforeImage = $['before-container'].querySelector('content').getDistributedNodes().first;
-    ImageElement afterImage = $['after-container'].querySelector('content').getDistributedNodes().first;
-    
-    imageWidth = beforeImage.clientWidth;
-    imageHeight = beforeImage.clientHeight;
-    draggablePosition = (imageWidth / 2).floor();
-    
-    $['handle-container'].onDragStart.listen((MouseEvent event) => event.preventDefault());
+    new Timer(const Duration(milliseconds: 500), () {
+      ImageElement beforeImage = $['before-container'].querySelector('content').getDistributedNodes().first;
+      ImageElement afterImage = $['after-container'].querySelector('content').getDistributedNodes().first;
+      
+      imageWidth = beforeImage.clientWidth;
+      imageHeight = beforeImage.clientHeight;
+      draggablePosition = (imageWidth / 2).floor();
+      
+      $['handle-container'].onDragStart.listen((MouseEvent event) => event.preventDefault());
+    });
   }
   
   void onContainerMouseOver() {

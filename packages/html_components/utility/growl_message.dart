@@ -9,11 +9,11 @@ export 'growl_message/model.dart';
 @CustomTag('h-growl-message')
 class GrowlMessageComponent extends PolymerElement {
   
-  // FIXME If I omit the getters and setters and notifyPropertyChange, then
-  // the components are empty in Chrome
-  @published String summary;
-  @published String detail;
-  @published String severity;
+  @published String summary = '';
+  @published String detail = '';
+  @published String severity = 'info';
+  
+  static const int ANIMATION_DURATION = 500;
   
   static const EventStreamProvider<Event> _CLOSED_EVENT = const EventStreamProvider<Event>('closed');
   Stream<Event> get onClosed => _CLOSED_EVENT.forTarget(this);
@@ -37,7 +37,7 @@ class GrowlMessageComponent extends PolymerElement {
       'height': 0
     };
     
-    animation.animate(container, properties: animationProperties, duration: 500).onComplete.listen((_) {
+    animation.animate(container, properties: animationProperties, duration: ANIMATION_DURATION).onComplete.listen((_) {
       _dispatchClosedEvent(this);
     });
   }

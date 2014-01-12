@@ -1,0 +1,27 @@
+<link rel="import" href="packages/html_components/dialog/confirmation_dialog.html">
+
+<polymer-element name="confirmation-dialog-demo">
+  <template>
+    <h1>Confirmation Dialog</h1>
+    
+    <button class="btn btn-danger" on-click="{{showAlertConfirmationDialog}}">Alert</button>
+    <button class="btn btn-primary" on-click="{{showInfoConfirmationDialog}}">Info</button>
+    
+    <h-confirmation-dialog id="alert" modal severity="alert" on-buttonclicked="{{onButtonClicked}}">
+      <header>Initiating destroy process</header>
+      <span>Are you sure about destroying the world?</span>
+      <button>Yes sure</button>
+      <button>Not yet</button>
+    </h-confirmation-dialog>
+    
+    <h-confirmation-dialog id="info" closable severity="info" on-buttonclicked="{{onButtonClicked}}">
+      <header>There are unsaved changes!</header>
+      <span>Do you want to save the document?</span>
+      <button>Yes</button>
+      <button>No</button>
+      <button>Cancel</button>
+    </h-confirmation-dialog>
+  </template>
+  
+  <script type="application/dart" src="confirmation_dialog.dart"></script>
+</polymer-element>

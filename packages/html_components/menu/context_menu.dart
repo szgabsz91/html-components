@@ -5,6 +5,7 @@ import 'dart:html';
 class ContextMenuComponent extends PolymerElement {
   
   @published String attachedTo;
+  @published bool disabled = false;
   
   @observable int top = 0;
   @observable int left = 0;
@@ -17,9 +18,17 @@ class ContextMenuComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    document.onContextMenu.listen((MouseEvent event) => event.preventDefault());
+    document.onContextMenu.listen((MouseEvent event) {
+      if (!disabled) {
+        event.preventDefault();
+      }
+    });
     
     document.onMouseUp.listen((MouseEvent event) {
+      if (disabled) {
+        return;
+      }
+      
       $['context-menu-container'].classes.add('hidden');
       
       if (event.button != 2) {

@@ -3,20 +3,22 @@ import 'dart:async';
 import 'dart:convert';
 import '../tree/tree_node.dart';
 
+// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
+
 abstract class TreetableDataFetcher {
-  TreeNode _root;
+  var _root;
   
-  TreetableDataFetcher(TreeNode this._root);
+  TreetableDataFetcher(var this._root);
   
-  TreeNode get root => _root;
+  get root => _root;
   
-  Future<List<TreeNode>> fetchNodes(TreeNode parent);
+  Future<List> fetchNodes(var parent);
 }
 
 class TreetableClientDataFetcher extends TreetableDataFetcher {
-  TreetableClientDataFetcher(TreeNode root) : super(root);
+  TreetableClientDataFetcher(var root) : super(root);
   
-  Future<List<TreeNode>> fetchNodes(TreeNode parent) {
+  Future<List> fetchNodes(var parent) {
     Completer completer = new Completer();
     
     if (parent != null) {
@@ -35,7 +37,7 @@ class TreetableServerDataFetcher extends TreetableDataFetcher {
   
   TreetableServerDataFetcher(Uri this._serviceURL) : super(null);
   
-  Future<List<TreeNode>> fetchNodes(TreeNode parent) {
+  Future<List> fetchNodes(var parent) {
     Completer completer = new Completer();
     
     HttpRequest request = new HttpRequest();
@@ -43,10 +45,10 @@ class TreetableServerDataFetcher extends TreetableDataFetcher {
     request.onReadyStateChange.listen((_) {
       if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
         List mapList = JSON.decode(request.responseText);
-        List<TreeNode> result = [];
+        List result = [];
         
         for (Map<String, dynamic> item in mapList) {
-          TreeNode node = new TreeNode(item["data"], parent);
+          var node = new TreeNode(item["data"], parent);
           // TODO Place into constructor
           node.isParent = item["isParent"];
           result.add(node);

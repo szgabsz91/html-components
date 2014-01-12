@@ -88,7 +88,7 @@ export 'panel/tabview.dart';
 export 'utility/clock.dart';
 export 'utility/draggable.dart';
 export 'utility/growl_message.dart';
-export 'utility/growl.dart';
+export 'utility/growl.dart' hide GrowlMessageComponent, GrowlMessageModel;
 export 'utility/item_template.dart';
 export 'utility/notification_bar.dart';
 export 'utility/resizable.dart';

@@ -1,0 +1,20 @@
+<link rel="import" href="packages/html_components/input/masked_input.html">
+
+<polymer-element name="masked-input-demo">
+  <template>
+    <link rel="stylesheet" href="masked_input.css">
+    
+    <h1>Masked Input</h1>
+    
+    <h4>Pattern: 99/99/9999</h4>
+    <h-masked-input mask="99/99/9999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+    
+    <h4>Pattern: aaa-999</h4>
+    <h-masked-input mask="aaa-999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+    
+    <h4>Pattern: +3699/999-99-99<br>Placeholder: *</h4>
+    <h-masked-input mask="+3699/999-99-99" placeholder="*" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+  </template>
+  
+  <script type="application/dart" src="masked_input.dart"></script>
+</polymer-element>

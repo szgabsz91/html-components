@@ -39,7 +39,7 @@ class ConfirmationDialogComponent extends PolymerElement {
       button
         ..classes.add('button')
         ..text = ''
-        ..onClick.listen((_) => hide())
+        ..onClick.listen((_) => onButtonClicked(button.text))
         ..onMouseOver.listen((_) => button.classes.add('hover'))
         ..onMouseOut.listen((_) => button.classes.remove('hover'))
         ..children.add(buttonContent);
@@ -73,6 +73,12 @@ class ConfirmationDialogComponent extends PolymerElement {
     
     $['container'].classes.add('hidden');
     $['overlay'].classes.add('hidden');
+  }
+  
+  void onButtonClicked(String label) {
+    this.dispatchEvent(new CustomEvent('buttonclicked', detail: label));
+    
+    hide();
   }
   
   void onCloseThickClicked(MouseEvent event) {

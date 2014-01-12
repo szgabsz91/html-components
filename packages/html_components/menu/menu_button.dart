@@ -8,6 +8,15 @@ class MenuButtonComponent extends PolymerElement {
   
   MenuButtonComponent.created() : super.created();
   
+  @override
+  void enteredView() {
+    super.enteredView();
+    
+    $['menubar'].on['selected'].listen((CustomEvent event) {
+      $['menubar'].classes.toggle('hidden');
+    });
+  }
+  
   void onButtonMouseOver(MouseEvent event, var detail, Element target) {
     target.classes.add('hover');
   }

@@ -16,7 +16,7 @@ class AccordionComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    scheduleMicrotask(() {
+    Timer.run(() {
       ContentElement content = $['hidden'].querySelector('content');
       List tabComponents = content.getDistributedNodes();
       tabs = toObservable(

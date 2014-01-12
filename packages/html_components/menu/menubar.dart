@@ -14,11 +14,18 @@ class MenubarComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
+    orientationChanged();
+  }
+  
+  void orientationChanged() {
     ContentElement contentElement = $['menubar-container'].querySelector('ul content');
     List children = contentElement.getDistributedNodes().where((Node node) => node is MenuItemComponent || node is SubmenuComponent).toList(growable: false);
     
     if (orientation == 'horizontal') {
-      children.forEach((var child) => child.setMenubarToHorizontal());
+      children.forEach((var child) => child.setMenubarOrientation('horizontal'));
+    }
+    else {
+      children.forEach((var child) => child.setMenubarOrientation('vertical'));
     }
   }
   

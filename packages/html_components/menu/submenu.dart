@@ -31,22 +31,45 @@ class SubmenuComponent extends PolymerElement {
     $['child-list'].classes.add('hidden');
   }
   
-  void setMenubarToHorizontal() {
-    $['icon-open'].classes
-      ..remove('triangle-1-e')
-      ..add('triangle-1-s');
-    
-    // Fix drop-down menu
-    $['child-list'].classes
-      ..remove('drop-left')
-      ..add('drop-down');
-    
-    // Fix menuitem width
-    $['submenu-container'].style.width = 'auto';
-    $['link'].style.width = 'auto';
-    
-    // Fix margin
-    this.style.float = 'left';
+  void onLabelClicked(MouseEvent event) {
+    event.preventDefault();
+  }
+  
+  void setMenubarOrientation(String orientation) {
+    if (orientation == 'horizontal') {
+      $['icon-open'].classes
+        ..remove('triangle-1-e')
+        ..add('triangle-1-s');
+      
+      // Fix drop-down menu
+      $['child-list'].classes
+        ..remove('drop-left')
+        ..add('drop-down');
+      
+      // Fix menuitem width
+      $['submenu-container'].style.width = 'auto';
+      $['link'].style.width = 'auto';
+      
+      // Fix margin
+      this.style.float = 'left';
+    }
+    else if (orientation == 'vertical') {
+      $['icon-open'].classes
+        ..remove('triangle-1-s')
+        ..add('triangle-1-e');
+      
+      // Fix drop-down menu
+      $['child-list'].classes
+        ..remove('drop-down')
+        ..add('drop-left');
+      
+      // Fix menuitem width
+      $['submenu-container'].style.width = null;
+      $['link'].style.width = null;
+      
+      // Fix margin
+      this.style.float = null;
+    }
   }
   
 }

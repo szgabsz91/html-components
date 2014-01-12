@@ -92,7 +92,7 @@ class MaskedInputComponent extends PolymerElement {
     if (!$['input'].value.contains(placeholder)) {
       value = $['input'].value;
       
-      this.dispatchEvent(new Event('valueChanged'));
+      this.dispatchEvent(new Event('valuechanged'));
     }
   }
   

@@ -32,10 +32,10 @@ class FeedReaderComponent extends PolymerElement {
     
     reader = new FeedReader(url);
     
-    onRefreshClicked();
+    onRefreshClicked(firstLoad: true);
   }
   
-  void onRefreshClicked() {
+  void onRefreshClicked({bool firstLoad: false}) {
     reader.read().then((Feed feed) {
       this.feed = feed;
       
@@ -47,7 +47,9 @@ class FeedReaderComponent extends PolymerElement {
         new Future.delayed(new Duration(minutes: feed.ttl), onRefreshClicked);
       }
       
-      this.dispatchEvent(new Event('refreshed'));
+      if (!firstLoad) {
+        this.dispatchEvent(new Event('refreshed'));
+      }
     });
   }
   

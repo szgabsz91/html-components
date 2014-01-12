@@ -74,6 +74,10 @@ class TabviewComponent extends PolymerElement {
     
     TabModel tab = tabs[target.parent.parent.children.indexOf(target.parent) - 1];
     
+    if (tab.disabled) {
+      return;
+    }
+    
     tabs.remove(tab);
     
     if (tab.selected) {

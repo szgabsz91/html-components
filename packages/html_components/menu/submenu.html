@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="submenu.css">
     
     <div id="submenu-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
-      <a id="link" href="#">
+      <a id="link" href="#" on-click="{{onLabelClicked}}">
         <template if="{{icon != null}}">
           <span id="icon" class="{{icon}}"></span>
         </template>

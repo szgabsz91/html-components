@@ -176,6 +176,7 @@ select {
 
 .select-button {
   display: inline-block;
+  cursor: pointer;
 }
 
 .select-button span {

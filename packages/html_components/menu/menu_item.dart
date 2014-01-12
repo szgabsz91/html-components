@@ -30,9 +30,15 @@ class MenuItemComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('selected', detail: label));
   }
   
-  void setMenubarToHorizontal() {
-    $['link'].style.width = 'auto';
-    this.style.float = 'left';
+  void setMenubarOrientation(String orientation) {
+    if (orientation == 'horizontal') {
+      $['link'].style.width = 'auto';
+      this.style.float = 'left';
+    }
+    else if (orientation == 'vertical') {
+      $['link'].style.width = null;
+      this.style.float = null;
+    }
   }
   
 }

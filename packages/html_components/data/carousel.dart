@@ -44,84 +44,86 @@ class CarouselComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    List<Element> children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
-    
-    Element headerElement = children.firstWhere((Element element) => element.tagName == 'HEADER', orElse: () => null);
-    if (headerElement != null) {
-      header = headerElement.innerHtml;
-      headerElement.remove();
-    }
-    
-    Element footerElement = children.firstWhere((Element element) => element.tagName == 'FOOTER', orElse: () => null);
-    if (footerElement != null) {
-      footer = footerElement.innerHtml;
-      footerElement.remove();
-    }
-    
-    $['hidden'].classes.remove('hidden');
-    
-    List<TabComponent> tabs = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is TabComponent).toList(growable: false);
-    
-    if (tabs.isNotEmpty) {
-      itemWidth = tabs.first.clientWidth;
-      itemHeight = tabs.first.clientHeight;
-      String style = tabs.first.attributes['style'];
+    Timer.run(() {
+      List<Element> children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
       
-      template = '<div style="${style}">\${content}</div>';
-      data = toObservable([]);
+      Element headerElement = children.firstWhere((Element element) => element.tagName == 'HEADER', orElse: () => null);
+      if (headerElement != null) {
+        header = headerElement.innerHtml;
+        headerElement.remove();
+      }
       
-      tabs.forEach((TabComponent tab) {
-        data.add(tab.model);
-        tab.remove();
-      });
-    }
-    
-    List<ImageElement> images = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is ImageElement).toList(growable: false);
-    
-    if (images.isNotEmpty) {
-      itemWidth = images.first.width;
-      itemHeight = images.first.height;
+      Element footerElement = children.firstWhere((Element element) => element.tagName == 'FOOTER', orElse: () => null);
+      if (footerElement != null) {
+        footer = footerElement.innerHtml;
+        footerElement.remove();
+      }
       
-      data = toObservable([]);
+      $['hidden'].classes.remove('hidden');
       
-      images.forEach((ImageElement image) {
-        data.add(new ImageModel(image.src, image.alt, image.title));
+      List<TabComponent> tabs = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is TabComponent).toList(growable: false);
+      
+      if (tabs.isNotEmpty) {
+        itemWidth = tabs.first.clientWidth;
+        itemHeight = tabs.first.clientHeight;
+        String style = tabs.first.attributes['style'];
         
-        template = r'<div><img src="${src}" alt="${alt}" title="${title}"/></div>';
+        template = '<div style="${style}">\${content}</div>';
+        data = toObservable([]);
         
-        image.remove();
-      });
-    }
-    
-    children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
-    
-    if (children.isNotEmpty) {
-      Element child = children.first;
+        tabs.forEach((TabComponent tab) {
+          data.add(tab.model);
+          tab.remove();
+        });
+      }
       
-      $['hidden'].children.add(child);
-      itemWidth = child.clientWidth;
-      itemHeight = child.clientHeight;
+      List<ImageElement> images = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is ImageElement).toList(growable: false);
       
-      template = $['hidden'].innerHtml;
-    }
-    
-    $['hidden']
-      ..classes.add('hidden')
-      ..remove();
-    
-    if (source != null) {
-      new CarouselServerDataFetcher(Uri.parse(source)).fetchData().then((List data) {
-        this.data = data;
-      });
-    }
-    
-    navigateToPage(1);
-    
-    if (autoplayInterval > 0) {
-      new Timer.periodic(new Duration(milliseconds: autoplayInterval), (_) {
-        onNextIconClicked();
-      });
-    }
+      if (images.isNotEmpty) {
+        itemWidth = images.first.width;
+        itemHeight = images.first.height;
+        
+        data = toObservable([]);
+        
+        images.forEach((ImageElement image) {
+          data.add(new ImageModel(image.src, image.alt, image.title));
+          
+          template = r'<div><img src="${src}" alt="${alt}" title="${title}"/></div>';
+          
+          image.remove();
+        });
+      }
+      
+      children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
+      
+      if (children.isNotEmpty) {
+        Element child = children.first;
+        
+        $['hidden'].children.add(child);
+        itemWidth = child.clientWidth;
+        itemHeight = child.clientHeight;
+        
+        template = $['hidden'].innerHtml;
+      }
+      
+      $['hidden']
+        ..classes.add('hidden')
+        ..remove();
+      
+      if (source != null) {
+        new CarouselServerDataFetcher(Uri.parse(source)).fetchData().then((List data) {
+          this.data = data;
+        });
+      }
+      
+      navigateToPage(1);
+      
+      if (autoplayInterval > 0) {
+        new Timer.periodic(new Duration(milliseconds: autoplayInterval), (_) {
+          onNextIconClicked();
+        });
+      }
+    });
   }
   
   void dataChanged() {
@@ -147,9 +149,9 @@ class CarouselComponent extends PolymerElement {
     CUSTOM_TEMPLATES = toObservable({
       r'${carousel:selectButton}':
         r'''
-          <a href="#" title="View Detail" class="select-button">
+          <span title="View Detail" class="select-button">
             <span></span>
-          </a>
+          </span>
         ''',
       r'${carousel:totalCount}':
         '${data.length}'
@@ -207,21 +209,23 @@ class CarouselComponent extends PolymerElement {
     
     animation.animate($['item-list'], properties: animationProperties, duration: 500);
     
-    if (data.any((Object item) => item is TabModel)) {
-      TabModel currentTab = data[currentPage - 1];
-      String currentHeader = currentTab.header;
-      header = currentHeader;
-    }
-    else if (data.any((Object item) => item is ImageModel)) {
-      ImageModel currentImage = data[currentPage - 1];
-      String currentTitle = currentImage.title;
-      String currentAlt = currentImage.alt;
-      
-      if (currentTitle != '') {
-        header = currentTitle;
+    if (data != null) {
+      if (data.any((Object item) => item is TabModel)) {
+        TabModel currentTab = data[currentPage - 1];
+        String currentHeader = currentTab.header;
+        header = currentHeader;
       }
-      else {
-        header = currentAlt;
+      else if (data.any((Object item) => item is ImageModel)) {
+        ImageModel currentImage = data[currentPage - 1];
+        String currentTitle = currentImage.title;
+        String currentAlt = currentImage.alt;
+        
+        if (currentTitle != '') {
+          header = currentTitle;
+        }
+        else {
+          header = currentAlt;
+        }
       }
     }
   }

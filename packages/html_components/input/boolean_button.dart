@@ -26,7 +26,7 @@ class BooleanButtonComponent extends PolymerElement {
   void onButtonClicked() {
     pressed = !pressed;
     
-    this.dispatchEvent(new Event('valueChanged'));
+    this.dispatchEvent(new Event('valuechanged'));
   }
   
 }

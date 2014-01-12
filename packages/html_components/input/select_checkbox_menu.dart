@@ -76,7 +76,7 @@ class SelectCheckboxMenuComponent extends PolymerElement {
       selectAll();
     }
     
-    this.dispatchEvent(new Event('selectionChanged'));
+    this.dispatchEvent(new Event('selectionchanged'));
   }
   
   void onSelectItemClicked(MouseEvent event, var detail, Element target) {
@@ -89,7 +89,7 @@ class SelectCheckboxMenuComponent extends PolymerElement {
       select(selectItem);
     }
     
-    this.dispatchEvent(new Event('selectionChanged'));
+    this.dispatchEvent(new Event('selectionchanged'));
   }
   
   void selectAll() {

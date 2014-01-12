@@ -1,0 +1,41 @@
+<link rel="import" href="packages/html_components/input/autocomplete.html">
+
+<polymer-element name="autocomplete-demo">
+  <template>
+    <link rel="stylesheet" href="autocomplete.css">
+    
+    <h1>Autocomplete</h1>
+    
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    
+    <h4>String suggestions from client side</h4>
+    <h-autocomplete maxResults="5" delay="1000" data="{{playerNames}}" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
+    
+    <h4>Object suggestions from client side without an item template</h4>
+    <h-autocomplete property="name" maxResults="5" delay="1000" data="{{players}}" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
+    
+    <h4>Object suggestions from client side with an item template</h4>
+    <h-autocomplete property="name" maxResults="5" delay="1000" data="{{players}}" on-valuechanged="{{onValueChangedFired}}">
+      <span>
+        <img src="img/players/${imagePath}" alt="${name}">
+        ${name} - ${number}
+      </span>
+    </h-autocomplete>
+    
+    <h4>String suggestions from a JSON web service <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h-autocomplete source="http://localhost:9090/autocomplete/string" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
+    
+    <h4>String suggestions from a JSON web service without an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h-autocomplete source="http://localhost:9090/autocomplete/object" property="name" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
+    
+    <h4>String suggestions from a JSON web service with an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h-autocomplete source="http://localhost:9090/autocomplete/object" property="name" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}">
+      <span>
+        <img src="img/players/${imagePath}" alt="${name}">
+        ${name} - ${number}
+      </span>
+    </h-autocomplete>
+  </template>
+  
+  <script type="application/dart" src="autocomplete.dart"></script>
+</polymer-element>

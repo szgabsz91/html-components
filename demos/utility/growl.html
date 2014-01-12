@@ -1,0 +1,35 @@
+<link rel="import" href="packages/html_components/utility/growl_message.html">
+<link rel="import" href="packages/html_components/utility/growl.html">
+
+<polymer-element name="growl-demo">
+  <template>
+    <h1>Growl</h1>
+    
+    <form class="form-horizontal form-narrow" role="form">
+      <div class="form-group">
+        <label for="summary">Summary</label>
+        <input id="summary" type="text" class="form-control" value="{{summary}}" placeholder="Summary" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="detail">Detail</label>
+        <input id="detail" type="text" class="form-control" value="{{detail}}" placeholder="Password" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="severity">Severity</label>
+        <select id="severity" class="form-control" value="{{severity}}">
+          <option value="info">Info</option>
+          <option value="warn">Warn</option>
+          <option value="error">Error</option>
+          <option value="fatal">Fatal</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" on-click="{{onPostButtonClicked}}">Post</button>
+    </form>
+    
+    <h-growl lifetime="5000">
+      <h-growl-message summary="Message summary" detail="Message detail"></h-growl-message>
+    </h-growl>
+  </template>
+  
+  <script type="application/dart" src="growl.dart"></script>
+</polymer-element>

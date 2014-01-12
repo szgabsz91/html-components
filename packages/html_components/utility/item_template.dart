@@ -47,6 +47,18 @@ class ItemTemplateComponent extends PolymerElement {
     return record;
   }
   
+  void templateChanged() {
+    if (loaded) {
+      _refresh();
+    }
+  }
+  
+  void modelChanged() {
+    if (loaded) {
+      _refresh();
+    }
+  }
+  
   void customTemplatesChanged() {
     if (loaded) {
       _refresh();
@@ -54,7 +66,7 @@ class ItemTemplateComponent extends PolymerElement {
   }
   
   void _refresh() {
-    if (template == '' || model == null) {
+    if (template == null || template == '' || model == null) {
       return;
     }
     

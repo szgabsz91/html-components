@@ -26,19 +26,21 @@ class GalleryComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    List<ImageElement> imageElements = $['hidden'].querySelector('content').getDistributedNodes();
-    ImageElement firstImage = imageElements[0];
-    
-    imageWidth = firstImage.width;
-    imageHeight = firstImage.height;
-    
-    imageElements.forEach((ImageElement image) {
-      images.add(new ImageModel(image.src, image.alt, image.title, 0.0));
+    new Timer(const Duration(milliseconds: 500), () {
+      List<ImageElement> imageElements = $['hidden'].querySelector('content').getDistributedNodes();
+      ImageElement firstImage = imageElements[0];
+      
+      imageWidth = firstImage.width;
+      imageHeight = firstImage.height;
+      
+      imageElements.forEach((ImageElement image) {
+        images.add(new ImageModel(image.src, image.alt, image.title, 0.0));
+      });
+      
+      $['hidden'].remove();
+      
+      start();
     });
-    
-    $['hidden'].remove();
-    
-    scheduleMicrotask(start);
   }
   
   void showNext() {

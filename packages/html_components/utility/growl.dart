@@ -27,7 +27,8 @@ class GrowlComponent extends PolymerElement {
     });
   }
   
-  void addMessage(GrowlMessageModel growlMessage, {bool prepend: false}) {
+  // Exception: type 'GrowlMessageModel' is not a subtype of type 'GrowlMessageModel' of 'growlMessage'.
+  void addMessage(var growlMessage, {bool prepend: false}) {
     if (prepend) {
       growlMessages.insert(0, growlMessage);
     }
@@ -42,8 +43,15 @@ class GrowlComponent extends PolymerElement {
     }
   }
   
-  void removeMessage(GrowlMessageModel growlMessage) {
-    growlMessages.remove(growlMessage);
+// Exception: type 'GrowlMessageModel' is not a subtype of type 'GrowlMessageModel' of 'growlMessage'.
+  void removeMessage(var growlMessage) {
+    int index = growlMessages.indexOf(growlMessage);
+    
+    this.shadowRoot.querySelectorAll('h-growl-message')[index].onClosing();
+    
+    new Timer(const Duration(milliseconds: GrowlMessageComponent.ANIMATION_DURATION), () {
+      growlMessages.remove(growlMessage);
+    });
   }
   
   void onGrowlMessageClosed(Event event, var detail, GrowlMessageComponent target) {

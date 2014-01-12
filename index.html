@@ -1,91 +1,206 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>HTML Components</title>
-    <script type="application/dart">export 'package:polymer/init.dart';</script>
-    <script src="packages/browser/dart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Gabor Szabo">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <link rel="import" href="demos/index.html">
+    
+    <!-- dialog components -->
+    <link rel="import" href="demos/dialog/confirmation_dialog.html">
+    <link rel="import" href="demos/dialog/dialog.html">
+    
+    <!-- input components -->
+    <link rel="import" href="demos/input/autocomplete.html">
+    <link rel="import" href="demos/input/boolean_button.html">
+    <link rel="import" href="demos/input/masked_input.html">
+    <link rel="import" href="demos/input/rating.html">
+    <link rel="import" href="demos/input/select_button.html">
+    <link rel="import" href="demos/input/select_checkbox_menu.html">
+    
+    <!-- menu components -->
+    <link rel="import" href="demos/menu/breadcrumb.html">
+    <link rel="import" href="demos/menu/context_menu.html">
+    <link rel="import" href="demos/menu/menu_button.html">
+    <link rel="import" href="demos/menu/menubar.html">
+    <link rel="import" href="demos/menu/split_button.html">
+    
+    <!-- multimedia components -->
+    <link rel="import" href="demos/multimedia/feed_reader.html">
+    <link rel="import" href="demos/multimedia/gallery.html">
+    <link rel="import" href="demos/multimedia/image_compare.html">
+    <link rel="import" href="demos/multimedia/lightbox.html">
+    <link rel="import" href="demos/multimedia/photocam.html">
+    
+    <!-- panel components -->
+    <link rel="import" href="demos/panel/accordion.html">
+    <link rel="import" href="demos/panel/panel.html">
+    <link rel="import" href="demos/panel/tabview.html">
+    
+    <!-- utility components -->
+    <link rel="import" href="demos/utility/clock.html">
+    <link rel="import" href="demos/utility/draggable.html">
+    <link rel="import" href="demos/utility/growl.html">
+    <link rel="import" href="demos/utility/item_template.html">
+    <link rel="import" href="demos/utility/notification_bar.html">
+    <link rel="import" href="demos/utility/resizable.html">
+    <link rel="import" href="demos/utility/safe_html.html">
   </head>
   <body>
-    <h1>Only works in Dartium for now!</h1>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="#!/home">Home</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="data.html#!/data/carousel">Carousel</a></li>
+                <li><a href="data.html#!/data/datagrid">Datagrid</a></li>
+                <li><a href="datatable.html#!/data/datatable">Datatable</a></li>
+                <li><a href="data.html#!/data/listbox">Listbox</a></li>
+                <li><a href="data.html#!/data/picklist">Picklist</a></li>
+                <li><a href="data.html#!/data/tagcloud">Tagcloud</a></li>
+                <li><a href="data.html#!/data/tree">Tree</a></li>
+                <li><a href="data.html#!/data/treetable">Treetable</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dialog <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/dialog/confirmation-dialog">Confirmation Dialog</a></li>
+                <li><a href="#!/dialog/dialog">Dialog</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Input <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/input/autocomplete">Autocomplete</a></li>
+                <li><a href="#!/input/boolean-button">Boolean Button</a></li>
+                <li><a href="#!/input/masked-input">Masked Input</a></li>
+                <li><a href="#!/input/rating">Rating</a></li>
+                <li><a href="#!/input/select-button">Select Button</a></li>
+                <li><a href="#!/input/select-checkbox-menu">Select Checkbox Menu</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/menu/breadcrumb">Breadcrumb</a></li>
+                <li><a href="#!/menu/context-menu">Context Menu</a></li>
+                <li><a href="#!/menu/menu-button">Menu Button</a></li>
+                <li><a href="#!/menu/menubar">Menubar</a></li>
+                <li><a href="#!/menu/split-button">Split Button</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Multimedia <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/multimedia/feed-reader">Feed Reader</a></li>
+                <li><a href="#!/multimedia/gallery">Gallery</a></li>
+                <li><a href="#!/multimedia/image-compare">Image Compare</a></li>
+                <li><a href="#!/multimedia/lightbox">Lightbox</a></li>
+                <li><a href="#!/multimedia/photocam">Photocam</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Panel <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/panel/accordion">Accordion</a></li>
+                <li><a href="#!/panel/panel">Panel</a></li>
+                <li><a href="#!/panel/tabview">Tabview</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utility <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#!/utility/clock">Clock</a></li>
+                <li><a href="#!/utility/draggable">Draggable</a></li>
+                <li><a href="#!/utility/growl">Growl</a></li>
+                <li><a href="#!/utility/item-template">Item Template</a></li>
+                <li><a href="#!/utility/notification-bar">Notification Bar</a></li>
+                <li><a href="#!/utility/resizable">Resizable</a></li>
+                <li><a href="#!/utility/safe-html">Safe Html</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     
-    <ul>
-      <li>
-        Data Components
-        <ul>
-          <li><a href="data_carousel.html">Carousel</a></li>
-          <li><a href="data_datagrid.html">Datagrid</a></li>
-          <li><a href="data_datatable.html">Datatable</a></li>
-          <li><a href="data_listbox.html">Listbox</a></li>
-          <li><a href="data_picklist.html">Picklist</a></li>
-          <li><a href="data_tagcloud.html">Tagcloud</a></li>
-          <li><a href="data_tree.html">Tree</a></li>
-          <li><a href="data_treetable.html">Treetable</a></li>
-        </ul>
-      </li>
+    <div class="container">
+      <div id="content" class="visibility-hidden-children">
+        <index-demo></index-demo>
+        
+        <!-- dialog components -->
+        <confirmation-dialog-demo></confirmation-dialog-demo>
+        <dialog-demo></dialog-demo>
+        
+        <!-- input components -->
+        <autocomplete-demo></autocomplete-demo>
+        <boolean-button-demo></boolean-button-demo>
+        <masked-input-demo></masked-input-demo>
+        <rating-demo></rating-demo>
+        <select-button-demo></select-button-demo>
+        <select-checkbox-menu-demo></select-checkbox-menu-demo>
+        
+        <!-- menu components -->
+        <breadcrumb-demo></breadcrumb-demo>
+        <context-menu-demo></context-menu-demo>
+        <img id="image" src="img/nature/nature1.jpg" alt="Nature">
+        <menu-button-demo></menu-button-demo>
+        <menubar-demo></menubar-demo>
+        <split-button-demo></split-button-demo>
+        
+        <!-- multimedia components -->
+        <feed-reader-demo></feed-reader-demo>
+        <gallery-demo></gallery-demo>
+        <image-compare-demo></image-compare-demo>
+        <lightbox-demo></lightbox-demo>
+        <photocam-demo></photocam-demo>
+        
+        <!-- panel components -->
+        <accordion-demo></accordion-demo>
+        <panel-demo></panel-demo>
+        <tabview-demo></tabview-demo>
+        
+        <!-- utility components -->
+        <clock-demo></clock-demo>
+        <draggable-demo></draggable-demo>
+        <growl-demo></growl-demo>
+        <item-template-demo></item-template-demo>
+        <notification-bar-demo></notification-bar-demo>
+        <safe-html-demo></safe-html-demo>
+      </div>
+    </div>
+    
+    <!-- cannot be hidden when initialized -->
+    <resizable-demo></resizable-demo>
+    
+    <div class="container">
+      <hr>
       
-      <li>
-        Dialog Components
-        <ul>
-          <li><a href="dialog_confirmation_dialog.html">Confirmation Dialog</a></li>
-          <li><a href="dialog_dialog.html">Dialog</a></li>
-        </ul>
-      </li>
-      
-      <li>
-        Input Components
-        <ul>
-          <li><a href="input_autocomplete.html">Autocomplete</a></li>
-          <li><a href="input_boolean_button.html">Boolean Button</a></li>
-          <li><a href="input_masked_input.html">Masked Input</a></li>
-          <li><a href="input_rating.html">Rating</a></li>
-          <li><a href="input_select_button.html">Select Button</a></li>
-          <li><a href="input_select_checkbox_menu.html">Select Checkbox Menu</a></li>
-        </ul>
-      </li>
-      
-      <li>
-        Menu Components
-        <ul>
-          <li><a href="menu_breadcrumb.html">Breadcrumb</a></li>
-          <li><a href="menu_context_menu.html">Context Menu</a></li>
-          <li><a href="menu_menubar.html">Menubar</a></li>
-          <li><a href="menu_menu_button.html">Menu Button</a></li>
-          <li><a href="menu_split_button.html">Split Button</a></li>
-        </ul>
-      </li>
-      
-      <li>
-        Multimedia Components
-        <ul>
-          <li><a href="multimedia_feed_reader.html">Feed Reader</a></li>
-          <li><a href="multimedia_gallery.html">Gallery</a></li>
-          <li><a href="multimedia_image_compare.html">Image Compare</a></li>
-          <li><a href="multimedia_lightbox.html">Lightbox</a></li>
-          <li><a href="multimedia_photocam.html">Photocam</a></li>
-        </ul>
-      </li>
-      
-      <li>
-        Panel Components
-        <ul>
-          <li><a href="panel_accordion.html">Accordion</a></li>
-          <li><a href="panel_panel.html">Panel</a></li>
-          <li><a href="panel_tabview.html">Tabview</a></li>
-        </ul>
-      </li>
-      
-      <li>
-        Utility Components
-        <ul>
-          <li><a href="utility_clock.html">Clock</a></li>
-          <li><a href="utility_draggable.html">Draggable</a></li>
-          <li><a href="utility_growl.html">Growl</a></li>
-          <li><a href="utility_item_template.html">Item Template</a></li>
-          <li><a href="utility_notification_bar.html">Notification Bar</a></li>
-          <li><a href="utility_resizable.html">Resizable</a></li>
-          <li><a href="utility_safe_html.html">Safe HTML</a></li>
-        </ul>
-      </li>
-    </ul>
+      <footer>
+        <p>&copy; Gabor Szabo <script>document.write(new Date().getFullYear());</script></p>
+      </footer>
+    </div>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <script src="packages/browser/dart.js"></script>
+    <script type="application/dart" src="index.dart"></script>
   </body>
 </html>

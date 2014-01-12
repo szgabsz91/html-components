@@ -27,9 +27,9 @@ class DatagridComponent extends PolymerElement {
   @observable Map<String, String> CUSTOM_TEMPLATES = toObservable({
     r'${datagrid:selectButton}':
       r'''
-        <a href="#" title="View Detail" class="select-button">
+        <span title="View Detail" class="select-button">
           <span></span>
-        </a>
+        </span>
       '''
   });
   

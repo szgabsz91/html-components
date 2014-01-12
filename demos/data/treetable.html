@@ -1,0 +1,59 @@
+<link rel="import" href="packages/html_components/data/column.html">
+<link rel="import" href="packages/html_components/data/treetable.html">
+
+<polymer-element name="treetable-demo">
+  <template>
+    <link rel="stylesheet" href="treetable.css">
+    
+    <h1>Treetable</h1>
+    
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    
+    <h4>Client Side Data and Single Selection</h4>
+    <h-treetable root="{{documentRoot}}" selection="single" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-columnresized="{{onColumnResized}}">
+      <header>Document Viewer</header>
+      
+      <h-column>
+        <header>Name</header>
+        <span>${name}</span>
+        <footer>Name</footer>
+      </h-column>
+      
+      <h-column textAlign="right">
+        <header>Size</header>
+        <span>${size}</span>
+        <footer>Size</footer>
+      </h-column>
+      
+      <h-column>
+        <header>Type</header>
+        <span>${type}</span>
+        <footer>Type</footer>
+      </h-column>
+      
+      <footer>Document Viewer</footer>
+    </h-treetable>
+    
+    <h4>Server Side Data, Multiple Selection and Resizable Columns <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h-treetable source="http://localhost:9090/treetable/documents" selection="multiple" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-columnresized="{{onColumnResized}}">
+      <header>Document Viewer</header>
+      
+      <h-column resizable>
+        <header>Name</header>
+        <span>${name}</span>
+      </h-column>
+      
+      <h-column textAlign="right" resizable>
+        <header>Size</header>
+        <span>${size}</span>
+      </h-column>
+      
+      <h-column resizable>
+        <header>Type</header>
+        <span>${type}</span>
+      </h-column>
+    </h-treetable>
+  </template>
+  
+  <script type="application/dart" src="treetable.dart"></script>
+</polymer-element>

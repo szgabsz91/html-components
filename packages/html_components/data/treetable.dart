@@ -8,6 +8,8 @@ import 'treetable/data.dart';
 import 'treetable/template.dart';
 import '../common/null_tree_sanitizer.dart';
 
+// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
+
 @CustomTag('h-treetable')
 class TreetableComponent extends PolymerElement {
   
@@ -72,7 +74,7 @@ class TreetableComponent extends PolymerElement {
       }
       
       _insertMessage("Loading...", null, 0);
-      _dataFetcher.fetchNodes(null).then((List<TreeNode> treeNodes) {
+      _dataFetcher.fetchNodes(null).then((List treeNodes) {
         _removeMessages();
         _insertTreeNodes(treeNodes, null, 0);
       }).catchError((Object error) => print("An error occured: $error"));
@@ -108,7 +110,7 @@ class TreetableComponent extends PolymerElement {
     _columnResizer.resizingColumn = null;
     document.body.style.cursor = "auto";
     
-    this.dispatchEvent(new Event('columnResized'));
+    this.dispatchEvent(new Event('columnresized'));
   }
   
   void _onKeyDown(KeyboardEvent event) {
@@ -125,7 +127,7 @@ class TreetableComponent extends PolymerElement {
     }
   }
   
-  void _onMouseOverRow(MouseEvent event, TreeNode node) {
+  void _onMouseOverRow(MouseEvent event, var node) {
     if (selection == "none") {
       return;
     }
@@ -138,7 +140,7 @@ class TreetableComponent extends PolymerElement {
     target.classes.add("hover");
   }
   
-  void _onMouseOutRow(MouseEvent event, TreeNode node) {
+  void _onMouseOutRow(MouseEvent event, var node) {
     if (selection == "none") {
       return;
     }
@@ -147,7 +149,7 @@ class TreetableComponent extends PolymerElement {
     target.classes.remove("hover");
   }
   
-  void _onRowClicked(MouseEvent event, TreeNode node) {
+  void _onRowClicked(MouseEvent event, var node) {
     if (selection == 'none') {
       return;
     }
@@ -199,7 +201,7 @@ class TreetableComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('selected', detail: node.data));
   }
   
-  void _toggleNode(TreeNode node, MouseEvent event) {
+  void _toggleNode(var node, MouseEvent event) {
     SpanElement target = event.target;
     
     if (node.expanded) {
@@ -210,7 +212,7 @@ class TreetableComponent extends PolymerElement {
     }
   }
   
-  void _expandNode(TreeNode node, Element element) {
+  void _expandNode(var node, Element element) {
     element.classes
       ..remove("triangle-1-e")
       ..add("triangle-1-s");
@@ -226,7 +228,7 @@ class TreetableComponent extends PolymerElement {
     if (nextLevel <= level) {
       _insertMessage("Loading...", row, level + 1);
       
-      _dataFetcher.fetchNodes(node).then((List<TreeNode> treeNodes) {
+      _dataFetcher.fetchNodes(node).then((List treeNodes) {
         _removeMessages();
         
         _insertTreeNodes(treeNodes, row, level + 1);
@@ -248,7 +250,7 @@ class TreetableComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('expanded', detail: node.data));
   }
   
-  void _collapseNode(TreeNode node, Element element) {
+  void _collapseNode(var node, Element element) {
     element.classes
       ..remove("triangle-1-s")
       ..add("triangle-1-e");
@@ -296,10 +298,10 @@ class TreetableComponent extends PolymerElement {
     this.shadowRoot.querySelectorAll(".message").forEach((TableRowElement row) => row.remove());
   }
   
-  void _insertTreeNodes(List<TreeNode> treeNodes, Element previousElement, int level) {
+  void _insertTreeNodes(List treeNodes, Element previousElement, int level) {
     List<TableRowElement> newRows = [];
     
-    treeNodes.forEach((TreeNode treeNode) {
+    treeNodes.forEach((var treeNode) {
       TableRowElement row = new TableRowElement();
       row
         ..attributes["data-level"] = "$level"

@@ -20,6 +20,7 @@ class SafeHtmlComponent extends PolymerElement {
   
   void _refresh() {
     String substitutedString = getSubstitutedString();
+    
     Element element = new Element.html('<span>${substitutedString}</span>', treeSanitizer: new NullTreeSanitizer());
     
     this.shadowRoot.children

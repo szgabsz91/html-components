@@ -3,6 +3,8 @@ import 'tree_node.dart';
 import '../tree_node/model.dart';
 import '../../common/reflection.dart' as reflection;
 
+// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
+
 class TreeTemplateManager {
   
   String _template;
@@ -39,7 +41,7 @@ class TreeTemplateManager {
     return record;
   }
   
-  LIElement getTreeNode(TreeNode node, TreeNodeModel treeNodeModel, void expandCallback(TreeNode node, MouseEvent event), void clickCallback(TreeNode node, MouseEvent event)) {
+  LIElement getTreeNode(var node, TreeNodeModel treeNodeModel, void expandCallback(var node, MouseEvent event), void clickCallback(var node, MouseEvent event)) {
     String base = getSubstitutedString(node.data);
     
     LIElement nodeElement = new LIElement();

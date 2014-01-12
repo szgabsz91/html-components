@@ -22,7 +22,9 @@ class SelectItemComponent extends PolymerElement {
     
     scheduleMicrotask(() {
       if (selected) {
-        $['container'].classes.add('selected');
+        $['container'].classes
+          ..remove('hover')
+          ..add('selected');
       }
       else {
         $['container'].classes.remove('selected');

@@ -17,7 +17,9 @@ class RatingComponent extends PolymerElement {
   @override
   void enteredView() {
     super.enteredView();
-    
+  }
+  
+  void starsChanged() {
     indices = new Iterable<int>.generate(stars, (int i) => i + 1).toList(growable: false);
   }
   
@@ -32,7 +34,7 @@ class RatingComponent extends PolymerElement {
   void onCancelClicked() {
     value = 0;
     
-    this.dispatchEvent(new Event('valueChanged'));
+    this.dispatchEvent(new Event('valuechanged'));
   }
   
   void onStarClicked(MouseEvent event, var detail, Element target) {
@@ -42,6 +44,6 @@ class RatingComponent extends PolymerElement {
     
     value = target.parent.children.indexOf(target) - 1;
     
-    this.dispatchEvent(new Event('valueChanged'));
+    this.dispatchEvent(new Event('valuechanged'));
   }
 }

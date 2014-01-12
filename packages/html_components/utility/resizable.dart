@@ -1,5 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
+import 'dart:async';
 import 'package:animation/animation.dart' as animation;
 
 @CustomTag('h-resizable')
@@ -28,19 +29,29 @@ class ResizableComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    Element ghostElement = _content.clone(true);
-    ghostElement.id = 'ghost';
-    $['container'].children.insert(1, ghostElement);
+    if (currentWidth > 0) {
+      return;
+    }
+    
+    new Timer(const Duration(milliseconds: 100), () {
+      Element ghostElement = _content.clone(true);
+      ghostElement.id = 'ghost';
+      $['container'].children.insert(1, ghostElement);
+      _refreshGhost();
+      
+      currentWidth = _content.clientWidth;
+      currentHeight = _content.clientHeight;
+      
+      ratio = currentWidth / currentHeight;
+      
+      _refreshView();
+      document.body.onMouseMove.listen(onResizing);
+      document.body.onMouseUp.listen(onResizeStopped);
+    });
+  }
+  
+  void ghostChanged() {
     _refreshGhost();
-    
-    currentWidth = _content.clientWidth;
-    currentHeight = _content.clientHeight;
-    
-    ratio = currentWidth / currentHeight;
-    
-    _refreshView();
-    document.body.onMouseMove.listen(onResizing);
-    document.body.onMouseUp.listen(onResizeStopped);
   }
   
   void onResizeStarted(MouseEvent event) {

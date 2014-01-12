@@ -1,3 +1,10 @@
+@host {
+  * {
+    display: block;
+    width: 150px;
+  }
+}
+
 input[type="text"] {
   font-weight: normal;
   background: #ffffff;
@@ -13,4 +20,5 @@ input[type="text"] {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  width: 100%;
 }

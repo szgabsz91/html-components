@@ -1,0 +1,19 @@
+<link rel="import" href="packages/html_components/menu/menu_item.html">
+<link rel="import" href="packages/html_components/menu/breadcrumb.html">
+
+<polymer-element name="breadcrumb-demo">
+  <template>
+    <h1>Breadcrumb</h1>
+    
+    <div class="alert alert-danger"><b>Warning!</b> This component does not work properly yet!</div>
+    
+    <h-breadcrumb>
+      <h-menu-item icon="home">Home</h-menu-item>
+      <h-menu-item icon="document">Document</h-menu-item>
+      <h-menu-item>References</h-menu-item>
+      <h-menu-item icon="extlink" url="/" target="_blank">Google I/O</h-menu-item>
+    </h-breadcrumb>
+  </template>
+  
+  <script type="application/dart" src="breadcrumb.dart"></script>
+</polymer-element>

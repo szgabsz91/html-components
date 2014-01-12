@@ -1,0 +1,18 @@
+<link rel="import" href="packages/html_components/utility/notification_bar.html">
+
+<polymer-element name="notification-bar-demo">
+  <template>
+    <link rel="stylesheet" href="notification_bar.css">
+    
+    <h1>Notification Bar</h1>
+    
+    <h-notification-bar id="notification-bar">
+      <h1>HTML Components Rock!</h1>
+    </h-notification-bar>
+    
+    <button class="btn btn-success" on-click="{{onShowButtonClicked}}">Show</button>
+    <button class="btn btn-danger" on-click="{{onHideButtonClicked}}">Hide</button>
+  </template>
+  
+  <script type="application/dart" src="notification_bar.dart"></script>
+</polymer-element>

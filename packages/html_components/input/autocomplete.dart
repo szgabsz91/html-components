@@ -155,7 +155,7 @@ class AutocompleteComponent extends PolymerElement {
     suggestions.clear();
     $['suggestion-container'].classes.add('hidden');
     
-    this.dispatchEvent(new Event('valueChanged'));
+    this.dispatchEvent(new Event('valuechanged'));
   }
   
   void _refreshSuggestionFetcher() {

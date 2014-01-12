@@ -5,6 +5,8 @@ import 'package:animation/animation.dart' as animation;
 @CustomTag('h-notification-bar')
 class NotificationBarComponent extends PolymerElement {
   
+  @published int z = 2000;
+  
   bool _visible = false;
   int _contentHeight = 0;
   

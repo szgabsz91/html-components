@@ -198,7 +198,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
     _columnResizer.resizingColumn = null;
     document.body.style.cursor = "auto";
     
-    this.dispatchEvent(new Event('columnResized'));
+    this.dispatchEvent(new Event('columnresized'));
   }
   
   void _onKeyDown(KeyboardEvent event) {
@@ -423,7 +423,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
       expansionRow.style.display = "none";
     }
     
-    this.dispatchEvent(new Event('rowToggled'));
+    this.dispatchEvent(new Event('rowtoggled'));
   }
   
   Sort getSortByColumn(ColumnModel column) {

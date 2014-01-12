@@ -78,7 +78,7 @@ class SelectButtonComponent extends PolymerElement {
       }
     }
     
-    this.dispatchEvent(new Event('selectionChanged'));
+    this.dispatchEvent(new Event('selectionchanged'));
   }
   
 }

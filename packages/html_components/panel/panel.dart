@@ -55,6 +55,38 @@ class PanelComponent extends PolymerElement {
     }
   }
   
+  void open() {
+    Map<String, Object> animationProperties = {
+      'height': _contentHeight,
+      'padding-top': 5,
+      'padding-bottom': 5
+    };
+    
+    animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
+      collapsed = false;
+      $['content'].style.overflow = 'auto';
+      this.dispatchEvent(new CustomEvent('toggled', detail: 'VISIBLE'));
+    });
+  }
+  
+  void collapse() {
+    if (_contentHeight == 0) {
+      _refreshContentHeight();
+    }
+    
+    Map<String, Object> animationProperties = {
+      'height': 0,
+      'padding-top': 0,
+      'padding-bottom': 0
+    };
+    
+    $['content'].style.overflow = 'hidden';
+    animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
+      collapsed = true;
+      this.dispatchEvent(new CustomEvent('toggled', detail: 'HIDDEN'));
+    });
+  }
+  
   void onButtonMouseOver(MouseEvent event, var detail, Element target) {
     target.classes.add('hover');
   }
@@ -77,41 +109,19 @@ class PanelComponent extends PolymerElement {
     
     animation.animate($['container'], properties: animationProperties, duration: 500);
     animation.animate(this, properties: animationProperties, duration: 500).onComplete.listen((_) {
-      this.remove();
       this.dispatchEvent(new Event('closed'));
+      this.remove();
     });
   }
   
   void onToggled(MouseEvent event) {
+    event.preventDefault();
+    
     if (collapsed) {
-      Map<String, Object> animationProperties = {
-        'height': _contentHeight,
-        'padding-top': 5,
-        'padding-bottom': 5
-      };
-      
-      animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
-        collapsed = false;
-        $['content'].style.overflow = 'auto';
-        this.dispatchEvent(new CustomEvent('toggled', detail: 'VISIBLE'));
-      });
+      open();
     }
     else {
-      if (_contentHeight == 0) {
-        _refreshContentHeight();
-      }
-      
-      Map<String, Object> animationProperties = {
-        'height': 0,
-        'padding-top': 0,
-        'padding-bottom': 0
-      };
-      
-      $['content'].style.overflow = 'hidden';
-      animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
-        collapsed = true;
-        this.dispatchEvent(new CustomEvent('toggled', detail: 'HIDDEN'));
-      });
+      collapse();
     }
   }
   

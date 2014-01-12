@@ -8,6 +8,8 @@ import 'tree/tree_node.dart';
 
 export 'tree/tree_node.dart';
 
+// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
+
 @CustomTag('h-tree')
 class TreeComponent extends PolymerElement {
   
@@ -43,11 +45,8 @@ class TreeComponent extends PolymerElement {
       _templateManagers[null] = new TreeTemplateManager('');
     }
     else {
-      
       treeNodes.forEach((TreeNodeComponent treeNode) {
         TreeNodeModel treeNodeModel = treeNode.model;
-        
-        print(treeNodeModel);
         
         _templateManagers[treeNodeModel.type] = new TreeTemplateManager(treeNode.innerHtml);
         _treeNodeModels[treeNodeModel.type] = treeNodeModel;
@@ -56,7 +55,7 @@ class TreeComponent extends PolymerElement {
     
     $['node-container'].text = 'Loading...';
     
-    _dataFetcher.fetchNodes(null).then((List<TreeNode> treeNodes) {
+    _dataFetcher.fetchNodes(null).then((List treeNodes) {
       $['node-container'].text = '';
       _insertTreeNodes($['node-container'], treeNodes);
     }).catchError((Object error) => print("An error occured: $error"));
@@ -81,7 +80,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _toggleNode(TreeNode node, MouseEvent event) {
+  void _toggleNode(var node, MouseEvent event) {
     SpanElement target = event.target;
     
     if (node.expanded) {
@@ -92,7 +91,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _expandNode(TreeNode node, Element element) {
+  void _expandNode(var node, Element element) {
     this.dispatchEvent(new CustomEvent('expanded', detail: node.data));
     
     element.classes
@@ -106,7 +105,7 @@ class TreeComponent extends PolymerElement {
     if (childContainer.children.isEmpty) {
       loadIcon.classes.add("loading");
       
-      _dataFetcher.fetchNodes(node).then((List<TreeNode> treeNodes) {
+      _dataFetcher.fetchNodes(node).then((List treeNodes) {
         loadIcon.classes.remove("loading");
         
         if (nodeIcon != null) {
@@ -214,7 +213,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _collapseNode(TreeNode node, Element element) {
+  void _collapseNode(var node, Element element) {
     this.dispatchEvent(new CustomEvent('collapsed', detail: node.data));
     
     element.classes
@@ -303,7 +302,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _onClicked(TreeNode node, MouseEvent event) {
+  void _onClicked(var node, MouseEvent event) {
     Element target = event.target;
     
     if (selection == "multiple") {
@@ -343,10 +342,10 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _insertTreeNodes(Element parent, List<TreeNode> treeNodes) {
+  void _insertTreeNodes(Element parent, List treeNodes) {
     parent.children.clear();
     
-    treeNodes.forEach((TreeNode node) {
+    treeNodes.forEach((var node) {
       TreeTemplateManager templateManager = _templateManagers[node.type];
       TreeNodeModel treeNodeModel = _treeNodeModels[node.type];
       
