@@ -48,7 +48,7 @@
   background-position: 0 -48px;
 }
 
-a.ui-state-disabled {
+div#container.disabled a, div#container.readonly a {
   cursor: default !important;
 }
 
