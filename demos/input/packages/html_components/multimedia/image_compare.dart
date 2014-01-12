@@ -20,14 +20,22 @@ class ImageCompareComponent extends PolymerElement {
     super.enteredView();
     
     new Timer(const Duration(milliseconds: 500), () {
-      ImageElement beforeImage = $['before-container'].querySelector('content').getDistributedNodes().first;
-      ImageElement afterImage = $['after-container'].querySelector('content').getDistributedNodes().first;
+      void init() {
+        ImageElement beforeImage = $['before-container'].querySelector('content').getDistributedNodes().first;
+        ImageElement afterImage = $['after-container'].querySelector('content').getDistributedNodes().first;
+        
+        imageWidth = beforeImage.clientWidth;
+        imageHeight = beforeImage.clientHeight;
+        draggablePosition = (imageWidth / 2).floor();
+        
+        $['handle-container'].onDragStart.listen((MouseEvent event) => event.preventDefault());
+        
+        if (imageWidth == 0) {
+          new Timer(const Duration(milliseconds: 500), init);
+        }
+      }
       
-      imageWidth = beforeImage.clientWidth;
-      imageHeight = beforeImage.clientHeight;
-      draggablePosition = (imageWidth / 2).floor();
-      
-      $['handle-container'].onDragStart.listen((MouseEvent event) => event.preventDefault());
+      init();
     });
   }
   
