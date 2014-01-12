@@ -1,0 +1,20 @@
+<polymer-element name="h-boolean-button">
+  <template>
+    <link rel="stylesheet" href="boolean_button.css">
+    
+    <div id="container" class="{{ {'icon': showIcon, 'pressed': pressed} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+      <template if="{{showIcon}}">
+        <span class="{{ {'icon-check': pressed, 'icon-close': !pressed} }}"></span>
+      </template>
+      
+      <template if="{{pressed}}">
+        <span class="label">{{labelOn}}</span>
+      </template>
+      <template if="{{!pressed}}">
+        <span class="label">{{labelOff}}</span>
+      </template>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="boolean_button.dart"></script>
+</polymer-element>

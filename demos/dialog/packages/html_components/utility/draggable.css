@@ -1,0 +1,9 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+#container {
+  position: relative;
+}

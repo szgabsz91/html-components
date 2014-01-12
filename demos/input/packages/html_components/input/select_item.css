@@ -1,0 +1,65 @@
+#container {
+  margin-left: 0;
+  margin-right: 0;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  color: #4f4f4f;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  display: inline-block;
+  zoom: 1;
+  position: relative;
+  padding: 0;
+  text-decoration: none !important;
+  cursor: pointer;
+  text-align: center;
+  overflow: visible;
+}
+
+.selected {
+  -moz-box-shadow: inset 0px -1px 0px #fff !important;
+  -webkit-box-shadow: inset 0px 1px 0px #fff !important;
+  box-shadow: inset 0px 1px 0px #fff !important;
+  border: 1px solid #7096ab !important;
+  background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0.4))) !important;
+  font-weight: bold !important;
+  color: #1C4257 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+
+span {
+  padding: .4em 1em;
+  display: block;
+  line-height: 1.4;
+}
+
+.hover {
+  -moz-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff !important;
+  -webkit-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff !important;
+  box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff !important;
+  border: 1px solid #7096ab !important;
+  background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0))) !important;
+  font-weight: bold !important;
+  color: #313131 !important;
+}
+
+.corner-left {
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.corner-right {
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

@@ -1,0 +1,26 @@
+<link rel="import" href="../utility/safe_html.html">
+
+<polymer-element name="h-accordion">
+  <template>
+    <link rel="stylesheet" href="accordion.css">
+    
+    <div id="hidden">
+      <content select="h-tab"></content>
+    </div>
+    
+    <div id="container">
+      <template repeat="{{tab in tabs}}">
+        <h3 class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseover="{{onHeaderMouseOver}}" on-mouseout="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
+          <span class="{{ {'icon-triangle-east': tab.selected, 'icon-triangle-south': !tab.selected} }}"></span>
+          <a href="#">{{tab.header}}</a>
+        </h3>
+        
+        <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
+          <h-safe-html content="{{tab.content}}"></h-safe-html>
+        </div>
+      </template>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="accordion.dart"></script>
+</polymer-element>

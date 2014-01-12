@@ -1,0 +1,31 @@
+<link rel="import" href="../utility/item_template.html">
+
+<polymer-element name="h-feed-reader">
+  <template>
+    <link rel="stylesheet" href="feed_reader.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="container">
+      <div id="header">
+        <h4>
+          {{feed.title}}
+          <span on-click="{{onRefreshClicked}}" title="Refresh"></span>
+        </h4>
+      </div>
+      
+      <div>
+        <template repeat="{{item in visibleItems}}">
+          <div class="feed-item">
+            <h-item-template template="{{itemTemplate}}" model="{{item}}"></h-item-template>
+          </div>
+          <br/><hr/><br/>
+        </template>
+      </div>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="feed_reader.dart"></script>
+</polymer-element>

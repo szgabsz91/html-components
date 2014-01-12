@@ -1,0 +1,37 @@
+<polymer-element name="h-paginator">
+  <template>
+    <link rel="stylesheet" href="paginator.css">
+    
+    <div id="container" class="{{position}}">
+      <span>({{currentPage}} of {{totalPages}})</span>
+      
+      <span id="icon-first" class="{{ {'disabled': currentPage == 1} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onFirstPageButtonClicked}}">
+        <span>p</span>
+      </span>
+      
+      <span id="icon-previous" class="{{ {'disabled': currentPage == 1} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onPreviousPageButtonClicked}}">
+        <span>p</span>
+      </span>
+      
+      <span id="page-links">
+        <template repeat="{{page in visiblePageLinks}}">
+          <span class="{{ {'page-link': true, 'selected': currentPage == page} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onPageLinkClicked}}">{{page}}</span>
+        </template>
+      </span>
+      
+      <span id="icon-next" class="{{ {'disabled': currentPage == totalPages} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onNextPageButtonClicked}}">
+        <span>p</span>
+      </span>
+      
+      <span id="icon-last" class="{{ {'disabled': currentPage == totalPages} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onLastPageButtonClicked}}">
+        <span>p</span>
+      </span>
+      
+      <select id="select" selectedIndex="{{selectedRowsPerPageIndex}}">
+        <option template repeat="{{page in rowsPerPage}}">{{page}}</option>
+      </select>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="paginator.dart"></script>
+</polymer-element>

@@ -1,0 +1,24 @@
+<polymer-element name="h-submenu">
+  <template>
+    <link rel="stylesheet" href="submenu.css">
+    
+    <div id="submenu-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
+      <a id="link" href="#" on-click="{{onLabelClicked}}">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">{{label}}</span>
+        <span id="icon-open" class="triangle-1-e"></span>
+      </a>
+      
+      <ul id="child-list" class="drop-left hidden">
+        <li id="child-item">
+          <content></content>
+        </li>
+      </ul>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="submenu.dart"></script>
+</polymer-element>

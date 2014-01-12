@@ -1,0 +1,146 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+#header {
+  border-bottom: 0px none;
+  text-align: center;
+  padding: 4px 10px;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead th {
+  padding: 4px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-width: 1px;
+  border-style: solid;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+}
+
+table th, table tfoot td {
+  text-align: center;
+}
+
+table tbody td {
+  border-color: inherit;
+  padding: 4px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.column-resizer {
+  width: 8px;
+  height: 20px;
+  padding: 0px;
+  cursor: col-resize;
+  margin: -4px -10px -4px 0px;
+  float: right;
+  position: relative;
+}
+
+table tfoot tr td {
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+}
+
+#table-body {
+  border: 1px solid #a8a8a8;
+  background: #ffffff;
+  color: #4f4f4f;
+}
+
+#footer {
+  border-top: 0px none;
+  text-align: center;
+  padding: 4px 10px;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.toggler {
+  float: left;
+  margin-top: 2px !important;
+  margin-right: 2px;
+  cursor: pointer;
+  background-image: url("packages/html_components/resources/icons.png");
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 3px;
+}
+
+.triangle-1-e {
+  background-position: -32px -16px;
+}
+
+.triangle-1-s {
+  background-position: -64px -16px;
+}
+
+.hover {
+  border: 1px solid #7096ab !important;
+  background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0))) !important;
+  color: #313131 !important;
+  -moz-box-shadow: 0 0 5px #85b2cb !important;
+  -webkit-box-shadow: 0px 0px 8px #85b2cb !important;
+  box-shadow: 0px 0px 8px #85b2cb !important;
+  cursor: pointer;
+}
+
+.selected {
+  border: 1px solid #666666;
+  background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+  color: #ffffff;
+  text-shadow: 1px 1px 1px #333333;
+  cursor: pointer;
+}
+
+#hidden {
+  display: none;
+}

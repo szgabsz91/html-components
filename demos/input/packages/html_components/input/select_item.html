@@ -1,0 +1,12 @@
+<polymer-element name="h-select-item">
+  <template>
+    <link rel="stylesheet" href="select_item.css">
+    
+    <!-- class="{{ {'selected': selected} }}" -->
+    <div id="container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
+      <span>{{label}}</span>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="select_item.dart"></script>
+</polymer-element>

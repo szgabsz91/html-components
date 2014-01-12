@@ -1,0 +1,51 @@
+<link rel="import" href="../utility/safe_html.html">
+
+<polymer-element name="h-tabview">
+  <template>
+    <link rel="stylesheet" href="tabview.css">
+    
+    <div id="hidden">
+      <content select="h-tab"></content>
+    </div>
+    
+    <div id="container">
+      <template if="{{orientation == 'top' || orientation == 'left' || orientation == 'right'}}">
+        <ul id="header">
+          <template repeat="{{tab in tabs}}">
+            <li class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseOver="{{onHeaderMouseOver}}" on-mouseOut="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
+              <a href="#">{{tab.header}}</a>
+              <template if="{{tab.closable}}">
+                <span id="close-thick" on-click="{{onCloseThickClicked}}"></span>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </template>
+      
+      <div id="content-container">
+        <template repeat="{{tab in tabs}}">
+          <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
+            <h-safe-html content="{{tab.content}}"></h-safe-html>
+          </div>
+        </template>
+      </div>
+      
+      <template if="{{orientation == 'bottom'}}">
+        <ul id="header">
+          <template repeat="{{tab in tabs}}">
+            <li class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseOver="{{onHeaderMouseOver}}" on-mouseOut="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
+              <a href="#">{{tab.header}}</a>
+              <template if="{{tab.closable}}">
+                <span id="close-thick" on-click="{{onCloseThickClicked}}"></span>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </template>
+      
+      <div id="clear"></div>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="tabview.dart"></script>
+</polymer-element>

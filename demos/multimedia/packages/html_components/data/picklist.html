@@ -1,0 +1,54 @@
+<link rel="import" href="listbox.html">
+
+<polymer-element name="h-picklist">
+  <template>
+    <link rel="stylesheet" href="picklist.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <table id="picklist-container">
+      <tbody>
+        <tr>
+          <td>
+            <h-listbox sidebarPosition="{{sourceSidebarPosition}}" selection="{{selection}}"
+                       width="{{width}}" height="{{height}}"
+                       data="{{data}}" selectedItems="{{sourceSelectedItems}}"
+                       header="{{sourceHeader}}" template="{{template}}">
+            </h-listbox>
+          </td>
+          
+          <td>
+            <button disabled?="{{sourceSelectedItems.isEmpty}}" title="{{addLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onAddButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{data.isEmpty}}" title="{{addAllLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onAddAllButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{targetSelectedItems.isEmpty}}" title="{{removeLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onRemoveButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{pickedItems.isEmpty}}" title="{{removeAllLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onRemoveAllButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+          </td>
+          
+          <td>
+            <h-listbox sidebarPosition="{{targetSidebarPosition}}" selection="{{selection}}"
+                       width="{{width}}" height="{{height}}"
+                       data="{{pickedItems}}" selectedItems="{{targetSelectedItems}}"
+                       header="{{targetHeader}}" template="{{template}}">
+            </h-listbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+  
+  <script type="application/dart" src="picklist.dart"></script>
+</polymer-element>

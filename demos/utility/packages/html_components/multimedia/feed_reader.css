@@ -1,0 +1,39 @@
+#header {
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 0px 10px;
+}
+
+#header h4 span {
+  background-image: url("packages/html_components/resources/icons.png");
+  display: inline-block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-position: -160px -64px;
+}
+
+#item-container {
+  feed-item-container
+}
+
+.feed-item {
+  padding: 0 50px 0 50px;
+}
+
+#hidden {
+  display: none;
+}

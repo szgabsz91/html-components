@@ -1,0 +1,53 @@
+<link rel="import" href="../utility/item_template.html">
+<link rel="import" href="../utility/safe_html.html">
+
+<polymer-element name="h-carousel">
+  <template>
+    <link rel="stylesheet" href="carousel.css">
+    
+    <div id="hidden" class="hidden">
+      <content></content>
+    </div>
+    
+    <div id="container" style="width:{{itemWidth * visibleItems + visibleItems * 4}}px">
+      <div id="header">
+        <div id="title">{{header}}</div>
+        
+        <span id="next-page-icon" class="{{ {'disabled': currentPage == totalPages && !circular} }}" on-click="{{onNextIconClicked}}"></span>
+        <span id="previous-page-icon" class="{{ {'disabled': currentPage == 1 && !circular} }}" on-click="{{onPreviousIconClicked}}"></span>
+        
+        <template if="{{pageLinks >= totalPages}}">
+          <div id="page-links-container">
+            <template repeat="{{page in pageIndices}}">
+              <a href="#" class="{{ {'page-link': true, 'on': currentPage == page, 'off': currentPage != page} }}" on-click="{{onPageLinkClicked}}"></a>
+            </template>
+          </div>
+        </template>
+        
+        <template if="{{pageLinks < totalPages}}">
+          <select selectedIndex="{{currentPage - 1}}" on-change="{{onPageSelected}}">
+            <option template repeat="{{page in pageIndices}}">{{page}}</option>
+          </select>
+        </template>
+      </div>
+      
+      <div id="viewport" style="width:{{itemWidth * visibleItems + visibleItems * 4}}px; height:{{itemHeight}}px">
+        <ul id="item-list">
+          <template repeat="{{item in data}}">
+            <li on-click="{{onItemClicked}}" style="width:{{itemWidth}}px; height:{{itemHeight}}px">
+              <h-item-template template="{{template}}" model="{{item}}" customTemplates="{{CUSTOM_TEMPLATES}}"></h-item-template>
+            </li>
+          </template>
+        </ul>
+      </div>
+      
+      <template if="{{footer != null}}">
+        <div id="footer">
+          <h-safe-html content="{{footer}}" customTemplates="{{CUSTOM_TEMPLATES}}"></h-safe-html>
+        </div>
+      </template>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="carousel.dart"></script>
+</polymer-element>
