@@ -1,0 +1,32 @@
+<polymer-element name="h-photocam">
+  <template>
+    <link rel="stylesheet" href="photocam.css">
+    
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <video id="video" autoplay class="{{effect}}" style="width:{{width}}px; height:{{height}}px"></video>
+          </td>
+          <td>
+            <button class="{{ {'button': true, 'disabled': started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onStartButtonClicked}}">
+              <span>Start</span>
+            </button>
+            <button class="{{ {'button': true, 'disabled': !started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onStopButtonClicked}}">
+              <span>Stop</span>
+            </button>
+            <button class="{{ {'button': true, 'disabled': !started} }}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onSnapshotButtonClicked}}">
+              <span>Snapshot</span>
+            </button>
+          </td>
+          <td>
+            <canvas id="canvas"></canvas>
+            <img id="image" class="{{effect}}" style="width:{{width}}px; height:{{height}}px">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+  
+  <script type="application/dart" src="photocam.dart"></script>
+</polymer-element>

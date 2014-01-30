@@ -1,0 +1,13 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+:host {
+  display: block;
+}
+
+#container {
+  position: relative;
+}

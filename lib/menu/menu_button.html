@@ -1,0 +1,20 @@
+<link rel="import" href="menubar.html">
+
+<polymer-element name="h-menu-button">
+  <template>
+    <link rel="stylesheet" href="menu_button.css">
+    
+    <span id="menu-button-container">
+      <button on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onButtonClicked}}">
+        <span id="icon"></span>
+        <span id="text">{{label}}</span>
+      </button>
+    </span>
+    
+    <h-menubar id="menubar" orientation="vertical" class="hidden">
+      <content></content>
+    </h-menubar>
+  </template>
+  
+  <script type="application/dart" src="menu_button.dart"></script>
+</polymer-element>

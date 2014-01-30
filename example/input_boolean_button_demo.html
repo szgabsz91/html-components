@@ -1,0 +1,34 @@
+<link rel="import" href="packages/html_components/input/boolean_button.html">
+
+<polymer-element name="boolean-button-demo">
+  <template>
+    <link rel="stylesheet" href="input_boolean_button_demo.css">
+    
+    <h1>Boolean Button</h1>
+    
+    <form class="form-narrow" role="form">
+      <div class="form-group">
+        <label for="labelOn">Label On</label>
+        <input id="labelOn" type="text" class="form-control" value="{{labelOn}}">
+      </div>
+      <div class="form-group">
+        <label for="labelOff">Label Off</label>
+        <input id="labelOff" type="text" class="form-control" value="{{labelOff}}">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{showIcon}}"> Show icon
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{pressed}}"> Pressed
+        </label>
+      </div>
+    </form>
+    
+    <h-boolean-button labelOn="{{labelOn}}" labelOff="{{labelOff}}" showicon="{{showIcon}}" pressed="{{pressed}}" on-valuechanged="{{onValueChangedFired}}"></h-boolean-button>
+  </template>
+  
+  <script type="application/dart" src="input_boolean_button_demo.dart"></script>
+</polymer-element>

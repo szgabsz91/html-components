@@ -1,0 +1,11 @@
+h4 {
+  margin-top: 50px;
+}
+
+h-carousel #header {
+  height: 35px !important;
+}
+
+h-carousel #footer {
+  height: 35px !important;
+}

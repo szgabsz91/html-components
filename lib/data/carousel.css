@@ -1,0 +1,205 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+#container {
+  position: relative;
+  display: inline-block;
+  padding: 1px;
+  border: 1px solid #a8a8a8;
+  background: #ffffff;
+  color: #4f4f4f;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#header {
+  margin: 0 1px;
+  height: 16px;
+  overflow: hidden;
+  padding-top: 7px;
+  padding-bottom: 8px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#title {
+  display: inline-block;
+  width: 30%;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+#next-page-icon {
+  cursor: pointer;
+  float: right;
+  margin: 2px;
+  background-image: url("packages/html_components/resources/icons.png") !important;
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-position: -48px -192px;
+}
+
+#previous-page-icon {
+  cursor: pointer;
+  float: right;
+  margin: 2px;
+  background-image: url("packages/html_components/resources/icons.png") !important;
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-position: -80px -192px;
+}
+
+#page-links-container {
+  margin: 0px 9px;
+  margin-top: 1px;
+  display: inline-table;
+  float: right;
+}
+
+.page-link {
+  background-image: url("packages/html_components/resources/icons.png") !important;
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  float: left;
+  margin: 0 2px;
+}
+
+.page-link.off {
+  background-position: -96px -144px;
+}
+
+.page-link.on {
+  background-position: -112px -144px;
+}
+
+select {
+  float: right;
+  margin: 0px 10px;
+  background-image: none;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  font-weight: bold;
+  color: #4f4f4f;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -webkit-box-shadow: inset 0px 1px 0px #fff;
+  box-shadow: inset 0px 1px 0px #fff;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#viewport {
+  overflow: hidden;
+  position: relative;
+  border: 0;
+}
+
+#viewport ul {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  width: 32000px;
+}
+
+#viewport ul li {
+  margin: 1px;
+  padding: 0;
+  float: left;
+  border: 1px solid #a8a8a8;
+  background: #ffffff;
+  color: #4f4f4f;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#footer {
+  margin: 1px 1px 0px 1px;
+  height: 16px;
+  padding-top: 9px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  overflow: hidden;
+  border: 1px solid #a8a8a8;
+  background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.select-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.select-button span {
+  background-image: url("packages/html_components/resources/icons.png") !important;
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-position: -160px -112px;
+  margin: 0 auto;
+}
+
+.disabled {
+  opacity: .35;
+  background-image: none;
+  cursor: default !important;
+}
+
+.hidden {
+  display: none;
+}

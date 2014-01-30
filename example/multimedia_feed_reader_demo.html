@@ -1,0 +1,27 @@
+<link rel="import" href="packages/html_components/multimedia/feed_reader.html">
+
+<polymer-element name="feed-reader-demo">
+  <template>
+    <link rel="stylesheet" href="multimedia_feed_reader_demo.css">
+    
+    <h1>Feed Reader</h1>
+    
+    <table class="issues margin">
+      <tr>
+        <td>
+          <img src="img/canary.svg">
+        </td>
+        <td>Not working</td>
+      </tr>
+    </table>
+    
+    <h-feed-reader url="multimedia_feed_reader.xml" maxItems="5" autoRefresh on-refreshed="{{onFeedReaderRefreshed}}">
+      <p>
+        <b>${title}</b>
+      </p>
+      ${description}
+    </h-feed-reader>
+  </template>
+  
+  <script type="application/dart" src="multimedia_feed_reader_demo.dart"></script>
+</polymer-element>

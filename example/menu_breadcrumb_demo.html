@@ -1,0 +1,26 @@
+<link rel="import" href="packages/html_components/menu/menu_item.html">
+<link rel="import" href="packages/html_components/menu/breadcrumb.html">
+
+<polymer-element name="breadcrumb-demo">
+  <template>
+    <h1>Breadcrumb</h1>
+    
+    <table class="issues margin">
+      <tr>
+        <td>
+          <img src="img/canary.svg">
+        </td>
+        <td>Events do not work properly</td>
+      </tr>
+    </table>
+    
+    <h-breadcrumb on-selected="{{onMenuItemSelected}}">
+      <h-menu-item icon="home">Home</h-menu-item>
+      <h-menu-item icon="document">Document</h-menu-item>
+      <h-menu-item>References</h-menu-item>
+      <h-menu-item icon="extlink" url="/" target="_blank">Google I/O</h-menu-item>
+    </h-breadcrumb>
+  </template>
+  
+  <script type="application/dart" src="menu_breadcrumb_demo.dart"></script>
+</polymer-element>

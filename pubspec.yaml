@@ -1,12 +1,12 @@
 name: html_components
-version: 0.0.1
+version: 0.1.6
 author: Gabor Szabo <szgabsz91@gmail.com>
-description: A reusable component library written in HTML and Dart.
-homepage: http://html-components.appspot.com
-environment:
-  sdk: '>=0.6.9'
+description: A reusable component library written in HTML and Dart using Polymer.dart.
+homepage: https://github.com/szgabsz91/html-components
 dependencies:
-  animation: any
-  browser: any
-  js: any
-  web_ui: any
+  animation: 0.5.21
+  polymer: 0.9.3+2
+  unittest: 0.9.2+1
+transformers:
+- polymer:
+    entry_points: []

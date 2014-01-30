@@ -1,0 +1,57 @@
+<link rel="import" href="../utility/safe_html.html">
+
+<polymer-element name="h-treetable">
+  <template>
+    <link rel="stylesheet" href="treetable.css">
+    
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="container">
+      <template if="{{header != null}}">
+        <div id="header">
+          <h-safe-html content="{{header}}"></h-safe-html>
+        </div>
+      </template>
+      
+      <table>
+        <template if="{{showColumnHeader}}">
+          <thead>
+            <tr>
+              <th template repeat="{{column in columns}}" class="ui-state-default">
+                <span>
+                  <h-safe-html content="{{column.header}}"></h-safe-html>
+                </span>
+                
+                <template if="{{column.resizable}}">
+                  <span class="column-resizer" on-mousedown="{{onColumnResizeStarted}}">&nbsp;</span>
+                </template>
+              </th>
+            </tr>
+          </thead>
+        </template>
+        
+        <template if="{{showColumnFooter}}">
+          <tfoot>
+            <tr>
+              <td template repeat="{{column in columns}}">
+                <h-safe-html content="{{column.footer}}"></h-safe-html>
+              </td>
+            </tr>
+          </tfoot>
+        </template>
+        
+        <tbody id="table-body"></tbody>
+      </table>
+      
+      <template if="{{footer != null}}">
+        <div id="footer">
+          <h-safe-html content="{{footer}}"></h-safe-html>
+        </div>
+      </template>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="treetable.dart"></script>
+</polymer-element>

@@ -1,0 +1,16 @@
+<polymer-element name="h-growl-message">
+  <template>
+    <link rel="stylesheet" href="growl_message.css">
+    
+    <div id="container">
+      <a id="close-thick" on-click="{{onClosing}}"></a>
+      <a id="icon" class="{{severity}}"></a>
+      <div id="message">
+        <span id="summary">{{summary}}</span>
+        <span id="detail">{{detail}}</span>
+      </div>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="growl_message.dart"></script>
+</polymer-element>

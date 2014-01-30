@@ -1,0 +1,19 @@
+<polymer-element name="h-menu-item">
+  <template>
+    <link rel="stylesheet" href="menu_item.css">
+    
+    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
+      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
+        <template if="{{icon != null}}">
+          <span id="icon" class="{{icon}}"></span>
+        </template>
+        
+        <span id="text">
+          <content></content>
+        </span>
+      </a>
+    </div>
+  </template>
+  
+  <script type="application/dart" src="menu_item.dart"></script>
+</polymer-element>

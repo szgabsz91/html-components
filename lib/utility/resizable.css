@@ -1,0 +1,66 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+:host {
+  display: block;
+}
+
+#container {
+  position: relative;
+}
+
+#ghost {
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#handle-east {
+  position: absolute;
+  display: block;
+  z-index: 1024;
+  cursor: e-resize;
+  width: 7px;
+  right: -5px;
+  top: 0;
+  height: 100%;
+}
+
+#handle-south {
+  position: absolute;
+  display: block;
+  z-index: 1024;
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+#handle-southeast {
+  position: absolute;
+  display: block;
+  z-index: 1024;
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  bottom: 1px;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-image: url("packages/html_components/resources/icons.png");
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-position: -64px -224px;
+}
+
+.hidden {
+  display: none;
+}

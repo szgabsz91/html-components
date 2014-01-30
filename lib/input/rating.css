@@ -1,0 +1,61 @@
+@host {
+  * {
+    display: block;
+  }
+}
+
+#container.readonly {
+  cursor: default;
+}
+
+#container.disabled {
+  cursor: default !important;
+  opacity: .35;
+  filter: Alpha(Opacity=35);
+  background-image: none;
+}
+
+#cancel-button {
+  float: left;
+  display: block;
+  overflow: hidden;
+  text-indent: -999em;
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  display: block;
+  background: url("packages/html_components/resources/rating.png") no-repeat 0 0;
+}
+
+#cancel-button.hover {
+  background-position: 0 -16px;
+}
+
+.star {
+  float: left;
+  display: block;
+  overflow: hidden;
+  text-indent: -999em;
+  cursor: pointer;
+  width: 16px;
+  height: 15px;
+  display: block;
+  background: url("packages/html_components/resources/rating.png") no-repeat 0 0;
+  background-position: 0 -32px;
+}
+
+.star.on {
+  background-position: 0 -48px;
+}
+
+div#container.disabled a, div#container.readonly a {
+  cursor: default !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.clear {
+  clear: both;
+}
