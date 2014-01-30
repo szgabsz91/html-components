@@ -58,7 +58,7 @@ class PackageGraph {
 
   /// The stream of [LogEntry] objects used to report transformer log entries.
   Stream<LogEntry> get log => _logController.stream;
-  final _logController = new StreamController<LogEntry>.broadcast();
+  final _logController = new StreamController<LogEntry>.broadcast(sync: true);
 
   /// The most recent error emitted from a cascade's result stream.
   ///
@@ -66,12 +66,8 @@ class PackageGraph {
   /// [Future] returned by [getAllAssets].
   var _lastUnexpectedError;
 
-  // TODO(nweiz): Allow transformers to declare themselves as "lightweight" or
-  // "heavyweight" and adjust their restrictions appropriately. Simple
-  // transformers may be very efficient to run in parallel, whereas dart2js uses
-  // a lot of memory and should be run more sequentially.
-  /// A pool that controls how many transformers may be applied at once.
-  final Pool transformPool = new Pool(10);
+  /// The stack trace for [_lastUnexpectedError].
+  StackTrace _lastUnexpectedErrorTrace;
 
   /// Creates a new [PackageGraph] that will transform assets in all packages
   /// made available by [provider].
@@ -114,8 +110,9 @@ class PackageGraph {
         // errors, the result will automatically be considered a success.
         _resultsController.add(
             new BuildResult.aggregate(_cascadeResults.values));
-      }, onError: (error, [stackTrace]) {
+      }, onError: (error, stackTrace) {
         _lastUnexpectedError = error;
+        _lastUnexpectedErrorTrace = stackTrace;
         _resultsController.addError(error, stackTrace);
       });
     }
@@ -152,7 +149,7 @@ class PackageGraph {
     if (_lastUnexpectedError != null) {
       var error = _lastUnexpectedError;
       _lastUnexpectedError = null;
-      return new Future.error(error);
+      return new Future.error(error, _lastUnexpectedErrorTrace);
     }
 
     // If the build completed with an error, complete the future with it.

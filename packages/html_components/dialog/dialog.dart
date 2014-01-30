@@ -35,6 +35,9 @@ class DialogComponent extends PolymerElement {
     $['hidden'].remove();
     
     hide();
+    
+    // Chrome stable CSS fix
+    $['content'].style.marginTop = '0';
   }
   
   void show() {

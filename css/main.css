@@ -14,14 +14,6 @@
   margin: 20px 0;
 }
 
-.visibility-hidden-children > * {
-  visibility: hidden;
-}
-
-.hidden {
-  display: none;
-}
-
 h1 {
   margin-bottom: 50px;
 }
@@ -33,4 +25,20 @@ label {
 form.form-narrow {
   max-width: 300px;
   margin: 0 auto;
+}
+
+table.issues {
+  margin: 0 auto;
+}
+
+table.issues.margin {
+  margin-bottom: 20px;
+}
+
+table.issues td {
+  padding: 3px 5px;
+}
+
+table.issues img {
+  width: 30px;
 }

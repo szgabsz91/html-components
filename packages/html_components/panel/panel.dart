@@ -53,6 +53,9 @@ class PanelComponent extends PolymerElement {
           ..paddingBottom = '0px';
       });
     }
+    
+    // Chrome stable CSS fix
+    $['content'].style.marginTop = '0';
   }
   
   void open() {

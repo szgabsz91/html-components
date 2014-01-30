@@ -17,7 +17,7 @@
   border-radius: 3px;
 }
 
-#button a {
+#button > a {
   color: #4f4f4f;
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -34,14 +34,13 @@
   border-radius: 3px;
 }
 
-#button #trigger {
+#button > #trigger {
   border-right: none !important;
   border-top: none !important;
   border-bottom: none !important;
   cursor: pointer;
   width: 16px;
   height: 28px;
-  padding: 0 3px;
   float: left;
   -moz-box-shadow: inset 0px 1px 0px #fff;
   -webkit-box-shadow: inset 0px 1px 0px #fff;
@@ -59,8 +58,8 @@
   border-bottom-right-radius: 3px;
 }
 
-#trigger span {
-  background-image: url("packages/html_components/resources/ui-icons.png");
+#trigger > span {
+  background-image: url("packages/html_components/resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -74,7 +73,7 @@
   background-position: -64px -16px;
 }
 
-.hover, .hover #trigger {
+.hover, .hover > #trigger {
   -moz-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
   -webkit-box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
   box-shadow: 0px 0px 8px #85b2cb, inset 0px 1px 0px #fff;
@@ -100,7 +99,7 @@
   border-radius: 3px;
 }
 
-#panel #header {
+#panel > #header {
   border: 1px solid #a8a8a8;
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
   color: #333;
@@ -118,7 +117,7 @@
   display: inline-block;
 }
 
-.checkbox div {
+.checkbox > div {
   width: 16px;
   height: 16px;
   display: inline-block;
@@ -138,9 +137,13 @@
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
 }
 
-#header .checkbox {
+#header > .checkbox {
   float: left;
   cursor: pointer;
+  padding-left: inherit;
+  margin-top: inherit;
+  margin-bottom: inherit;
+  vertical-align: inherit;
 }
 
 #filter {
@@ -151,7 +154,7 @@
   margin-top: -3px;
 }
 
-#filter input {
+#filter > input {
   padding: 5px 20px 1px 2px;
   font-weight: normal !important;
   background: #ffffff;
@@ -169,10 +172,11 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
   float: left;
+  line-height: normal;
 }
 
-#filter span {
-  background-image: url("packages/html_components/resources/ui-icons.png");
+#filter > span {
+  background-image: url("packages/html_components/resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -201,9 +205,9 @@
   color: #4f4f4f;
 }
 
-#close-thick span {
+#close-thick > span {
   float: left;
-  background-image: url("packages/html_components/resources/ui-icons.png");
+  background-image: url("packages/html_components/resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -226,7 +230,7 @@
 }
 
 .icon-check {
-  background-image: url("packages/html_components/resources/ui-icons.png");
+  background-image: url("packages/html_components/resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -245,7 +249,7 @@
   clear: both;
 }
 
-#list-wrapper ul {
+#list-wrapper > ul {
   border: 0 none;
   border: 1px solid #a8a8a8;
   background: #ffffff;
@@ -276,17 +280,20 @@
   border-radius: 3px;
 }
 
-.checkbox-item .checkbox {
+.checkbox-item > .checkbox {
   position: absolute;
   top: 50%;
   margin-top: -8px;
+  padding-left: 0;
 }
 
-.checkbox-item label {
+.checkbox-item > label {
   display: block;
   padding-left: 2.2em;
   margin-top: 6px;
   cursor: pointer;
+  font-weight: inherit;
+  margin-bottom: inherit;
 }
 
 #hidden, .hidden {

@@ -5,68 +5,83 @@
 library barback.utils;
 
 import 'dart:async';
+import 'dart:typed_data';
 
-/// A pair of values.
-class Pair<E, F> {
-  E first;
-  F last;
+import 'package:stack_trace/stack_trace.dart';
 
-  Pair(this.first, this.last);
+/// A class that represents a value or an error.
+class Fallible<E> {
+  /// Whether [this] has a [value], as opposed to an [error].
+  final bool hasValue;
 
-  String toString() => '($first, $last)';
+  /// Whether [this] has an [error], as opposed to a [value].
+  bool get hasError => !hasValue;
 
-  bool operator==(other) {
-    if (other is! Pair) return false;
-    return other.first == first && other.last == last;
-  }
-
-  int get hashCode => first.hashCode ^ last.hashCode;
-}
-
-/// A class that represents one and only one of two types of values.
-class Either<E, F> {
-  /// Whether this is a value of type `E`.
-  final bool isFirst;
-
-  /// Whether this is a value of type `F`.
-  bool get isSecond => !isFirst;
-
-  /// The value, either of type `E` or `F`.
-  final _value;
-
-  /// The value of type `E`.
+  /// The value.
   ///
-  /// It's an error to access this is this is of type `F`.
-  E get first {
-    assert(isFirst);
-    return _value;
-  }
+  /// This will be `null` if [this] has an [error].
+  final E _value;
 
-  /// The value of type `F`.
+  /// The value.
   ///
-  /// It's an error to access this is this is of type `E`.
-  F get second {
-    assert(isSecond);
-    return _value;
+  /// This will throw a [StateError] if [this] has an [error].
+  E get value {
+    if (hasValue) return _value;
+    throw new StateError("Fallible has no value.\n"
+        "$_error$_stackTraceSuffix");
   }
 
-  /// Creates an [Either] with type `E`.
-  Either.withFirst(this._value)
-      : isFirst = true;
-
-  /// Creates an [Either] with type `F`.
-  Either.withSecond(this._value)
-      : isFirst = false;
-
-  /// Runs [whenFirst] or [whenSecond] depending on the type of [this].
+  /// The error.
   ///
-  /// Returns the result of whichvever function was run.
-  match(whenFirst(E value), whenSecond(F value)) {
-    if (isFirst) return whenFirst(first);
-    return whenSecond(second);
+  /// This will be `null` if [this] has a [value].
+  final _error;
+
+  /// The error.
+  ///
+  /// This will throw a [StateError] if [this] has a [value].
+  get error {
+    if (hasError) return _error;
+    throw new StateError("Fallible has no error.");
   }
 
-  String toString() => "$_value (${isFirst? 'first' : 'second'})";
+  /// The stack trace for [_error].
+  ///
+  /// This will be `null` if [this] has a [value], or if no stack trace was
+  /// provided.
+  final StackTrace _stackTrace;
+
+  /// The stack trace for [error].
+  ///
+  /// This will throw a [StateError] if [this] has a [value].
+  StackTrace get stackTrace {
+    if (hasError) return _stackTrace;
+    throw new StateError("Fallible has no error.");
+  }
+
+  Fallible.withValue(this._value)
+      : _error = null,
+        _stackTrace = null,
+        hasValue = true;
+
+  Fallible.withError(this._error, [this._stackTrace])
+      : _value = null,
+        hasValue = false;
+
+  /// Returns a completed Future with the same value or error as [this].
+  Future toFuture() {
+    if (hasValue) return new Future.value(value);
+    return new Future.error(error, stackTrace);
+  }
+
+  String toString() {
+    if (hasValue) return "Fallible value: $value";
+    return "Fallible error: $error$_stackTraceSuffix";
+  }
+
+  String get _stackTraceSuffix {
+    if (stackTrace == null) return "";
+    return "\nStack trace:\n${new Chain.forTrace(_stackTrace).terse}";
+  }
 }
 
 /// Converts a number in the range [0-255] to a two digit hex string.
@@ -77,6 +92,18 @@ String byteToHex(int byte) {
 
   const DIGITS = "0123456789abcdef";
   return DIGITS[(byte ~/ 16) % 16] + DIGITS[byte % 16];
+}
+
+/// Converts [input] into a [Uint8List].
+///
+/// If [input] is a [TypedData], this just returns a view on [input].
+Uint8List toUint8List(List<int> input) {
+  if (input is Uint8List) return input;
+  if (input is TypedData) {
+    // TODO(nweiz): remove "as" when issue 11080 is fixed.
+    return new Uint8List.view((input as TypedData).buffer);
+  }
+  return new Uint8List.fromList(input);
 }
 
 /// Group the elements in [iter] by the value returned by [fn].
@@ -138,12 +165,12 @@ Stream mergeStreams(Iterable<Stream> streams, {bool broadcast: false}) {
 
   for (var stream in streams) {
     stream.listen(
-      controller.add,
-      onError: controller.addError,
-      onDone: () {
-    doneCount++;
-    if (doneCount == streams.length) controller.close();
-  });
+        controller.add,
+        onError: controller.addError,
+        onDone: () {
+      doneCount++;
+      if (doneCount == streams.length) controller.close();
+    });
   }
 
   return controller.stream;
@@ -180,19 +207,71 @@ Future pumpEventQueue([int times=20]) {
 // TODO(jmesserly): doc comment changed to due 14601.
 Future newFuture(callback()) => new Future.value().then((_) => callback());
 
+/// Like [Future.sync], but wraps the Future in [Chain.track] as well.
+Future syncFuture(callback()) => Chain.track(new Future.sync(callback));
+
 /// Returns a buffered stream that will emit the same values as the stream
-/// returned by [future] once [future] completes. If [future] completes to an
-/// error, the return value will emit that error and then close.
-Stream futureStream(Future<Stream> future) {
-  var controller = new StreamController(sync: true);
-  future.then((stream) {
-    stream.listen(
-        controller.add,
+/// returned by [future] once [future] completes.
+///
+/// If [future] completes to an error, the return value will emit that error and
+/// then close.
+///
+/// If [broadcast] is true, a broadcast stream is returned. This assumes that
+/// the stream returned by [future] will be a broadcast stream as well.
+/// [broadcast] defaults to false.
+Stream futureStream(Future<Stream> future, {bool broadcast: false}) {
+  var subscription;
+  var controller;
+
+  future = future.catchError((e, stackTrace) {
+    // Since [controller] is synchronous, it's likely that emitting an error
+    // will cause it to be cancelled before we call close.
+    if (controller != null) controller.addError(e, stackTrace);
+    if (controller != null) controller.close();
+    controller = null;
+  });
+
+  onListen() {
+    future.then((stream) {
+      if (controller == null) return;
+      subscription = stream.listen(
+          controller.add,
+          onError: controller.addError,
+          onDone: controller.close);
+    });
+  }
+
+  onCancel() {
+    if (subscription != null) subscription.cancel();
+    subscription = null;
+    controller = null;
+  }
+
+  if (broadcast) {
+    controller = new StreamController.broadcast(
+        sync: true, onListen: onListen, onCancel: onCancel);
+  } else {
+    controller = new StreamController(
+        sync: true, onListen: onListen, onCancel: onCancel);
+  }
+  return controller.stream;
+}
+
+/// Returns a [Stream] that will emit the same values as the stream returned by
+/// [callback].
+///
+/// [callback] will only be called when the returned [Stream] gets a subscriber.
+Stream callbackStream(Stream callback()) {
+  var subscription;
+  var controller;
+  controller = new StreamController(onListen: () {
+    subscription = callback().listen(controller.add,
         onError: controller.addError,
         onDone: controller.close);
-  }).catchError((e, stackTrace) {
-    controller.addError(e, stackTrace);
-    controller.close();
-  });
+  },
+      onCancel: () => subscription.cancel(),
+      onPause: () => subscription.pause(),
+      onResume: () => subscription.resume(),
+      sync: true);
   return controller.stream;
 }

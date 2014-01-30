@@ -5,6 +5,11 @@
   }
 }
 
+:host {
+  display: block;
+  width: 150px;
+}
+
 input[type="text"] {
   font-weight: normal;
   background: #ffffff;

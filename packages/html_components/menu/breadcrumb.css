@@ -19,7 +19,7 @@
 }
 
 .separator {
-  background-image: url("packages/html_components/resources/ui-icons.png");
+  background-image: url("packages/html_components/resources/icons.png");
   text-indent: -99999px;
   background-repeat: no-repeat;
   width: 16px;

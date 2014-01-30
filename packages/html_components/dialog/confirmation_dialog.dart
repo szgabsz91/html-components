@@ -1,5 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
+import 'dart:async';
 
 @CustomTag('h-confirmation-dialog')
 class ConfirmationDialogComponent extends PolymerElement {
@@ -23,12 +24,7 @@ class ConfirmationDialogComponent extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    documentWidth = document.body.clientWidth;
-    documentHeight = document.body.clientHeight;
-    windowHeight = window.innerHeight;
-    
-    top = (windowHeight - $['container'].clientHeight) / 2;
-    left = (documentWidth - $['container'].clientWidth) / 2;
+    _refreshSize();
     
     List<ButtonElement> buttons = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is ButtonElement).toList(growable: false);
     
@@ -56,10 +52,18 @@ class ConfirmationDialogComponent extends PolymerElement {
     $['hidden'].remove();
     
     hide();
+    
+    // Chrome stable CSS fix
+    $['content'].style.marginTop = '0px';
+    $['severity'].style
+      ..padding = '0'
+      ..marginBottom = '0';
   }
   
   void show() {
     hidden = false;
+    
+    scheduleMicrotask(_refreshSize);
     
     $['container'].classes.remove('hidden');
     
@@ -85,6 +89,15 @@ class ConfirmationDialogComponent extends PolymerElement {
     event.preventDefault();
     
     hide();
+  }
+  
+  void _refreshSize() {
+    documentWidth = document.body.clientWidth;
+    documentHeight = document.body.clientHeight;
+    windowHeight = window.innerHeight;
+    
+    top = (windowHeight - $['container'].clientHeight) / 2;
+    left = (documentWidth - $['container'].clientWidth) / 2;
   }
   
 }

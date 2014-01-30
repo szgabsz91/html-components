@@ -1,0 +1,26 @@
+<link rel="import" href="packages/html_components/input/select_item.html">
+<link rel="import" href="packages/html_components/input/select_button.html">
+
+<polymer-element name="select-button-demo">
+  <template>
+    <link rel="stylesheet" href="input_select_button_demo.css">
+    
+    <h1>Select Button</h1>
+    
+    <h4>Single selection</h4>
+    <h-select-button selection="single" on-selectionchanged="{{onSelectionChangedFired}}">
+      <h-select-item label="Option 1" value="1" selected></h-select-item>
+      <h-select-item label="Option 2" value="2" selected></h-select-item>
+      <h-select-item label="Option 3" value="3"></h-select-item>
+    </h-select-button>
+    
+    <h4>Multiple selection</h4>
+    <h-select-button selection="multiple" on-selectionchanged="{{onSelectionChangedFired}}">
+      <h-select-item label="B" value="Bold" selected></h-select-item>
+      <h-select-item label="I" value="Italic"></h-select-item>
+      <h-select-item label="U" value="Underline" selected></h-select-item>
+    </h-select-button>
+  </template>
+  
+  <script type="application/dart" src="input_select_button_demo.dart"></script>
+</polymer-element>

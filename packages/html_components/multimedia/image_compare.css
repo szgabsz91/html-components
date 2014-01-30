@@ -4,6 +4,10 @@
   }
 }
 
+:host {
+  display: block;
+}
+
 #container {
   overflow: hidden;
   position: relative;

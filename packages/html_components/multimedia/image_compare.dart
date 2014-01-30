@@ -10,6 +10,8 @@ class ImageCompareComponent extends PolymerElement {
   @observable int draggablePosition = 0;
   @observable int handlePosition = 26;
   @observable double handleOpacity = 0.0;
+  @observable int handleTop = 0;
+  @observable int arrowTop = 0;
   
   Point _previousPoint;
   
@@ -37,6 +39,11 @@ class ImageCompareComponent extends PolymerElement {
       
       init();
     });
+  }
+  
+  void imageHeightChanged() {
+    handleTop = ((imageHeight - 56) / 2).floor();
+    arrowTop = ((imageHeight - 15) / 2).floor();
   }
   
   void onContainerMouseOver() {

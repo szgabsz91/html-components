@@ -1,0 +1,76 @@
+<link rel="import" href="packages/html_components/menu/menu_item.html">
+<link rel="import" href="packages/html_components/menu/menu_separator.html">
+<link rel="import" href="packages/html_components/menu/submenu.html">
+<link rel="import" href="packages/html_components/menu/menubar.html">
+
+<polymer-element name="menubar-demo">
+  <template>
+    <link rel="stylesheet" href="menu_menubar_demo.css">
+    
+    <h1>Menubar</h1>
+    
+    <table class="issues margin">
+      <tr>
+        <td>
+          <img src="img/canary.svg">
+        </td>
+        <td>Events do not work properly</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="img/chrome.svg">
+        </td>
+        <td>Changing orientation at runtime does not work properly</td>
+      </tr>
+    </table>
+    
+    <form class="form-inline" role="form">
+      <label for="orientation">Orientation:</label>
+      <select id="orientation" class="form-control" value="{{orientation}}">
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+      </select>
+    </form>
+    
+    <h-menubar orientation="{{orientation}}" on-selected="{{onMenuItemSelected}}">
+      <h-submenu label="File" icon="document">
+        <h-submenu label="New" icon="contact">
+          <h-menu-item>Project</h-menu-item>
+          <h-menu-item>Other</h-menu-item>
+        </h-submenu>
+        <h-menu-item>Open</h-menu-item>
+        <h-menu-separator></h-menu-separator>
+        <h-menu-item>Quit</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Edit" icon="pencil">
+        <h-menu-item icon="arrowreturnthick-1-w">Undo</h-menu-item>
+        <h-menu-item icon="arrowreturnthick-1-e">Redo</h-menu-item>
+      </h-submenu>
+      
+      <h-submenu label="Help" icon="help">
+        <h-menu-item>Contents</h-menu-item>
+        <h-submenu label="Search" icon="search">
+          <h-submenu label="Text">
+            <h-menu-item>Workspace</h-menu-item>
+          </h-submenu>
+          <h-menu-item>File</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-submenu label="Actions" icon="gear">
+        <h-submenu label="Ajax" icon="refresh">
+          <h-menu-item icon="disk">Save</h-menu-item>
+          <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
+        </h-submenu>
+        <h-submenu label="Non-Ajax" icon="newwin">
+          <h-menu-item icon="close">Delete</h-menu-item>
+        </h-submenu>
+      </h-submenu>
+      
+      <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
+    </h-menubar>
+  </template>
+  
+  <script type="application/dart" src="menu_menubar_demo.dart"></script>
+</polymer-element>

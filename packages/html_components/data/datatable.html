@@ -53,8 +53,12 @@
                           &gt; <input type="number" value="{{filters[column.value].last.value}}">
                         </template>
                         <template if="{{column.value.type == 'boolean'}}">
-                          <label><input type="checkbox" checked="{{filters[column.value].first.value}}"> True</label><br>
-                          <label><input type="checkbox" checked="{{filters[column.value].last.value}}"> False</label>
+                          <label>
+                            <input type="checkbox" checked="{{filters[column.value].first.value}}"> True
+                          </label><br>
+                          <label>
+                            <input type="checkbox" checked="{{filters[column.value].last.value}}"> False
+                          </label>
                         </template>
                       </div>
                     </div>
