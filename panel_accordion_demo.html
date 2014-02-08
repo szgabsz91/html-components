@@ -22,6 +22,16 @@
       </template>
     </h-accordion>
     
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-accordion</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionSelected}}"</span><span class="pln"></span>
+             <span class="atn">on-deselected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionDeselected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">repeat</span><span class="pun">=</span><span class="atv">"{<span></span>{tab in tabs}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.header}}"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.content}}"</span><span class="pln"></span>
+           <span class="atn">closable</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.closable}}"</span><span class="pln"> </span><span class="atn">disabled</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.disabled}}"</span><span class="pln"></span>
+           <span class="atn">selected</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.selected}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/template&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-accordion&gt;</span></pre>
+    
     <h-accordion on-selected="{{onAccordionSelected}}" on-deselected="{{onAccordionDeselected}}">
       <h-tab header="Godfather Part I">
         <table>
@@ -63,6 +73,24 @@
       </h-tab>
     </h-accordion>
     
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-accordion</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionSelected}}"</span><span class="pln"></span>
+             <span class="atn">on-deselected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionDeselected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part I"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 1"</span><span class="tag">&gt;</span><span class="pln">
+    The story begins...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part II"</span><span class="pln"> </span><span class="atn">selected</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 2"</span><span class="tag">&gt;</span><span class="pln">
+    Francis Ford Coppola's...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part III"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 3"</span><span class="tag">&gt;</span><span class="pln">
+    After a break...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-accordion&gt;</span></pre>
+    
     <h-accordion selection="multiple" on-selected="{{onAccordionSelected}}" on-deselected="{{onAccordionDeselected}}">
       <h-tab header="Godfather Part I">
         <table>
@@ -103,6 +131,25 @@
         </table>
       </h-tab>
     </h-accordion>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-accordion</span><span class="pln"> </span><span class="atn">selection</span><span class="pun">=</span><span class="atv">"multiple"</span><span class="pln"></span>
+             <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionSelected}}"</span><span class="pln"></span>
+             <span class="atn">on-deselected</span><span class="pun">=</span><span class="atv">"{<span></span>{onAccordionDeselected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part I"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 1"</span><span class="tag">&gt;</span><span class="pln">
+    The story begins...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part II"</span><span class="pln"> </span><span class="atn">disabled</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 2"</span><span class="tag">&gt;</span><span class="pln">
+    Francis Ford Coppola's...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part III"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 3"</span><span class="tag">&gt;</span><span class="pln">
+    After a break...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-accordion&gt;</span></pre>
   </template>
   
   <script type="application/dart" src="panel_accordion_demo.dart"></script>

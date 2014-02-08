@@ -32,6 +32,20 @@
       <footer>In total there are ${carousel:totalCount} cars.</footer>
     </h-carousel>
     
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">data</span><span class="pun">=</span><span class="atv">"{<span></span>{cars}}"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">pageLinks</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"> </span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Cars</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"car-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${carousel:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;footer&gt;</span><span class="pln">In total there are ${carousel:totalCount} cars.</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
+    
     <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
     <h-carousel source="http://localhost:9090/carousel/cars/11" visibleItems="3" on-selected="{{onItemSelected}}">
       <header>Cars</header>
@@ -45,6 +59,19 @@
       </div>
       <footer>In total there are ${carousel:totalCount} cars.</footer>
     </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/carousel/cars/11"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Cars</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"car-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${carousel:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;footer&gt;</span><span class="pln">In total there are ${carousel:totalCount} cars.</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
     
     <h4>Using Tabs</h4>
     <h-carousel visibleitems="1">
@@ -108,6 +135,22 @@
         </table>
       </h-tab>
     </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">visibleitems</span><span class="pun">=</span><span class="atv">"1"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part I"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 1"</span><span class="tag">&gt;</span><span class="pln">
+    The story begins...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part II"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 2"</span><span class="tag">&gt;</span><span class="pln">
+    Francis Ford Coppola's...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part III"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 3"</span><span class="tag">&gt;</span><span class="pln">
+    After a break...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
     
     <h4>Image Gallery</h4>
     <h-carousel pageLinks="4" autoplayInterval="5000" visibleItems="1" circular>
@@ -116,6 +159,12 @@
       <img src="img/nature/nature3.jpg" alt="Nature 3">
       <img src="img/nature/nature4.jpg" alt="Nature 4">
     </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">pageLinks</span><span class="pun">=</span><span class="atv">"4"</span><span class="pln"> </span><span class="atn">autoplayInterval</span><span class="pun">=</span><span class="atv">"5000"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="atn">circular</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 1"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 2"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 3"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature4.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 4"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
   </template>
   
   <script type="application/dart" src="data_carousel_demo.dart"></script>

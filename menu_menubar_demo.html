@@ -70,6 +70,45 @@
       
       <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
     </h-menubar>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-menubar</span><span class="pln"> </span><span class="atn">orientation</span><span class="pun">=</span><span class="atv">"{<span></span>{orientation}}"</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onMenuItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"File"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"document"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"New"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"contact"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Project</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Other</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Open</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-separator&gt;&lt;/h-menu-separator&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Quit</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Edit"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"pencil"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"arrowreturnthick-1-w"</span><span class="tag">&gt;</span><span class="pln">Undo</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"arrowreturnthick-1-e"</span><span class="tag">&gt;</span><span class="pln">Redo</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Help"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"help"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Contents</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Search"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"search"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Text"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">Workspace</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item&gt;</span><span class="pln">File</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Actions"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"gear"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Ajax"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"refresh"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"disk"</span><span class="tag">&gt;</span><span class="pln">Save</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"arrowrefresh-1-w"</span><span class="tag">&gt;</span><span class="pln">Update</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-submenu</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Non-Ajax"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"newwin"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Delete</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"/"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Quit</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-menubar&gt;</span></pre>
   </template>
   
   <script type="application/dart" src="menu_menubar_demo.dart"></script>

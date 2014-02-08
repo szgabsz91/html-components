@@ -29,6 +29,37 @@
     <h-growl lifetime="5000">
       <h-growl-message summary="Message summary" detail="Message detail"></h-growl-message>
     </h-growl>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-growl</span><span class="pln"> </span><span class="atn">lifetime</span><span class="pun">=</span><span class="atv">"5000"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-growl-message</span><span class="pln"> </span><span class="atn">summary</span><span class="pun">=</span><span class="atv">"Message summary"</span><span class="pln"></span>
+                   <span class="atn">detail</span><span class="pun">=</span><span class="atv">"Message detail"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-growl-message&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-growl&gt;</span></pre>
+    
+    <pre class="prettyprint lang-dart prettyprinted" data-lang="Dart" style=""><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:polymer/polymer.dart'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'dart:html'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:html_components/html_components.dart'</span><span class="pun">;</span><span class="pln">
+
+@CustomTag</span><span class="pun">(</span><span class="str">'growl-demo'</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> GrowlDemo </span><span class="kwd">extends</span><span class="pln"> PolymerElement </span><span class="pun">{</span><span class="pln">
+  
+  @observable </span><span class="typ">String</span><span class="pln"> summary </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+  @observable </span><span class="typ">String</span><span class="pln"> detail </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+  @observable </span><span class="typ">String</span><span class="pln"> severity </span><span class="pun">=</span><span class="pln"> </span><span class="str">'info'</span><span class="pun">;</span><span class="pln">
+  
+  GrowlDemo</span><span class="pun">.</span><span class="pln">created</span><span class="pun">()</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">created</span><span class="pun">();</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> onPostButtonClicked</span><span class="pun">(</span><span class="pln">MouseEvent event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    event</span><span class="pun">.</span><span class="pln">preventDefault</span><span class="pun">();</span><span class="pln">
+    
+    GrowlComponent</span><span class="pun">.</span><span class="pln">postMessage</span><span class="pun">(</span><span class="pln">summary</span><span class="pun">,</span><span class="pln"> detail</span><span class="pun">,</span><span class="pln"> severity</span><span class="pun">);</span><span class="pln">
+    
+    summary </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+    detail </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+    severity </span><span class="pun">=</span><span class="pln"> </span><span class="str">'info'</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+</span><span class="pun">}</span></pre>
   </template>
   
   <script type="application/dart" src="utility_growl_demo.dart"></script>

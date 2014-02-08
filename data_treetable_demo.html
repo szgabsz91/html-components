@@ -42,6 +42,27 @@
       
       <footer>Document Viewer</footer>
     </h-treetable>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-treetable</span><span class="pln"> </span><span class="atn">root</span><span class="pun">=</span><span class="atv">"{<span></span>{documentRoot}}"</span><span class="pln"> </span><span class="atn">selection</span><span class="pun">=</span><span class="atv">"single"</span><span class="pln"></span>
+             <span class="atn">on-expanded</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemExpanded}}"</span><span class="pln"> </span><span class="atn">on-collapsed</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemCollapsed}}"</span><span class="pln"></span>
+             <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="pln"> </span><span class="atn">on-columnresized</span><span class="pun">=</span><span class="atv">"{<span></span>{onColumnResized}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Document Viewer</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Name</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${name}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+    </span><span class="tag">&lt;footer&gt;</span><span class="pln">Name</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column</span><span class="pln"> </span><span class="atn">textAlign</span><span class="pun">=</span><span class="atv">"right"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Size</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${size}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+    </span><span class="tag">&lt;footer&gt;</span><span class="pln">Size</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Type</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${type}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+    </span><span class="tag">&lt;footer&gt;</span><span class="pln">Type</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+  </span><span class="tag">&lt;footer&gt;</span><span class="pln">Document Viewer</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-treetable&gt;</span></pre>
     
     <h4>Server Side Data, Multiple Selection and Resizable Columns <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
     <h-treetable source="http://localhost:9090/treetable/documents" selection="multiple" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-columnresized="{{onColumnResized}}">
@@ -62,6 +83,23 @@
         <span>${type}</span>
       </h-column>
     </h-treetable>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-treetable</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/treetable/documents"</span><span class="pln"> </span><span class="atn">selection</span><span class="pun">=</span><span class="atv">"multiple"</span><span class="pln">
+             </span><span class="atn">on-expanded</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemExpanded}}"</span><span class="pln"> </span><span class="atn">on-collapsed</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemCollapsed}}"</span><span class="pln"></span>
+             <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="pln"> </span><span class="atn">on-columnresized</span><span class="pun">=</span><span class="atv">"{<span></span>{onColumnResized}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Document Viewer</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column</span><span class="pln"> </span><span class="atn">resizable</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Name</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${name}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column</span><span class="pln"> </span><span class="atn">textAlign</span><span class="pun">=</span><span class="atv">"right"</span><span class="pln"> </span><span class="atn">resizable</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Size</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${size}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-column</span><span class="pln"> </span><span class="atn">resizable</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">Type</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;span&gt;</span><span class="pln">${type}</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-column&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-treetable&gt;</span></pre>
   </template>
   
   <script type="application/dart" src="data_treetable_demo.dart"></script>

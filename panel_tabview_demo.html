@@ -13,6 +13,16 @@
       </template>
     </h-tabview>
     
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-tabview</span><span class="pln"> </span><span class="atn">on-tabselected</span><span class="pun">=</span><span class="atv">"{<span></span>{onTabSelected}}"</span><span class="pln"></span>
+           <span class="atn">on-tabclosed</span><span class="pun">=</span><span class="atv">"{<span></span>{onTabClosed}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">repeat</span><span class="pun">=</span><span class="atv">"{<span></span>{tab in tabs}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.header}}"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.content}}"</span><span class="pln"></span>
+           <span class="atn">closable</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.closable}}"</span><span class="pln"> </span><span class="atn">disabled</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.disabled}}"</span><span class="pln"></span>
+           <span class="atn">selected</span><span class="pun">=</span><span class="atv">"{<span></span>{tab.selected}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/template&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-tabview&gt;</span></pre>
+    
     <form class="form-inline" role="form">
       <label for="orientation">Orientation:</label>
       <select id="orientation" class="form-control" value="{{orientation}}">
@@ -76,6 +86,25 @@
         </table>
       </h-tab>
     </h-tabview>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-tabview</span><span class="pln"> </span><span class="atn">orientation</span><span class="pun">=</span><span class="atv">"{<span></span>{orientation}}"</span><span class="pln"></span>
+           <span class="atn">on-tabselected</span><span class="pun">=</span><span class="atv">"{<span></span>{onTabSelected}}"</span><span class="pln"></span>
+           <span class="atn">on-tabclosed</span><span class="pun">=</span><span class="atv">"{<span></span>{onTabClosed}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part I"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 1"</span><span class="tag">&gt;</span><span class="pln">
+    The story begins...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part II"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 2"</span><span class="tag">&gt;</span><span class="pln">
+    Francis Ford Coppola's...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part III"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 3"</span><span class="tag">&gt;</span><span class="pln">
+    After a break...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-tabview&gt;</span></pre>
   </template>
   
   <script type="application/dart" src="panel_tabview_demo.dart"></script>
