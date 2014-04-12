@@ -10,7 +10,7 @@ dependencies:
     git:
       ref: browser_upgrade
       url: https://github.com/szgabsz91/Animation
-    version: 0.5.23
+    version: 0.5.24
   polymer: 0.10.0-pre.9
 dev_dependencies:
   unittest: 0.10.1+2
