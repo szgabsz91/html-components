@@ -6,11 +6,24 @@ class MenuItemComponent extends PolymerElement {
   
   @published String url = '#';
   @published String icon;
+  @published String label;
   @published String target = '_self';
   
   bool get _isExternal => url != '#';
   
   MenuItemComponent.created() : super.created();
+  
+  @override
+  void enteredView() {
+    super.enteredView();
+    
+    ContentElement contentElement = $['hidden'].querySelector('content');
+    List children = contentElement.getDistributedNodes();
+    
+    this.label = children.first.text.toString();
+    
+    $['hidden'].remove();
+  }
   
   void onItemMouseOver() {
     $['link'].classes.add('hover');
@@ -25,9 +38,7 @@ class MenuItemComponent extends PolymerElement {
       event.preventDefault();
     }
     
-    String label = $['text'].querySelector('content').getDistributedNodes().first.text;
-    
-    this.dispatchEvent(new CustomEvent('selected', detail: label));
+    this.dispatchEvent(new CustomEvent('selected', detail: this.label));
   }
   
   void setMenubarOrientation(String orientation) {

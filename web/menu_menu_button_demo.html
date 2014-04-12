@@ -1,0 +1,36 @@
+<link rel="import" href="packages/html_components/menu/menu_item.html">
+<link rel="import" href="packages/html_components/menu/menu_separator.html">
+<link rel="import" href="packages/html_components/menu/menu_button.html">
+
+<polymer-element name="menu-button-demo">
+  <template>
+    <h1>Menu Button</h1>
+    
+    <table class="issues margin">
+      <tr>
+        <td>
+          <img src="img/canary.svg">
+        </td>
+        <td>Events do not work properly</td>
+      </tr>
+    </table>
+    
+    <h-menu-button label="Options" on-selected="{{onMenuItemSelected}}">
+      <h-menu-item icon="disk">Save</h-menu-item>
+      <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
+      <h-menu-item icon="close">Delete</h-menu-item>
+      <h-menu-separator></h-menu-separator>
+      <h-menu-item url="/" target="_blank" icon="extlink">HTML Components</h-menu-item>
+    </h-menu-button>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-menu-button</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Options"</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onMenuItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"disk"</span><span class="tag">&gt;</span><span class="pln">Save</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"arrowrefresh-1-w"</span><span class="tag">&gt;</span><span class="pln">Update</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Delete</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-separator&gt;&lt;/h-menu-separator&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"/"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"extlink"</span><span class="tag">&gt;</span><span class="pln">HTML Components</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-menu-button&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart;component=1" src="menu_menu_button_demo.dart"></script>
+</polymer-element>

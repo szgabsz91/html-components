@@ -54,7 +54,7 @@
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;

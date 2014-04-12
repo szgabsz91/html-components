@@ -1,0 +1,44 @@
+<link rel="import" href="packages/html_components/input/rating.html">
+
+<polymer-element name="rating-demo">
+  <template>
+    <link rel="stylesheet" href="input_rating_demo.css">
+    
+    <h1>Rating</h1>
+    
+    <form class="form-narrow" role="form">
+      <div class="form-group">
+        <label for="stars">Stars</label>
+        <input id="stars" type="number" class="form-control" value="{{stars | asInteger}}" min="1">
+      </div>
+      <div class="form-group">
+        <label for="value">Value</label>
+        <input id="value" type="number" class="form-control" value="{{value | asInteger}}" min="0">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{cancelable}}"> Cancelable
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{readonly}}"> Readonly
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{disabled}}"> Disabled
+        </label>
+      </div>
+    </form>
+    
+    <h-rating stars="{{stars}}" value="{{value}}" cancelable="{{cancelable}}" readonly="{{readonly}}" disabled="{{disabled}}" on-valuechanged="{{onValueChangedFired}}"></h-rating>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-rating</span><span class="pln"> </span><span class="atn">stars</span><span class="pun">=</span><span class="atv">"{<span></span>{stars}}"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"{<span></span>{value}}"</span><span class="pln"> </span><span class="atn">cancelable</span><span class="pun">=</span><span class="atv">"{<span></span>{cancelable}}"</span><span class="pln"></span>
+          <span class="atn">readonly</span><span class="pun">=</span><span class="atv">"{<span></span>{readonly}}"</span><span class="pln"> </span><span class="atn">disabled</span><span class="pun">=</span><span class="atv">"{<span></span>{disabled}}"</span><span class="pln"></span>
+          <span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-rating&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart;component=1" src="input_rating_demo.dart"></script>
+</polymer-element>

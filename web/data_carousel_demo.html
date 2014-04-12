@@ -1,0 +1,171 @@
+<link rel="import" href="packages/html_components/panel/tab.html">
+<link rel="import" href="packages/html_components/data/carousel.html">
+
+<polymer-element name="carousel-demo">
+  <template>
+    <link rel="stylesheet" href="data_carousel_demo.css">
+    
+    <h1>Carousel</h1>
+    
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
+    
+    <table class="issues">
+      <tr>
+        <td>
+          <img src="img/chrome.svg">
+        </td>
+        <td>Panels are not styled correctly</td>
+      </tr>
+    </table>
+    
+    <h4>Data from Client Side</h4>
+    <h-carousel visibleItems="3" pageLinks="5" data="{{cars}}" on-selected="{{onItemSelected}}">
+      <header>Cars</header>
+      <div style="width:200px; height:140px; text-align:center">
+        <p>
+          <img src="img/cars/${imagePath}" alt="${manufacturer}">
+        </p>
+        <p>${model}</p>
+        <p>${year}</p>
+        <p>${carousel:selectButton}</p>
+      </div>
+      <footer>In total there are ${carousel:totalCount} cars.</footer>
+    </h-carousel>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">data</span><span class="pun">=</span><span class="atv">"{<span></span>{cars}}"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">pageLinks</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"> </span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Cars</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"car-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${carousel:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;footer&gt;</span><span class="pln">In total there are ${carousel:totalCount} cars.</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
+    
+    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
+    <h-carousel source="http://localhost:9090/carousel/cars/11" visibleItems="3" on-selected="{{onItemSelected}}">
+      <header>Cars</header>
+      <div style="width:200px; height:140px; text-align:center">
+        <p>
+          <img src="img/cars/${imagePath}" alt="${manufacturer}">
+        </p>
+        <p>${model}</p>
+        <p>${year}</p>
+        <p>${carousel:selectButton}</p>
+      </div>
+      <footer>In total there are ${carousel:totalCount} cars.</footer>
+    </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/carousel/cars/11"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Cars</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"car-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;p&gt;</span><span class="pln">${carousel:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;footer&gt;</span><span class="pln">In total there are ${carousel:totalCount} cars.</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
+    
+    <h4>Using Tabs</h4>
+    <h-carousel visibleitems="1">
+      <h-tab header="Godfather Part I" style="display:block; width:600px; height:200px">
+        <table>
+          <tr>
+            <td>
+              <img src="img/godfather/godfather1.jpg" alt="Godfather 1">
+            </td>
+            <td>
+              The story begins as Don Vito Corleone, the head of a New York
+              Mafia family, oversees his daughter's wedding. His beloved son
+              Michael has just come home from the war, but does not intend to
+              become part of his father's business. Through Michael's life the
+              nature of the family business becomes clear. The business of the
+              family is just like the head of the family, kind and benevolent to
+              those who give respect, but given to ruthless violence whenever
+              anything stands against the good of the family.
+            </td>
+          </tr>
+        </table>
+      </h-tab>
+      
+      <h-tab header="Godfather Part II" style="display:block; width:600px; height:200px">
+        <table>
+          <tr>
+            <td>
+              <img src="img/godfather/godfather2.jpg" alt="Godfather 2">
+            </td>
+            <td>
+              Francis Ford Coppola's legendary continuation and sequel to his
+              landmark 1972 film, The Godfather, parallels the young Vito
+              Corleone's rise with his son Michael's spiritual fall, deepening
+              The Godfather's depiction of the dark side of the American dream.
+              In the early 1900s, the child Vito flees his Sicilian village for
+              America after the local Mafia kills his family. Vito struggles to
+              make a living, legally or illegally, for his wife and growing
+              brood in Little Italy, killing the local Black Hand Fanucci after
+              he demands his customary cut of the tyro's business. With Fanucci
+              gone, Vito's communal stature grows.
+            </td>
+          </tr>
+        </table>
+      </h-tab>
+      
+      <h-tab header="Godfather Part III" style="display:block; width:600px; height:200px">
+        <table>
+          <tr>
+            <td>
+              <img src="img/godfather/godfather3.jpg" alt="Godfather 3">
+            </td>
+            <td>
+              After a break of more than 15 years, director Francis Ford Coppola
+              and writer Mario Puzo returned to the well for this third and
+              final story of the fictional Corleone crime family. Two decades
+              have passed, and crime kingpin Michael Corleone, now divorced from
+              his wife Kay has nearly succeeded in keeping his promise that his
+              family would one day be completely legitimate.
+            </td>
+          </tr>
+        </table>
+      </h-tab>
+    </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">visibleitems</span><span class="pun">=</span><span class="atv">"1"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part I"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 1"</span><span class="tag">&gt;</span><span class="pln">
+    The story begins...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part II"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 2"</span><span class="tag">&gt;</span><span class="pln">
+    Francis Ford Coppola's...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+  
+  </span><span class="tag">&lt;h-tab</span><span class="pln"> </span><span class="atn">header</span><span class="pun">=</span><span class="atv">"Godfather Part III"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"movie-item"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/godfather/godfather3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Godfather 3"</span><span class="tag">&gt;</span><span class="pln">
+    After a break...
+  </span><span class="tag">&lt;/h-tab&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
+    
+    <h4>Image Gallery</h4>
+    <h-carousel pageLinks="4" autoplayInterval="5000" visibleItems="1" circular>
+      <img src="img/nature/nature1.jpg" alt="Nature 1">
+      <img src="img/nature/nature2.jpg" alt="Nature 2">
+      <img src="img/nature/nature3.jpg" alt="Nature 3">
+      <img src="img/nature/nature4.jpg" alt="Nature 4">
+    </h-carousel>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-carousel</span><span class="pln"> </span><span class="atn">pageLinks</span><span class="pun">=</span><span class="atv">"4"</span><span class="pln"> </span><span class="atn">autoplayInterval</span><span class="pun">=</span><span class="atv">"5000"</span><span class="pln"> </span><span class="atn">visibleItems</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="atn">circular</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 1"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature2.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 2"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature3.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 3"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature4.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature 4"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-carousel&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart;component=1" src="data_carousel_demo.dart"></script>
+</polymer-element>

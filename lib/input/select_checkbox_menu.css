@@ -59,7 +59,7 @@
 }
 
 #trigger > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -176,7 +176,7 @@
 }
 
 #filter > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -207,7 +207,7 @@
 
 #close-thick > span {
   float: left;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -230,7 +230,7 @@
 }
 
 .icon-check {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;

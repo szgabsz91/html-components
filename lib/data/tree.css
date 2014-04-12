@@ -31,7 +31,7 @@
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
@@ -52,7 +52,7 @@
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
@@ -95,7 +95,7 @@
 }
 
 .loading {
-  background-image: url("../../../../../html_components/lib/images/loading2.gif");
+  background-image: url("../images/loading2.gif");
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
@@ -111,7 +111,13 @@
 .selected {
   background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
   color: #ffffff;
-  text-shadow: 1px 1px 1px #333333;
+  text-shadow: none;
+}
+
+.selected.hover {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 #hidden {

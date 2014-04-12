@@ -1,0 +1,68 @@
+<link rel="import" href="packages/html_components/dialog/confirmation_dialog.html">
+
+<polymer-element name="confirmation-dialog-demo">
+  <template>
+    <h1>Confirmation Dialog</h1>
+    
+    <button class="btn btn-danger" on-click="{{showAlertConfirmationDialog}}">Alert</button>
+    <button class="btn btn-primary" on-click="{{showInfoConfirmationDialog}}">Info</button>
+    
+    <h-confirmation-dialog id="alert" modal severity="alert" on-buttonclicked="{{onButtonClicked}}">
+      <header>Initiating destroy process</header>
+      <span>Are you sure about destroying the world?</span>
+      <button>Yes sure</button>
+      <button>Not yet</button>
+    </h-confirmation-dialog>
+    
+    <h-confirmation-dialog id="info" closable severity="info" on-buttonclicked="{{onButtonClicked}}">
+      <header>There are unsaved changes!</header>
+      <span>Do you want to save the document?</span>
+      <button>Yes</button>
+      <button>No</button>
+      <button>Cancel</button>
+    </h-confirmation-dialog>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{showAlertConfirmationDialog}}"</span><span class="tag">&gt;</span><span class="pln">Alert</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+</span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{showInfoConfirmationDialog}}"</span><span class="tag">&gt;</span><span class="pln">Info</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;h-confirmation-dialog</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"alert"</span><span class="pln"> </span><span class="atn">modal</span><span class="pln"> </span><span class="atn">severity</span><span class="pun">=</span><span class="atv">"alert"</span><span class="pln"> </span><span class="atn">on-buttonclicked</span><span class="pun">=</span><span class="atv">"{<span></span>{onButtonClicked}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Initiating destroy process</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;span&gt;</span><span class="pln">Are you sure about destroying the world?</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+  </span><span class="tag">&lt;button&gt;</span><span class="pln">Yes sure</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;button&gt;</span><span class="pln">Not yet</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-confirmation-dialog&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;h-confirmation-dialog</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"info"</span><span class="pln"> </span><span class="atn">closable</span><span class="pln"> </span><span class="atn">severity</span><span class="pun">=</span><span class="atv">"info"</span><span class="pln"> </span><span class="atn">on-buttonclicked</span><span class="pun">=</span><span class="atv">"{<span></span>{onButtonClicked}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">There are unsaved changes!</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;span&gt;</span><span class="pln">Do you want to save the document?</span><span class="tag">&lt;/span&gt;</span><span class="pln">
+  </span><span class="tag">&lt;button&gt;</span><span class="pln">Yes</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;button&gt;</span><span class="pln">No</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;button&gt;</span><span class="pln">Cancel</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-confirmation-dialog&gt;</span></pre>
+
+    <pre class="prettyprint lang-dart prettyprinted" data-lang="Dart" style=""><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:polymer/polymer.dart'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'dart:html'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:html_components/html_components.dart'</span><span class="pun">;</span><span class="pln">
+
+@CustomTag</span><span class="pun">(</span><span class="str">'confirmation-dialog-demo'</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> ConfirmationDialogDemo </span><span class="kwd">extends</span><span class="pln"> PolymerElement </span><span class="pun">{</span><span class="pln">
+  
+  ConfirmationDialogDemo</span><span class="pun">.</span><span class="pln">created</span><span class="pun">()</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">created</span><span class="pun">();</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> showAlertConfirmationDialog</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'alert'</span><span class="pun">].</span><span class="kwd">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> showInfoConfirmationDialog</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'info'</span><span class="pun">].</span><span class="kwd">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> onButtonClicked</span><span class="pun">(</span><span class="pln">CustomEvent event</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">var</span><span class="pln"> detail</span><span class="pun">,</span><span class="pln"> Element target</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    GrowlComponent</span><span class="pun">.</span><span class="pln">postMessage</span><span class="pun">(</span><span class="str">'Button clicked:'</span><span class="pun">,</span><span class="pln"> detail</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+</span><span class="pun">}</span></pre>
+  </template>
+  
+  <script type="application/dart;component=1" src="dialog_confirmation_dialog_demo.dart"></script>
+</polymer-element>

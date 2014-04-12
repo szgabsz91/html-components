@@ -25,7 +25,7 @@
 }
 
 #picklist-container > tbody > tr > td > button:nth-child(1) > span:first-child {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -39,7 +39,7 @@
 }
 
 #picklist-container > tbody > tr > td > button:nth-child(2) > span:first-child {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -53,7 +53,7 @@
 }
 
 #picklist-container > tbody > tr > td > button:nth-child(3) > span:first-child {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -67,7 +67,7 @@
 }
 
 #picklist-container > tbody > tr > td > button:nth-child(4) > span:first-child {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;

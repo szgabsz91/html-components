@@ -56,7 +56,7 @@
 }
 
 .icon-closethick {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -70,7 +70,7 @@
 }
 
 .icon-plusthick {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -84,7 +84,7 @@
 }
 
 .icon-minusthick {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;

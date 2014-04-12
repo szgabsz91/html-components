@@ -45,7 +45,7 @@
   cursor: pointer;
   float: right;
   margin: 2px;
-  background-image: url("packages/html_components/resources/icons.png") !important;
+  background-image: url("../resources/icons.png") !important;
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -62,7 +62,7 @@
   cursor: pointer;
   float: right;
   margin: 2px;
-  background-image: url("packages/html_components/resources/icons.png") !important;
+  background-image: url("../resources/icons.png") !important;
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -83,7 +83,7 @@
 }
 
 .page-link {
-  background-image: url("packages/html_components/resources/icons.png") !important;
+  background-image: url("../resources/icons.png") !important;
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -180,7 +180,7 @@ select {
 }
 
 .select-button span {
-  background-image: url("packages/html_components/resources/icons.png") !important;
+  background-image: url("../resources/icons.png") !important;
   display: block;
   text-indent: -99999px;
   overflow: hidden;

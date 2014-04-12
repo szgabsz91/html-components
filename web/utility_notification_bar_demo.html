@@ -1,0 +1,42 @@
+<link rel="import" href="packages/html_components/utility/notification_bar.html">
+
+<polymer-element name="notification-bar-demo">
+  <template>
+    <link rel="stylesheet" href="utility_notification_bar_demo.css">
+    
+    <h1>Notification Bar</h1>
+    
+    <h-notification-bar id="notification-bar">
+      <h1>HTML Components Rock!</h1>
+    </h-notification-bar>
+    
+    <button class="btn btn-success" on-click="{{onShowButtonClicked}}">Show</button>
+    <button class="btn btn-danger" on-click="{{onHideButtonClicked}}">Hide</button>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-notification-bar</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"notification-bar"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h1&gt;</span><span class="pln">HTML Components Rock!</span><span class="tag">&lt;/h1&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-notification-bar&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{onShowButtonClicked}}"</span><span class="tag">&gt;</span><span class="pln">Show</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+</span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{onHideButtonClicked}}"</span><span class="tag">&gt;</span><span class="pln">Hide</span><span class="tag">&lt;/button&gt;</span></pre>
+    
+    <pre class="prettyprint lang-dart prettyprinted" data-lang="Dart" style=""><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:polymer/polymer.dart'</span><span class="pun">;</span><span class="pln">
+
+@CustomTag</span><span class="pun">(</span><span class="str">'notification-bar-demo'</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> NotificationBarDemo </span><span class="kwd">extends</span><span class="pln"> PolymerElement </span><span class="pun">{</span><span class="pln">
+  
+  NotificationBarDemo</span><span class="pun">.</span><span class="pln">created</span><span class="pun">()</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">created</span><span class="pun">();</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> onShowButtonClicked</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'notification-bar'</span><span class="pun">].</span><span class="kwd">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> onHideButtonClicked</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'notification-bar'</span><span class="pun">].</span><span class="kwd">hide</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+</span><span class="pun">}</span></pre>
+  </template>
+  
+  <script type="application/dart;component=1" src="utility_notification_bar_demo.dart"></script>
+</polymer-element>

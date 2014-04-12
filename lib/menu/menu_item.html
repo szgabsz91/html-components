@@ -2,18 +2,20 @@
   <template>
     <link rel="stylesheet" href="menu_item.css">
     
-    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
-      <a id="link" href="{{url}}" target="{{target}}" on-click="{{onItemClicked}}">
+    <div id="hidden">
+      <content></content>
+    </div>
+    
+    <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
+      <a id="link" href="{{url}}" target="{{target}}">
         <template if="{{icon != null}}">
           <span id="icon" class="{{icon}}"></span>
         </template>
         
-        <span id="text">
-          <content></content>
-        </span>
+        <span id="text">{{label}}</span>
       </a>
     </div>
   </template>
   
-  <script type="application/dart" src="menu_item.dart"></script>
+  <script type="application/dart;component=1" src="menu_item.dart"></script>
 </polymer-element>

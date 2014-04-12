@@ -60,7 +60,7 @@ table thead th.selected {
 table thead th span.icon-sort {
   display: inline-block !important;
   margin: -3px 0px -3px 2px;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;
@@ -103,7 +103,7 @@ table thead tr th:hover .filter-icon-container {
 }
 
 .filter-icon {
-  background-image: url("packages/html_components/resources/filter.png");
+  background-image: url("../resources/filter.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;
@@ -218,7 +218,7 @@ table tbody tr td {
   cursor: pointer;
   display: inline-block !important;
   margin: 0 10px -2px 0;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;

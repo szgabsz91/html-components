@@ -24,7 +24,7 @@
   width: 16px;
   height: 15px;
   display: block;
-  background: url("packages/html_components/resources/rating.png") no-repeat 0 0;
+  background: url("../resources/rating.png") no-repeat 0 0;
 }
 
 #cancel-button.hover {
@@ -40,7 +40,7 @@
   width: 16px;
   height: 15px;
   display: block;
-  background: url("packages/html_components/resources/rating.png") no-repeat 0 0;
+  background: url("../resources/rating.png") no-repeat 0 0;
   background-position: 0 -32px;
 }
 

@@ -1,12 +1,56 @@
 name: html_components
-version: 0.1.6
+version: 0.2.0
 author: Gabor Szabo <szgabsz91@gmail.com>
 description: A reusable component library written in HTML and Dart using Polymer.dart.
 homepage: https://github.com/szgabsz91/html-components
+environment:
+  sdk: 1.3.0
 dependencies:
-  animation: 0.5.21
-  polymer: 0.9.3+2
-  unittest: 0.9.2+1
+  animation:
+    git:
+      ref: browser_upgrade
+      url: https://github.com/szgabsz91/Animation
+    version: 0.5.23
+  polymer: 0.10.0-pre.9
+dev_dependencies:
+  unittest: 0.10.1+2
 transformers:
 - polymer:
-    entry_points: []
+    entry_points:
+    - web/index.html
+    - web/data_carousel.html
+    - web/data_datagrid.html
+    - web/data_datatable.html
+    - web/data_listbox.html
+    - web/data_picklist.html
+    - web/data_tagcloud.html
+    - web/data_tree.html
+    - web/data_treetable.html
+    - web/dialog_confirmation_dialog.html
+    - web/dialog_dialog.html
+    - web/input_autocomplete.html
+    - web/input_boolean_button.html
+    - web/input_masked_input.html
+    - web/input_rating.html
+    - web/input_select_button.html
+    - web/input_select_checkbox_menu.html
+    - web/menu_breadcrumb.html
+    - web/menu_context_menu.html
+    - web/menu_menu_button.html
+    - web/menu_menubar.html
+    - web/menu_split_button.html
+    - web/multimedia_feed_reader.html
+    - web/multimedia_gallery.html
+    - web/multimedia_image_compare.html
+    - web/multimedia_lightbox.html
+    - web/multimedia_photocam.html
+    - web/panel_accordion.html
+    - web/panel_panel.html
+    - web/panel_tabview.html
+    - web/utility_clock.html
+    - web/utility_draggable.html
+    - web/utility_growl.html
+    - web/utility_item_template.html
+    - web/utility_notification_bar.html
+    - web/utility_resizable.html
+    - web/utility_safe_html.html

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+* Updated to latest SDK (1.3) and polymer version
+* Some bug fixes
+* `example` directory renamed to `web` until the pages can be compiled without an error
+* `unittest` is now a dev dependency
+
+## 0.1.7
+* tree: animate property renamed to animating to fix the naming collision with the Element class
+* menu button: positioning bug fixed
+
 ## 0.1.6
 * confirmation dialog is centered before shown, fix in CSS
 * CSS fixes: confirmation dialog, dialog, boolean button, masked input, select item, select button, select checkbox menu
