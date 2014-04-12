@@ -45,7 +45,7 @@ class DatatableClientDataFetcher extends DatatableDataFetcher {
           case "string":
             result = result.where((Object item) {
               String value = reflection.getPropertyValue(item, column.property);
-              return value.toLowerCase().contains(validFilters.first.value);
+              return value.toLowerCase().contains(validFilters.first.value.toLowerCase());
             }).toList(growable: false);
             break;
           

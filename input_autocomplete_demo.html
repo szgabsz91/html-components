@@ -6,7 +6,7 @@
     
     <h1>Autocomplete</h1>
     
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
     
     <h4>String suggestions from client side</h4>
     <h-autocomplete maxResults="5" delay="1000" data="{{playerNames}}" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
@@ -35,19 +35,19 @@
   </span><span class="tag">&lt;/span&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-autocomplete&gt;</span></pre>
     
-    <h4>String suggestions from a JSON web service <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>String suggestions from a JSON web service <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-autocomplete source="http://localhost:9090/autocomplete/string" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
     <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-autocomplete</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/autocomplete/string"</span><span class="pln"> </span><span class="atn">maxResults</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"> </span><span class="atn">delay</span><span class="pun">=</span><span class="atv">"1000"</span><span class="pln"></span>
                 <span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-autocomplete&gt;</span></pre>
     
-    <h4>String suggestions from a JSON web service without an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>String suggestions from a JSON web service without an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-autocomplete source="http://localhost:9090/autocomplete/object" property="name" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}"></h-autocomplete>
     <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-autocomplete</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/autocomplete/object"</span><span class="pln"> </span><span class="atn">property</span><span class="pun">=</span><span class="atv">"name"</span><span class="pln"> </span><span class="atn">maxResults</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"></span>
                 <span class="atn">delay</span><span class="pun">=</span><span class="atv">"1000"</span><span class="pln"> </span><span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-autocomplete&gt;</span></pre>
     
-    <h4>String suggestions from a JSON web service with an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>String suggestions from a JSON web service with an item template <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-autocomplete source="http://localhost:9090/autocomplete/object" property="name" maxResults="5" delay="1000" on-valuechanged="{{onValueChangedFired}}">
       <span>
         <img src="img/players/${imagePath}" alt="${name}">
@@ -63,5 +63,5 @@
 </span><span class="tag">&lt;/h-autocomplete&gt;</span></pre>
   </template>
   
-  <script type="application/dart" src="input_autocomplete_demo.dart"></script>
+  <script type="application/dart;component=1" src="input_autocomplete_demo.dart"></script>
 </polymer-element>

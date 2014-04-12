@@ -58,7 +58,7 @@ class PackageGraph {
 
   /// The stream of [LogEntry] objects used to report transformer log entries.
   Stream<LogEntry> get log => _logController.stream;
-  final _logController = new StreamController<LogEntry>.broadcast(sync: true);
+  final _logController = new StreamController<LogEntry>.broadcast();
 
   /// The most recent error emitted from a cascade's result stream.
   ///

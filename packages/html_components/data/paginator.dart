@@ -83,7 +83,7 @@ class PaginatorComponent extends PolymerElement {
   void onPageLinkClicked(MouseEvent event, var detail, Element target) {
     event.preventDefault();
     
-    int page = target.parent.children.indexOf(target);
+    int page = int.parse(target.text);
     
     if (page == currentPage) {
       return;

@@ -12,6 +12,8 @@ part of animation;
  * [ElementAnimation] is used to animate HTMLElement styles (such as left, width) and properties (such as scrollTop).
  */
 class ElementAnimation extends Animation {
+  static final RegExp valueUnitRegex = new RegExp(r'^(-?[0-9\.]+)([a-zA-Z%]+)$');
+
   /**
    * These are our target properties where we should end up in if all goes well.
    */
@@ -51,7 +53,9 @@ class ElementAnimation extends Animation {
     CssStyleDeclaration style = element.getComputedStyle("");
 
     new Map.from(toProperties).forEach((key, value) {
-      var cssValue = style.getPropertyValue(key);
+      var cssValue = element.style.getPropertyValue(key);
+
+      if (cssValue == '') cssValue = style.getPropertyValue(key);
 
       // Convert "auto" and "" to the actual value.
       if (cssValue == 'auto' || cssValue == '') {
@@ -70,7 +74,7 @@ class ElementAnimation extends Animation {
 
       // Example properties needing a unit: width, height, top, etc.
       if (_doesPropertyNeedUnit(key)) {
-        var match = new RegExp(r'^(-?[0-9\.]+)([a-zA-Z]+)$').firstMatch(cssValue);
+        var match = new RegExp(r'^(-?[0-9\.]+)([a-zA-Z%]+)$').firstMatch(cssValue);
 
         // There's a unit.
         if (match != null) {
@@ -81,7 +85,7 @@ class ElementAnimation extends Animation {
           currentProperties[key] = double.parse(value);
           units[key] = unit;
         } else {
-          var match = new RegExp(r'^(-?[0-9\.]+)$').firstMatch(cssValue);
+          var match = valueUnitRegex.firstMatch(cssValue);
 
           // A number without a unit.
           if (match != null) {
@@ -91,7 +95,9 @@ class ElementAnimation extends Animation {
             currentProperties[key] = double.parse(value);
             units[key] = _doesPropertyNeedUnit(key) ? 'px' : ''; // Default unit "px" if user did not specify anything.
           } else {
-            throw 'Cannot animate property "$key", because of its unsupported value "${cssValue}".';
+            fromProperties[key] = double.parse(cssValue);
+            currentProperties[key] = double.parse(cssValue);
+            units[key] = 'px'; // Default unit "px" if user did not specify anything.
           }
         }
       }
@@ -105,7 +111,7 @@ class ElementAnimation extends Animation {
 
       // If the user specified a to-value with a unit, let's use that as our unit instead.
       if (value is String) {
-        var match = new RegExp(r'^(-?[0-9\.]+)([a-zA-Z]+)$').firstMatch(value);
+        var match = valueUnitRegex.firstMatch(value);
 
         if (match != null) {
           var value = match.group(1);
@@ -148,10 +154,8 @@ class ElementAnimation extends Animation {
     if (_isInitialized == false) _initializeFromProperties();
 
     if (_paused) {
-      var now = _getNowMilliseconds();
-
       _paused = false;
-      _pausedFor += now - _pausedAt;
+      _pausedFor += _getNowMilliseconds() - _pausedAt;
     }
 
     // Set the start time if this is the first time.
@@ -174,10 +178,10 @@ class ElementAnimation extends Animation {
     currentTime -= _pausedFor;
 
     // Calculate how much time we have left.
-    var left = duration - (currentTime - _startTime);
+    var timeLeft = duration - (currentTime - _startTime);
 
     if (_onStepController.hasListener) {
-      var percentage = 100 - (100 / (duration / left));
+      var percentage = 100 - (100 / (duration / timeLeft));
 
       // Clamp.
       if (percentage > 100) {
@@ -197,15 +201,15 @@ class ElementAnimation extends Animation {
       var intermediateValue;
 
       // If there's still time left, calculate the exact figures.
-      if (left > 0) {
+      if (timeLeft > 0) {
         var baseValue = fromProperties[key];      // The base/original value.
         var change    = value - baseValue;        // How much the values differ.
         var time      = currentTime - _startTime; // How much time has passed.
 
-        // Calculate tween'ed value.
+        // Calculate the eased value.
         intermediateValue = super._performEasing(time, duration, change, baseValue);
 
-        // Clamps the intermediate value to be within value's range.
+        // Clamps the intermediate value to be within value's range. i.e. to ensure we never exceed limits.
         if (baseValue > value) {
           if (value > 0 && intermediateValue < value)
             intermediateValue = value;
@@ -217,10 +221,8 @@ class ElementAnimation extends Animation {
           if (value < 0 && intermediateValue > value)
             intermediateValue = value;
         }
-      }
-
-      // If there is no time left, jump to the last value.
-      else {
+      } else {
+        // If no time left, jump to the final value.
         intermediateValue = value;
       }
 
@@ -231,12 +233,12 @@ class ElementAnimation extends Animation {
       if (_isAnimatableElementProperty(key)) {
         _setPropertyValue(key, result);
       } else {
-        element.style.setProperty(key, '${result}${units[key]}');
+        element.style.setProperty(key, '$result${units[key]}');
       }
     });
 
     // If we still have time left, go on.
-    if (left > 0) {
+    if (timeLeft > 0) {
       window.requestAnimationFrame(_advance);
     } else {
       _onCompleteController.add(null);
@@ -258,27 +260,36 @@ class ElementAnimation extends Animation {
    * We try to convert "auto" value to the actual value.
    */
   String _getActualValueForAuto(String propertyName) {
-    switch (propertyName) {
-      case 'width':
-        return '${element.clientWidth}';
-      case 'height':
-        return '${element.clientHeight}';
-      case 'top':
-      case 'right':
-      case 'bottom':
-      case 'left':
-        return '0';
-      case 'scrollTop':
-        return '${element.scrollTop}';
-      case 'scrollLeft':
-        return '${element.scrollLeft}';
+    convert() {
+      switch (propertyName) {
+        case 'width':
+          return element.clientWidth;
+        case 'height':
+          return element.clientHeight;
+        case 'top':
+        case 'right':
+        case 'bottom':
+        case 'left':
+          return 0;
+        case 'scrollTop':
+          return element.scrollTop;
+        case 'scrollLeft':
+          return element.scrollLeft;
+        case 'opacity':
+          return 1;
+      }
     }
+
+    var value = convert();
+    if (value != null) return value.toString();
 
     return 'auto';
   }
 
   /**
    * Returns true if the property requires animation with decimal precision.
+   *
+   * Properties like 'opacity' needs to animate precisely, but e.g. width should not.
    */
   bool _propertyNeedsPreciseAnimation(String propertyName) {
     switch (propertyName) {

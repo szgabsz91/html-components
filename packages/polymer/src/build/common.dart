@@ -2,21 +2,24 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/** Common methods used by transfomers. */
+/// Common methods used by transfomers.
 library polymer.src.build.common;
 
 import 'dart:async';
 
+import 'package:analyzer/src/generated/ast.dart';
+import 'package:analyzer/src/generated/error.dart';
+import 'package:analyzer/src/generated/parser.dart';
+import 'package:analyzer/src/generated/scanner.dart';
 import 'package:barback/barback.dart';
 import 'package:html5lib/dom.dart' show Document;
 import 'package:html5lib/parser.dart' show HtmlParser;
 import 'package:path/path.dart' as path;
+import 'package:observe/transformer.dart' show ObservableTransformer;
 import 'package:source_maps/span.dart' show Span;
 
-/**
- * Parses an HTML file [contents] and returns a DOM-like tree. Adds emitted
- * error/warning to [logger].
- */
+/// Parses an HTML file [contents] and returns a DOM-like tree. Adds emitted
+/// error/warning to [logger].
 Document _parseHtml(String contents, String sourcePath, TransformLogger logger,
     {bool checkDocType: true}) {
   // TODO(jmesserly): make HTTP encoding configurable
@@ -34,46 +37,43 @@ Document _parseHtml(String contents, String sourcePath, TransformLogger logger,
   return document;
 }
 
-/** Additional options used by polymer transformers */
+/// Additional options used by polymer transformers
 class TransformOptions {
-  /**
-   * List of entrypoints paths. The paths are relative to the package root and
-   * are represented using posix style, which matches the representation used in
-   * asset ids in barback. If null, anything under 'web/' or 'test/' is
-   * considered an entry point.
-   */
+  /// List of entrypoints paths. The paths are relative to the package root and
+  /// are represented using posix style, which matches the representation used
+  /// in asset ids in barback. If null, anything under 'web/' or 'test/' is
+  /// considered an entry point.
   final List<String> entryPoints;
 
-  /**
-   * True to enable Content Security Policy.
-   * This means the HTML page will include *.dart.precompiled.js
-   *
-   * This flag has no effect unless [directlyIncludeJS] is enabled.
-   */
+  /// True to enable Content Security Policy.
+  /// This means the HTML page will include *.dart.precompiled.js
+  ///
+  /// This flag has no effect unless [directlyIncludeJS] is enabled.
   final bool contentSecurityPolicy;
 
-  /**
-   * True to include the compiled JavaScript directly from the HTML page.
-   * If enabled this will remove "packages/browser/dart.js" and replace
-   * `type="application/dart"` scripts with equivalent *.dart.js files.
-   *
-   * If [contentSecurityPolicy] enabled, this will reference files
-   * named *.dart.precompiled.js.
-   */
+  /// True to include the compiled JavaScript directly from the HTML page.
+  /// If enabled this will remove "packages/browser/dart.js" and replace
+  /// `type="application/dart"` scripts with equivalent *.dart.js files.
+  ///
+  /// If [contentSecurityPolicy] enabled, this will reference files
+  /// named *.dart.precompiled.js.
   final bool directlyIncludeJS;
 
-  /**
-   * Run transformers to create a releasable app. For example, include the
-   * minified versions of the polyfills rather than the debug versions.
-   */
+  /// Run transformers to create a releasable app. For example, include the
+  /// minified versions of the polyfills rather than the debug versions.
   final bool releaseMode;
 
+  /// True to run liner on all html files before starting other phases.
+  // TODO(jmesserly): instead of this flag, we should only run linter on
+  // reachable (entry point+imported) html if deploying. See dartbug.com/17199.
+  final bool lint;
+
   TransformOptions({entryPoints, this.contentSecurityPolicy: false,
-      this.directlyIncludeJS: true, this.releaseMode: true})
+      this.directlyIncludeJS: true, this.releaseMode: true, this.lint: true})
       : entryPoints = entryPoints == null ? null
           : entryPoints.map(_systemToAssetPath).toList();
 
-  /** Whether an asset with [id] is an entry point HTML file. */
+  /// Whether an asset with [id] is an entry point HTML file.
   bool isHtmlEntryPoint(AssetId id) {
     if (id.extension != '.html') return false;
 
@@ -86,7 +86,7 @@ class TransformOptions {
   }
 }
 
-/** Mixin for polymer transformers. */
+/// Mixin for polymer transformers.
 abstract class PolymerTransformer {
   TransformOptions get options;
 
@@ -102,8 +102,7 @@ abstract class PolymerTransformer {
   Future<Document> readAsHtml(AssetId id, Transform transform) {
     var primaryId = transform.primaryInput.id;
     bool samePackage = id.package == primaryId.package;
-    var url = samePackage ? id.path
-        : assetUrlFor(id, primaryId, transform.logger, allowAssetUrl: true);
+    var url = spanUrlFor(id, transform);
     return transform.readInputAsString(id).then((content) {
       return _parseHtml(content, url, transform.logger,
         checkDocType: samePackage && options.isHtmlEntryPoint(id));
@@ -116,62 +115,28 @@ abstract class PolymerTransformer {
   String toString() => 'polymer ($runtimeType)';
 }
 
-/** Create an [AssetId] for a [url] seen in the [source] asset. */
-// TODO(sigmund): delete once this is part of barback (dartbug.com/12610)
-AssetId resolve(AssetId source, String url, TransformLogger logger, Span span) {
-  if (url == null || url == '') return null;
-  var uri = Uri.parse(url);
-  var urlBuilder = path.url;
-  if (uri.host != '' || uri.scheme != '' || urlBuilder.isAbsolute(url)) {
-    logger.error('absolute paths not allowed: "$url"', span: span);
-    return null;
-  }
-
-  var segments = urlBuilder.split(url);
-  var prefix = segments[0];
-  var entryFolder = !source.path.startsWith('lib/') &&
-      !source.path.startsWith('asset/');
-
-  // URLs of the form "packages/foo/bar" seen under entry folders (like web/,
-  // test/, example/, etc) are resolved as an asset in another package.
-  if (entryFolder && (prefix == 'packages' || prefix == 'assets')) {
-    return _extractOtherPackageId(0, segments, logger, span);
-  }
-
-  var targetPath = urlBuilder.normalize(
-      urlBuilder.join(urlBuilder.dirname(source.path), url));
-
-  // Relative URLs of the form "../../packages/foo/bar" in an asset under lib/
-  // or asset/ are also resolved as an asset in another package.
-  segments = urlBuilder.split(targetPath);
-  if (!entryFolder && segments.length > 1 && segments[0] == '..' &&
-      (segments[1] == 'packages' || segments[1] == 'assets')) {
-    return _extractOtherPackageId(1, segments, logger, span);
-  }
-
-  // Otherwise, resolve as a path in the same package.
-  return new AssetId(source.package, targetPath);
+/// Gets the appropriate URL to use in a [Span] to produce messages
+/// (e.g. warnings) for users. This will attempt to format the URL in the most
+/// useful way:
+///
+/// - If the asset is within the primary package, then use the [id.path],
+///   the user will know it is a file from their own code.
+/// - If the asset is from another package, then use [assetUrlFor], this will
+///   likely be a "package:" url to the file in the other package, which is
+///   enough for users to identify where the error is.
+String spanUrlFor(AssetId id, Transform transform) {
+  var primaryId = transform.primaryInput.id;
+  bool samePackage = id.package == primaryId.package;
+  return samePackage ? id.path
+      : assetUrlFor(id, primaryId, transform.logger, allowAssetUrl: true);
 }
 
-AssetId _extractOtherPackageId(int index, List segments,
-    TransformLogger logger, Span span) {
-  if (index >= segments.length) return null;
-  var prefix = segments[index];
-  if (prefix != 'packages' && prefix != 'assets') return null;
-  var folder = prefix == 'packages' ? 'lib' : 'asset';
-  if (segments.length < index + 3) {
-    logger.error("incomplete $prefix/ path. It should have at least 3 "
-        "segments $prefix/name/path-from-name's-$folder-dir", span: span);
-    return null;
-  }
-  return new AssetId(segments[index + 1],
-      path.url.join(folder, path.url.joinAll(segments.sublist(index + 2))));
-}
+/// Transformer phases which should be applied to the Polymer package.
+List<List<Transformer>> get phasesForPolymer =>
+    [[new ObservableTransformer(['lib/src/instance.dart'])]];
 
-/**
- * Generate the import url for a file described by [id], referenced by a file
- * with [sourceId].
- */
+/// Generate the import url for a file described by [id], referenced by a file
+/// with [sourceId].
 // TODO(sigmund): this should also be in barback (dartbug.com/12610)
 String assetUrlFor(AssetId id, AssetId sourceId, TransformLogger logger,
     {bool allowAssetUrl: false}) {
@@ -201,8 +166,48 @@ String assetUrlFor(AssetId id, AssetId sourceId, TransformLogger logger,
 }
 
 
-/** Convert system paths to asset paths (asset paths are posix style). */
+/// Convert system paths to asset paths (asset paths are posix style).
 String _systemToAssetPath(String assetPath) {
   if (path.Style.platform != path.Style.windows) return assetPath;
   return path.posix.joinAll(path.split(assetPath));
 }
+
+
+/// Parse [code] using analyzer.
+CompilationUnit parseCompilationUnit(String code) {
+  var errorListener = new _ErrorCollector();
+  var reader = new CharSequenceReader(code);
+  var scanner = new Scanner(null, reader, errorListener);
+  var token = scanner.tokenize();
+  var parser = new Parser(null, errorListener);
+  return parser.parseCompilationUnit(token);
+}
+
+class _ErrorCollector extends AnalysisErrorListener {
+  final errors = <AnalysisError>[];
+  onError(error) => errors.add(error);
+}
+
+/// These names have meaning in SVG or MathML, so they aren't allowed as custom
+/// tags. See [isCustomTagName].
+const invalidTagNames = const {
+  'annotation-xml': '',
+  'color-profile': '',
+  'font-face': '',
+  'font-face-src': '',
+  'font-face-uri': '',
+  'font-face-format': '',
+  'font-face-name': '',
+  'missing-glyph': '',
+};
+
+/// Returns true if this is a valid custom element name. See:
+/// <http://w3c.github.io/webcomponents/spec/custom/#dfn-custom-element-type>
+bool isCustomTagName(String name) {
+  if (name == null || !name.contains('-')) return false;
+  return !invalidTagNames.containsKey(name);
+}
+
+/// Regex to split names in the 'attributes' attribute, which supports 'a b c',
+/// 'a,b,c', or even 'a b,c'. This is the same as in `lib/src/declaration.dart`.
+final ATTRIBUTES_REGEX = new RegExp(r'\s|,');

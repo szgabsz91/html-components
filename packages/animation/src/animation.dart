@@ -44,7 +44,7 @@ abstract class Animation {
    */
   pause() {
     _paused = true;
-    _pausedAt = _getNowMilliseconds;
+    _pausedAt = _getNowMilliseconds();
   }
 
   /**

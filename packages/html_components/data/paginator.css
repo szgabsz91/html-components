@@ -64,7 +64,7 @@
 }
 
 #container > span#icon-first > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;
@@ -102,7 +102,7 @@
 }
 
 #container > span#icon-previous > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;
@@ -172,7 +172,7 @@
 }
 
 #container > span#icon-next > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;
@@ -210,7 +210,7 @@
 }
 
 #container > span#icon-last > span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   background-repeat: no-repeat;

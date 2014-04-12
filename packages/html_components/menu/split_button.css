@@ -37,7 +37,7 @@
   position: absolute;
   top: 50%;
   margin-top: -8px;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -100,7 +100,7 @@
   left: 50%;
   margin-left: -8px;
   background-position: -64px -16px;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;

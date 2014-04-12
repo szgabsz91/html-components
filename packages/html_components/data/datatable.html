@@ -31,9 +31,7 @@
               <tr>
                 <th template repeat="{{column in columns | enumerate}}" class="{{ {'sortable': column.value.sortable, 'selected': column.value.sort != null} }}" on-mouseover="{{onColumnHeaderMouseOver}}" on-mouseout="{{onColumnHeaderMouseOut}}" on-click="{{onColumnHeaderClicked}}">
                   <span>
-                    <template if="{{column.value.header != null">
-                      <h-safe-html content="{{column.value.header}}"></h-safe-html>
-                    </template>
+                    <h-safe-html content="{{column.value.header}}"></h-safe-html>
                   </span>
                   
                   <template if="{{column.value.sortable}}">
@@ -139,5 +137,5 @@
     </div>
   </template>
   
-  <script type="application/dart" src="datatable.dart"></script>
+  <script type="application/dart;component=1" src="datatable.dart"></script>
 </polymer-element>

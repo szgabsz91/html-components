@@ -7,6 +7,7 @@ class MaskedInputComponent extends PolymerElement {
   @published String mask;
   @published String placeholder = '_';
   @published String value = '';
+  int _currentIndex;
   
   bool get isValid => !value.contains(placeholder);
   
@@ -59,26 +60,41 @@ class MaskedInputComponent extends PolymerElement {
       int nextIndex = _getNextFilledCharacterIndex(currentIndex);
       _placeCursor(nextIndex);
     }
+    
+    _storeCurrentIndex();
   }
   
   void onInputKeyUp(KeyboardEvent event) {
-    int currentIndex = $['input'].selectionStart;
-    
-    // Don't do anything at the beginning and end of the string
-    if (currentIndex == 0 || currentIndex >= mask.length) {
-      event.preventDefault();
-      return;
-    }
+    int currentIndex = _currentIndex;
     
     // Backspace
     if (event.which == 8) {
-      _insertPlaceholderAtIndex(currentIndex);
-      _placeCursor(currentIndex);
+      print(currentIndex);
+      if (currentIndex > $['input'].value.length) {
+        $['input'].value += this.placeholder;
+        _placeCursor($['input'].value.length - 1);
+      }
+      else if (currentIndex > 0) {
+        int previousIndex = _getPreviousIndex(currentIndex);
+        _insertPlaceholderAtIndex(previousIndex);
+        _placeCursor(previousIndex);
+      }
     }
     // Del
     else if (event.which == 46) {
-      _insertPlaceholderAtIndex(currentIndex);
-      _placeCursor(currentIndex);
+      if (currentIndex < mask.length - 1) {
+        _insertPlaceholderAtIndex(currentIndex);
+        int nextIndex = _getNextPlaceholderIndexInBlock(currentIndex);
+        _placeCursor(nextIndex + 1);
+      }
+      else if ($['input'].value.length == mask.length - 1) {
+        $['input'].value += this.placeholder;
+      }
+    }
+    else {
+      if (currentIndex < $['input'].value.length - 1) {
+        _placeCursor(_getNextIndex(currentIndex));
+      }
     }
   }
   
@@ -192,6 +208,10 @@ class MaskedInputComponent extends PolymerElement {
     $['input']
       ..selectionStart = index
       ..selectionEnd = index;
+  }
+  
+  void _storeCurrentIndex() {
+    this._currentIndex = $['input'].selectionStart;
   }
   
   void _refreshInputField() {

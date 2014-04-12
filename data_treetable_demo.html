@@ -7,7 +7,7 @@
     
     <h1>Treetable</h1>
     
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
     
     <table class="issues">
       <tr>
@@ -64,7 +64,7 @@
   </span><span class="tag">&lt;footer&gt;</span><span class="pln">Document Viewer</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-treetable&gt;</span></pre>
     
-    <h4>Server Side Data, Multiple Selection and Resizable Columns <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>Server Side Data, Multiple Selection and Resizable Columns <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-treetable source="http://localhost:9090/treetable/documents" selection="multiple" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-columnresized="{{onColumnResized}}">
       <header>Document Viewer</header>
       
@@ -102,5 +102,5 @@
 </span><span class="tag">&lt;/h-treetable&gt;</span></pre>
   </template>
   
-  <script type="application/dart" src="data_treetable_demo.dart"></script>
+  <script type="application/dart;component=1" src="data_treetable_demo.dart"></script>
 </polymer-element>

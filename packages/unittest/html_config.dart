@@ -2,9 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/**
- * A simple unit test library for running tests in a browser.
- */
+/// A simple unit test library for running tests in a browser.
 library unittest.html_config;
 
 import 'dart:async';
@@ -13,7 +11,7 @@ import 'dart:html';
 import 'dart:js' as js;
 import 'unittest.dart';
 
-/** Creates a table showing tests results in HTML. */
+/// Creates a table showing tests results in HTML.
 void _showResultsInPage(int passed, int failed, int errors,
     List<TestCase> results, bool isLayoutTest, String uncaughtError) {
   if (isLayoutTest && (passed == results.length) && uncaughtError == null) {
@@ -30,7 +28,7 @@ void _showResultsInPage(int passed, int failed, int errors,
     }
 
     if (uncaughtError != null) {
-        newBody.write('''<tr>
+      newBody.write('''<tr>
           <td>--</td>
           <td class="unittest-error">ERROR</td>
           <td>Uncaught error: $uncaughtError</td>
@@ -91,7 +89,7 @@ String _toHtml(TestCase test_) {
 }
 
 class HtmlConfiguration extends SimpleConfiguration {
-  /** Whether this is run within dartium layout tests. */
+  /// Whether this is run within dartium layout tests.
   final bool _isLayoutTest;
   HtmlConfiguration(this._isLayoutTest);
 
@@ -134,9 +132,9 @@ class HtmlConfiguration extends SimpleConfiguration {
   void onInit() {
     // For Dart internal tests, we want to turn off stack frame
     // filtering, which we do with this meta-header.
-    var meta = query('meta[name="dart.unittest"]');
+    var meta = querySelector('meta[name="dart.unittest"]');
     filterStacks = meta == null ? true :
-       !meta.content.contains('full-stack-traces');
+        !meta.content.contains('full-stack-traces');
     _installHandlers();
     window.postMessage('unittest-suite-wait-for-done', '*');
   }

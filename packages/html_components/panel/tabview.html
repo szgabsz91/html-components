@@ -15,7 +15,7 @@
             <li class="{{ {'header': true, 'selected': tab.selected, 'disabled': tab.disabled} }}" on-mouseOver="{{onHeaderMouseOver}}" on-mouseOut="{{onHeaderMouseOut}}" on-click="{{onHeaderClicked}}">
               <a href="#">{{tab.header}}</a>
               <template if="{{tab.closable}}">
-                <span id="close-thick" on-click="{{onCloseThickClicked}}"></span>
+                <span class="close-thick" on-click="{{onCloseThickClicked}}"></span>
               </template>
             </li>
           </template>
@@ -47,5 +47,5 @@
     </div>
   </template>
   
-  <script type="application/dart" src="tabview.dart"></script>
+  <script type="application/dart;component=1" src="tabview.dart"></script>
 </polymer-element>

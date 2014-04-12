@@ -7,7 +7,7 @@
     
     <h1>Datagrid</h1>
     
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
     
     <table class="issues">
       <tr>
@@ -79,7 +79,7 @@
   </span><span class="tag">&lt;/h-panel&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-datagrid&gt;</span></pre>
     
-    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-datagrid source="http://localhost:9090/datagrid/cars" columns="2" rows="6" maxPageLinks="5" paginatorPosition="top" rowsPerPageTemplate="4,6,8" on-selected="{{onItemSelected}}">
       <h-panel>
         <header>${model}</header>
@@ -108,5 +108,5 @@
 </span><span class="tag">&lt;/h-datagrid&gt;</span></pre>
   </template>
   
-  <script type="application/dart" src="data_datagrid_demo.dart"></script>
+  <script type="application/dart;component=1" src="data_datagrid_demo.dart"></script>
 </polymer-element>

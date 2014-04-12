@@ -16,7 +16,7 @@ class TreeComponent extends PolymerElement {
   @published Object root;
   @published String source;
   @published String selection = 'single';
-  @published bool animate = false;
+  @published bool animating = false;
   
   @observable List selectedItems = toObservable([]);
   
@@ -130,7 +130,7 @@ class TreeComponent extends PolymerElement {
         
         _insertTreeNodes(childContainer, treeNodes);
         
-        if (animate) {
+        if (animating) {
           int height = childContainer.clientHeight == 0 ? int.parse(childContainer.style.height.replaceAll("px", "")) : childContainer.clientHeight;
           childContainer.style.height = "0";
           childContainer.style.display = "block";
@@ -171,7 +171,7 @@ class TreeComponent extends PolymerElement {
       }).catchError((Object error) => print("An error occured: $error"));
     }
     else {
-      if (animate) {
+      if (animating) {
         int height = childContainer.clientHeight == 0 ? int.parse(childContainer.style.height.replaceAll("px", "")) : childContainer.clientHeight;
         childContainer.style.height = "0";
         childContainer.style.display = "block";
@@ -245,7 +245,7 @@ class TreeComponent extends PolymerElement {
     
     node.expanded = false;
     
-    if (animate) {
+    if (animating) {
       int height = childContainer.clientHeight;
       
       if (nodeIcon != null) {

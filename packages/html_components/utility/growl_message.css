@@ -18,7 +18,7 @@
   top: 5px;
   right: 3px;
   cursor: pointer;
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   background-position: -96px -128px;
   text-indent: -99999px;
   overflow: hidden;
@@ -35,7 +35,7 @@
   margin: 0;
   padding: 0;
   display: block;
-  background: url("packages/html_components/resources/messages.png") no-repeat;
+  background: url("../resources/messages.png") no-repeat;
 }
 
 #icon.info {

@@ -161,7 +161,7 @@
 .header.disabled {
   opacity: .35;
   background-image: none;
-  cursor: default;
+  cursor: default !important;
 }
 
 a {
@@ -190,8 +190,8 @@ a {
   cursor: default;
 }
 
-#close-thick {
-  background-image: url("packages/html_components/resources/icons.png");
+.close-thick {
+  background-image: url("../resources/icons.png");
   float: left;
   margin: 0.6em 0.2em 0 -0.8em;
   cursor: pointer;
@@ -205,6 +205,10 @@ a {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+}
+
+.header.disabled .close-thick:hover {
+  cursor: default;
 }
 
 .left #content-container {

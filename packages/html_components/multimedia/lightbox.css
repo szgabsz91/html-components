@@ -50,7 +50,7 @@
 }
 
 #previous-button span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -82,7 +82,7 @@
 }
 
 .loading {
-  background-image: url("packages/html_components/resources/loading.gif");
+  background-image: url("../resources/loading.gif");
   background-color: #000000;
   background-position: center center;
   background-repeat: no-repeat;
@@ -115,7 +115,7 @@
 }
 
 #next-button span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -161,7 +161,7 @@
 }
 
 #caption a span {
-  background-image: url("packages/html_components/resources/icons.png");
+  background-image: url("../resources/icons.png");
   display: block;
   text-indent: -99999px;
   overflow: hidden;

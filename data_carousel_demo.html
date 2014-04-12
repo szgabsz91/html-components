@@ -7,7 +7,7 @@
     
     <h1>Carousel</h1>
     
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work on Github Pages!</div>
+    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
     
     <table class="issues">
       <tr>
@@ -46,7 +46,7 @@
   </span><span class="tag">&lt;footer&gt;</span><span class="pln">In total there are ${carousel:totalCount} cars.</span><span class="tag">&lt;/footer&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-carousel&gt;</span></pre>
     
-    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work on Github Pages"></b></h4>
+    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
     <h-carousel source="http://localhost:9090/carousel/cars/11" visibleItems="3" on-selected="{{onItemSelected}}">
       <header>Cars</header>
       <div style="width:200px; height:140px; text-align:center">
@@ -167,5 +167,5 @@
 </span><span class="tag">&lt;/h-carousel&gt;</span></pre>
   </template>
   
-  <script type="application/dart" src="data_carousel_demo.dart"></script>
+  <script type="application/dart;component=1" src="data_carousel_demo.dart"></script>
 </polymer-element>
