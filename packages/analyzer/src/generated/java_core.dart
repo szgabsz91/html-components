@@ -67,6 +67,24 @@ class Character {
   static bool isLetterOrDigit(int c) {
     return isLetter(c) || isDigit(c);
   }
+  static bool isLowerCase(int c) {
+    return c >= 0x61 && c <= 0x7A;
+  }
+  static bool isUpperCase(int c) {
+    return c >= 0x41 && c <= 0x5A;
+  }
+  static int toLowerCase(int c) {
+    if (c >= 0x41 && c <= 0x5A) {
+      return 0x61 + (c - 0x41);
+    }
+    return c;
+  }
+  static int toUpperCase(int c) {
+    if (c >= 0x61 && c <= 0x7A) {
+      return 0x41 + (c - 0x61);
+    }
+    return c;
+  }
   static bool isWhitespace(int c) {
     return c == 0x09 || c == 0x20 || c == 0x0A || c == 0x0D;
   }
@@ -211,14 +229,70 @@ class PrintStringWriter extends PrintWriter {
 }
 
 class StringUtils {
-  static List<String> split(String s, [String pattern = '']) => s.split(pattern);
-  static String replace(String s, String from, String to) => s.replaceAll(from, to);
+  static String capitalize(String str) {
+    if (isEmpty(str)) {
+      return str;
+    }
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+  }
+
+  static bool equals(String cs1, String cs2) {
+    if (cs1 == cs2) {
+      return true;
+    }
+    if (cs1 == null || cs2 == null) {
+      return false;
+    }
+    return cs1 == cs2;
+  }
+
+  static bool isEmpty(String str) {
+    return str == null || str.isEmpty;
+  }
+
+  static String join(Iterable iter, [String separator = ' ', int start = 0, int
+      end = -1]) {
+    if (start != 0) {
+      iter = iter.skip(start);
+    }
+    if (end != -1) {
+      iter = iter.take(end - start);
+    }
+    return iter.join(separator);
+  }
+
+  static String remove(String str, String remove) {
+    if (isEmpty(str) || isEmpty(remove)) {
+      return str;
+    }
+    return str.replaceAll(remove, '');
+  }
+
+  static String removeStart(String str, String remove) {
+    if (isEmpty(str) || isEmpty(remove)) {
+      return str;
+    }
+    if (str.startsWith(remove)) {
+      return str.substring(remove.length);
+    }
+    return str;
+  }
+
   static String repeat(String s, int n) {
     StringBuffer sb = new StringBuffer();
     for (int i = 0; i < n; i++) {
       sb.write(s);
     }
     return sb.toString();
+  }
+
+  static List<String> split(String s, [String pattern = '']) {
+    return s.split(pattern);
+  }
+
+  static List<String> splitByWholeSeparatorPreserveAllTokens(String s, String
+      pattern) {
+    return s.split(pattern);
   }
 }
 
@@ -257,7 +331,7 @@ class IllegalStateException extends JavaException {
 }
 
 class UnsupportedOperationException extends JavaException {
-  String toString() => "UnsupportedOperationException";
+  UnsupportedOperationException([message = ""]) : super(message);
 }
 
 class NoSuchElementException extends JavaException {

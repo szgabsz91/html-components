@@ -7,6 +7,7 @@
 
 library engine.utilities.collection;
 
+import 'dart:collection';
 import 'java_core.dart';
 import 'scanner.dart' show Token;
 
@@ -81,37 +82,6 @@ class BooleanArray {
 }
 
 /**
- * Instances of the class `TokenMap` map one set of tokens to another set of tokens.
- */
-class TokenMap {
-  /**
-   * A table mapping tokens to tokens. This should be replaced by a more performant implementation.
-   * One possibility is a pair of parallel arrays, with keys being sorted by their offset and a
-   * cursor indicating where to start searching.
-   */
-  Map<Token, Token> _map = new Map<Token, Token>();
-
-  /**
-   * Return the token that is mapped to the given token, or `null` if there is no token
-   * corresponding to the given token.
-   *
-   * @param key the token being mapped to another token
-   * @return the token that is mapped to the given token
-   */
-  Token get(Token key) => _map[key];
-
-  /**
-   * Map the key to the value.
-   *
-   * @param key the token being mapped to the value
-   * @param value the token to which the key will be mapped
-   */
-  void put(Token key, Token value) {
-    _map[key] = value;
-  }
-}
-
-/**
  * Instances of the class `DirectedGraph` implement a directed graph in which the nodes are
  * arbitrary (client provided) objects and edges are represented implicitly. The graph will allow an
  * edge from any node to any other node, including itself, but will not represent multiple edges
@@ -125,7 +95,7 @@ class DirectedGraph<N> {
    * to a set of tails. Nodes that are not the head of any edge are represented by an entry mapping
    * the node to an empty set of tails.
    */
-  Map<N, Set<N>> _edges = new Map<N, Set<N>>();
+  HashMap<N, HashSet<N>> _edges = new HashMap<N, HashSet<N>>();
 
   /**
    * Add an edge from the given head node to the given tail node. Both nodes will be a part of the
@@ -139,14 +109,14 @@ class DirectedGraph<N> {
     // First, ensure that the tail is a node known to the graph.
     //
     if (_edges[tail] == null) {
-      _edges[tail] = new Set<N>();
+      _edges[tail] = new HashSet<N>();
     }
     //
     // Then create the edge.
     //
-    Set<N> tails = _edges[head];
+    HashSet<N> tails = _edges[head];
     if (tails == null) {
-      tails = new Set<N>();
+      tails = new HashSet<N>();
       _edges[head] = tails;
     }
     tails.add(tail);
@@ -158,18 +128,30 @@ class DirectedGraph<N> {
    * @param node the node to be added
    */
   void addNode(N node) {
-    Set<N> tails = _edges[node];
+    HashSet<N> tails = _edges[node];
     if (tails == null) {
-      _edges[node] = new Set<N>();
+      _edges[node] = new HashSet<N>();
     }
   }
 
   /**
-   * Return a list of nodes that form a cycle, or `null` if there are no cycles in this graph.
-   *
-   * @return a list of nodes that form a cycle
+   * Run a topological sort of the graph. Since the graph may contain cycles, this results in a list
+   * of strongly connected components rather than a list of nodes. The nodes in each strongly
+   * connected components only have edges that point to nodes in the same component or earlier
+   * components.
    */
-  List<N> findCycle() => null;
+  List<List<N>> computeTopologicalSort() {
+    DirectedGraph_SccFinder<N> finder = new DirectedGraph_SccFinder<N>(this);
+    return finder.computeTopologicalSort();
+  }
+
+  /**
+   * Return true if the graph contains at least one path from `source` to `destination`.
+   */
+  bool containsPath(N source, N destination) {
+    HashSet<N> nodesVisited = new HashSet<N>();
+    return _containsPathInternal(source, destination, nodesVisited);
+  }
 
   /**
    * Return a list of nodes that form a cycle containing the given node. If the node is not part of
@@ -193,6 +175,11 @@ class DirectedGraph<N> {
   int get nodeCount => _edges.length;
 
   /**
+   * Return a set of all nodes in the graph.
+   */
+  Set<N> get nodes => _edges.keys.toSet();
+
+  /**
    * Return a set containing the tails of edges that have the given node as their head. The set will
    * be empty if there are no such edges or if the node is not part of the graph. Clients must not
    * modify the returned set.
@@ -201,9 +188,9 @@ class DirectedGraph<N> {
    * @return a set containing the tails of edges that have the given node as their head
    */
   Set<N> getTails(N head) {
-    Set<N> tails = _edges[head];
+    HashSet<N> tails = _edges[head];
     if (tails == null) {
-      return new Set<N>();
+      return new HashSet<N>();
     }
     return tails;
   }
@@ -237,7 +224,7 @@ class DirectedGraph<N> {
    * @return `true` if the graph was modified as a result of this operation
    */
   void removeEdge(N head, N tail) {
-    Set<N> tails = _edges[head];
+    HashSet<N> tails = _edges[head];
     if (tails != null) {
       tails.remove(tail);
     }
@@ -251,7 +238,7 @@ class DirectedGraph<N> {
    */
   void removeNode(N node) {
     _edges.remove(node);
-    for (Set<N> tails in _edges.values) {
+    for (HashSet<N> tails in _edges.values) {
       tails.remove(node);
     }
   }
@@ -272,6 +259,24 @@ class DirectedGraph<N> {
     }
     removeNode(sink);
     return sink;
+  }
+
+  bool _containsPathInternal(N source, N destination, HashSet<N> nodesVisited) {
+    if (identical(source, destination)) {
+      return true;
+    }
+    HashSet<N> tails = _edges[source];
+    if (tails != null) {
+      nodesVisited.add(source);
+      for (N tail in tails) {
+        if (!nodesVisited.contains(tail)) {
+          if (_containsPathInternal(tail, destination, nodesVisited)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -351,7 +356,14 @@ class DirectedGraph_SccFinder<N> {
   /**
    * A table mapping nodes to information about the nodes that is used by this algorithm.
    */
-  Map<N, DirectedGraph_NodeInfo<N>> _nodeMap = new Map<N, DirectedGraph_NodeInfo<N>>();
+  HashMap<N, DirectedGraph_NodeInfo<N>> _nodeMap = new HashMap<N, DirectedGraph_NodeInfo<N>>();
+
+  /**
+   * A list of all strongly connected components found, in topological sort order (each node in a
+   * strongly connected component only has edges that point to nodes in the same component or
+   * earlier components).
+   */
+  List<List<N>> _allComponents = new List<List<N>>();
 
   /**
    * Initialize a newly created finder.
@@ -367,6 +379,21 @@ class DirectedGraph_SccFinder<N> {
    *         node
    */
   List<N> componentContaining(N node) => _strongConnect(node).component;
+
+  /**
+   * Run Tarjan's algorithm and return the resulting list of strongly connected components. The
+   * list is in topological sort order (each node in a strongly connected component only has edges
+   * that point to nodes in the same component or earlier components).
+   */
+  List<List<N>> computeTopologicalSort() {
+    for (N node in _graph._edges.keys.toSet()) {
+      DirectedGraph_NodeInfo<N> nodeInfo = _nodeMap[node];
+      if (nodeInfo == null) {
+        _strongConnect(node);
+      }
+    }
+    return _allComponents;
+  }
 
   /**
    * Remove and return the top-most element from the stack.
@@ -406,7 +433,7 @@ class DirectedGraph_SccFinder<N> {
     //
     // Consider successors of v
     //
-    Set<N> tails = _graph._edges[v];
+    HashSet<N> tails = _graph._edges[v];
     if (tails != null) {
       for (N w in tails) {
         DirectedGraph_NodeInfo<N> wInfo = _nodeMap[w];
@@ -431,8 +458,28 @@ class DirectedGraph_SccFinder<N> {
         component.add(w);
         _nodeMap[w].component = component;
       } while (!identical(w, v));
+      _allComponents.add(component);
     }
     return vInfo;
+  }
+}
+
+/**
+ * The class `ListUtilities` defines utility methods useful for working with [List
+ ].
+ */
+class ListUtilities {
+  /**
+   * Add all of the elements in the given array to the given list.
+   *
+   * @param list the list to which the elements are to be added
+   * @param elements the elements to be added to the list
+   */
+  static void addAll(List list, List<Object> elements) {
+    int count = elements.length;
+    for (int i = 0; i < count; i++) {
+      list.add(elements[i]);
+    }
   }
 }
 
@@ -480,25 +527,6 @@ abstract class MapIterator<K, V> {
    * @throws NoSuchElementException if there is no current element
    */
   void set value(V newValue);
-}
-
-/**
- * The class `ListUtilities` defines utility methods useful for working with [List
- ].
- */
-class ListUtilities {
-  /**
-   * Add all of the elements in the given array to the given list.
-   *
-   * @param list the list to which the elements are to be added
-   * @param elements the elements to be added to the list
-   */
-  static void addAll(List list, List<Object> elements) {
-    int count = elements.length;
-    for (int i = 0; i < count; i++) {
-      list.add(elements[i]);
-    }
-  }
 }
 
 /**
@@ -599,6 +627,37 @@ class MultipleMapIterator<K, V> implements MapIterator<K, V> {
       _iteratorIndex++;
     }
     return false;
+  }
+}
+
+/**
+ * Instances of the class `TokenMap` map one set of tokens to another set of tokens.
+ */
+class TokenMap {
+  /**
+   * A table mapping tokens to tokens. This should be replaced by a more performant implementation.
+   * One possibility is a pair of parallel arrays, with keys being sorted by their offset and a
+   * cursor indicating where to start searching.
+   */
+  HashMap<Token, Token> _map = new HashMap<Token, Token>();
+
+  /**
+   * Return the token that is mapped to the given token, or `null` if there is no token
+   * corresponding to the given token.
+   *
+   * @param key the token being mapped to another token
+   * @return the token that is mapped to the given token
+   */
+  Token get(Token key) => _map[key];
+
+  /**
+   * Map the key to the value.
+   *
+   * @param key the token being mapped to the value
+   * @param value the token to which the key will be mapped
+   */
+  void put(Token key, Token value) {
+    _map[key] = value;
   }
 }
 

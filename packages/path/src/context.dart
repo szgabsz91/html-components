@@ -4,6 +4,7 @@
 
 library path.context;
 
+import 'internal_style.dart';
 import 'style.dart';
 import 'parsed_path.dart';
 import 'path_exception.dart';
@@ -30,7 +31,12 @@ class Context {
       }
     }
 
-    if (style == null) style = Style.platform;
+    if (style == null) {
+      style = Style.platform;
+    } else if (style is! InternalStyle) {
+      throw new ArgumentError("Only styles defined by the path package are "
+          "allowed.");
+    }
 
     return new Context._(style, current);
   }
@@ -38,7 +44,7 @@ class Context {
   Context._(this.style, this.current);
 
   /// The style of path that this context works with.
-  final Style style;
+  final InternalStyle style;
 
   /// The current directory that relative paths will be relative to.
   final String current;
@@ -213,7 +219,7 @@ class Context {
         // replaces the path after it.
         var parsed = _parse(part);
         parsed.root = this.rootPrefix(buffer.toString());
-        if (parsed.root.contains(style.needsSeparatorPattern)) {
+        if (style.needsSeparator(parsed.root)) {
           parsed.separators[0] = style.separator;
         }
         buffer.clear();
@@ -224,7 +230,7 @@ class Context {
         buffer.clear();
         buffer.write(part);
       } else {
-        if (part.length > 0 && part[0].contains(style.separatorPattern)) {
+        if (part.length > 0 && style.containsSeparator(part[0])) {
           // The part starts with a separator, so we don't need to add one.
         } else if (needsSeparator) {
           buffer.write(separator);
@@ -235,7 +241,7 @@ class Context {
 
       // Unless this part ends with a separator, we'll need to add one before
       // the next part.
-      needsSeparator = part.contains(style.needsSeparatorPattern);
+      needsSeparator = style.needsSeparator(part);
     }
 
     return buffer.toString();
@@ -423,23 +429,30 @@ class Context {
     return parsed.toString();
   }
 
-  /// Returns the path represented by [uri].
+  /// Returns the path represented by [uri], which may be a [String] or a [Uri].
   ///
   /// For POSIX and Windows styles, [uri] must be a `file:` URI. For the URL
   /// style, this will just convert [uri] to a string.
   ///
   ///     // POSIX
-  ///     context.fromUri(Uri.parse('file:///path/to/foo'))
+  ///     context.fromUri('file:///path/to/foo')
   ///       // -> '/path/to/foo'
   ///
   ///     // Windows
-  ///     context.fromUri(Uri.parse('file:///C:/path/to/foo'))
+  ///     context.fromUri('file:///C:/path/to/foo')
   ///       // -> r'C:\path\to\foo'
   ///
   ///     // URL
-  ///     context.fromUri(Uri.parse('http://dartlang.org/path/to/foo'))
+  ///     context.fromUri('http://dartlang.org/path/to/foo')
   ///       // -> 'http://dartlang.org/path/to/foo'
-  String fromUri(Uri uri) => style.pathFromUri(uri);
+  ///
+  /// If [uri] is relative, a relative path will be returned.
+  ///
+  ///     path.fromUri('path/to/foo'); // -> 'path/to/foo'
+  String fromUri(uri) {
+    if (uri is String) uri = Uri.parse(uri);
+    return style.pathFromUri(uri);
+  }
 
   /// Returns the URI that represents [path].
   ///
@@ -463,6 +476,48 @@ class Context {
     } else {
       return style.absolutePathToUri(join(current, path));
     }
+  }
+
+  /// Returns a terse, human-readable representation of [uri].
+  ///
+  /// [uri] can be a [String] or a [Uri]. If it can be made relative to the
+  /// current working directory, that's done. Otherwise, it's returned as-is.
+  /// This gracefully handles non-`file:` URIs for [Style.posix] and
+  /// [Style.windows].
+  ///
+  /// The returned value is meant for human consumption, and may be either URI-
+  /// or path-formatted.
+  ///
+  ///     // POSIX
+  ///     var context = new Context(current: '/root/path');
+  ///     context.prettyUri('file:///root/path/a/b.dart'); // -> 'a/b.dart'
+  ///     context.prettyUri('http://dartlang.org/'); // -> 'http://dartlang.org'
+  ///
+  ///     // Windows
+  ///     var context = new Context(current: r'C:\root\path');
+  ///     context.prettyUri('file:///C:/root/path/a/b.dart'); // -> r'a\b.dart'
+  ///     context.prettyUri('http://dartlang.org/'); // -> 'http://dartlang.org'
+  ///
+  ///     // URL
+  ///     var context = new Context(current: 'http://dartlang.org/root/path');
+  ///     context.prettyUri('http://dartlang.org/root/path/a/b.dart');
+  ///         // -> r'a/b.dart'
+  ///     context.prettyUri('file:///root/path'); // -> 'file:///root/path'
+  String prettyUri(uri) {
+    if (uri is String) uri = Uri.parse(uri);
+    if (uri.scheme == 'file' && style == Style.url) return uri.toString();
+    if (uri.scheme != 'file' && uri.scheme != '' && style != Style.url) {
+      return uri.toString();
+    }
+
+    var path = normalize(fromUri(uri));
+    var rel = relative(path);
+    var components = split(rel);
+
+    // Only return a relative path if it's actually shorter than the absolute
+    // path. This avoids ugly things like long "../" chains to get to the root
+    // and then go back down.
+    return split(rel).length > split(path).length ? path : rel;
   }
 
   ParsedPath _parse(String path) => new ParsedPath.parse(path, style);

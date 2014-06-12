@@ -11,16 +11,27 @@ import 'trace.dart';
 
 // #1      Foo._bar (file:///home/nweiz/code/stuff.dart:42:21)
 final _vmFrame = new RegExp(
-    r'^#\d+\s+([^\s].*) \((.+?):(\d+)(?::(\d+))?\)$');
+    r'^#\d+\s+(\S.*) \((.+?):(\d+)(?::(\d+))?\)$');
 
 //     at VW.call$0 (http://pub.dartlang.org/stuff.dart.js:560:28)
+//     at VW.call$0 (eval as fn
+//         (http://pub.dartlang.org/stuff.dart.js:560:28), efn:3:28)
 //     at http://pub.dartlang.org/stuff.dart.js:560:28
 final _v8Frame = new RegExp(
-    r'^\s*at (?:([^\s].*?)(?: \[as [^\]]+\])? '
-    r'\((.+):(\d+):(\d+)\)|(.+):(\d+):(\d+))$');
+    r'^\s*at (?:(\S.*?)(?: \[as [^\]]+\])? \((.*)\)|(.*))$');
 
-/// foo$bar$0@http://pub.dartlang.org/stuff.dart.js:560:28
-/// http://pub.dartlang.org/stuff.dart.js:560:28
+// http://pub.dartlang.org/stuff.dart.js:560:28
+final _v8UrlLocation = new RegExp(r'^(.*):(\d+):(\d+)$');
+
+// eval as function (http://pub.dartlang.org/stuff.dart.js:560:28), efn:3:28
+// eval as function (http://pub.dartlang.org/stuff.dart.js:560:28)
+// eval as function (eval as otherFunction
+//     (http://pub.dartlang.org/stuff.dart.js:560:28))
+final _v8EvalLocation = new RegExp(
+    r'^eval at (?:\S.*?) \((.*)\)(?:, .*?:\d+:\d+)?$');
+
+// foo$bar$0@http://pub.dartlang.org/stuff.dart.js:560:28
+// http://pub.dartlang.org/stuff.dart.js:560:28
 final _safariFrame = new RegExp(r"^(?:([0-9A-Za-z_$]*)@)?(.*):(\d*):(\d*)$");
 
 // .VW.call$0@http://pub.dartlang.org/stuff.dart.js:560
@@ -32,9 +43,18 @@ final _firefoxFrame = new RegExp(
 // foo/bar.dart 10:11 in Foo._bar
 // http://dartlang.org/foo/bar.dart in Foo._bar
 final _friendlyFrame = new RegExp(
-    r'^([^\s]+)(?: (\d+)(?::(\d+))?)?\s+([^\d][^\s]*)$');
+    r'^(\S+)(?: (\d+)(?::(\d+))?)?\s+([^\d]\S*)$');
 
 final _initialDot = new RegExp(r"^\.");
+
+/// "dart:" libraries that are incorrectly reported without a "dart:" prefix.
+///
+/// See issue 11901. All these libraries should be in "dart:io".
+final _ioLibraries = new Set.from([
+  new Uri(path: 'timer_impl.dart'),
+  new Uri(path: 'http_impl.dart'),
+  new Uri(path: 'http_parser.dart')
+]);
 
 /// A single stack frame. Each frame points to a precise location in Dart code.
 class Frame {
@@ -68,11 +88,7 @@ class Frame {
   ///
   /// This will usually be the string form of [uri], but a relative URI will be
   /// used if possible.
-  String get library {
-    if (uri.scheme != Uri.base.scheme) return uri.toString();
-    if (path.style == path.Style.url) return path.relative(uri.toString());
-    return path.relative(path.fromUri(uri));
-  }
+  String get library => path.prettyUri(uri);
 
   /// Returns the name of the package this stack frame comes from, or `null` if
   /// this stack frame doesn't come from a `package:` URL.
@@ -119,10 +135,7 @@ class Frame {
     // always be found. The column is optional.
     var member = match[1].replaceAll("<anonymous closure>", "<fn>");
     var uri = Uri.parse(match[2]);
-    // Work around issue 11901.
-    if (uri == new Uri(path: 'timer_impl.dart')) {
-      uri = Uri.parse('dart:async/timer_impl.dart');
-    }
+    if (_ioLibraries.contains(uri)) uri = Uri.parse('dart:io/${uri.path}');
     var line = int.parse(match[3]);
     var column = null;
     var columnMatch = match[4];
@@ -139,20 +152,40 @@ class Frame {
       throw new FormatException("Couldn't parse V8 stack trace line '$frame'.");
     }
 
+    // v8 location strings can be arbitrarily-nested, since it adds a layer of
+    // nesting for each eval performed on that line.
+    parseLocation(location, member) {
+      var evalMatch = _v8EvalLocation.firstMatch(location);
+      while (evalMatch != null) {
+        location = evalMatch[1];
+        evalMatch = _v8EvalLocation.firstMatch(location);
+      }
+
+      var urlMatch = _v8UrlLocation.firstMatch(location);
+      if (urlMatch == null) {
+        throw new FormatException(
+            "Couldn't parse V8 stack trace line '$frame'.");
+      }
+
+      return new Frame(
+          _uriOrPathToUri(urlMatch[1]),
+          int.parse(urlMatch[2]),
+          int.parse(urlMatch[3]),
+          member);
+    }
+
     // V8 stack frames can be in two forms.
     if (match[2] != null) {
-      // The first form looks like " at FUNCTION (PATH:LINE:COL)". PATH is
-      // usually an absolute URL, but it can be a path if the stack frame came
-      // from d8.
-      var uri = _uriOrPathToUri(match[2]);
-      var member = match[1].replaceAll("<anonymous>", "<fn>");
-      return new Frame(uri, int.parse(match[3]), int.parse(match[4]), member);
+      // The first form looks like " at FUNCTION (LOCATION)". V8 proper lists
+      // anonymous functions within eval as "<anonymous>", while IE10 lists them
+      // as "Anonymous function".
+      return parseLocation(match[2],
+          match[1].replaceAll("<anonymous>", "<fn>")
+                  .replaceAll("Anonymous function", "<fn>"));
     } else {
-      // The second form looks like " at PATH:LINE:COL", and is used for
-      // anonymous functions. PATH is usually an absolute URL, but it can be a
-      // path if the stack frame came from d8.
-      var uri = _uriOrPathToUri(match[5]);
-      return new Frame(uri, int.parse(match[6]), int.parse(match[7]), "<fn>");
+      // The second form looks like " at LOCATION", and is used for anonymous
+      // functions.
+      return parseLocation(match[3], "<fn>");
     }
   }
 

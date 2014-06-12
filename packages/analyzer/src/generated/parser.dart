@@ -7,6 +7,7 @@
 
 library engine.parser;
 
+import 'dart:collection';
 import 'java_core.dart';
 import 'java_engine.dart';
 import 'instrumentation.dart';
@@ -15,7 +16,7 @@ import 'source.dart';
 import 'scanner.dart';
 import 'ast.dart';
 import 'utilities_dart.dart';
-import 'engine.dart' show AnalysisEngine;
+import 'engine.dart' show AnalysisEngine, AnalysisOptionsImpl;
 import 'utilities_collection.dart' show TokenMap;
 
 /**
@@ -67,80 +68,6 @@ class FinalConstVarOrType {
 }
 
 /**
- * Instances of the class `Modifiers` implement a simple data-holder for a method that needs
- * to return multiple values.
- */
-class Modifiers {
-  /**
-   * The token representing the keyword 'abstract', or `null` if the keyword was not found.
-   */
-  Token abstractKeyword;
-
-  /**
-   * The token representing the keyword 'const', or `null` if the keyword was not found.
-   */
-  Token constKeyword;
-
-  /**
-   * The token representing the keyword 'external', or `null` if the keyword was not found.
-   */
-  Token externalKeyword;
-
-  /**
-   * The token representing the keyword 'factory', or `null` if the keyword was not found.
-   */
-  Token factoryKeyword;
-
-  /**
-   * The token representing the keyword 'final', or `null` if the keyword was not found.
-   */
-  Token finalKeyword;
-
-  /**
-   * The token representing the keyword 'static', or `null` if the keyword was not found.
-   */
-  Token staticKeyword;
-
-  /**
-   * The token representing the keyword 'var', or `null` if the keyword was not found.
-   */
-  Token varKeyword;
-
-  @override
-  String toString() {
-    JavaStringBuilder builder = new JavaStringBuilder();
-    bool needsSpace = _appendKeyword(builder, false, abstractKeyword);
-    needsSpace = _appendKeyword(builder, needsSpace, constKeyword);
-    needsSpace = _appendKeyword(builder, needsSpace, externalKeyword);
-    needsSpace = _appendKeyword(builder, needsSpace, factoryKeyword);
-    needsSpace = _appendKeyword(builder, needsSpace, finalKeyword);
-    needsSpace = _appendKeyword(builder, needsSpace, staticKeyword);
-    _appendKeyword(builder, needsSpace, varKeyword);
-    return builder.toString();
-  }
-
-  /**
-   * If the given keyword is not `null`, append it to the given builder, prefixing it with a
-   * space if needed.
-   *
-   * @param builder the builder to which the keyword will be appended
-   * @param needsSpace `true` if the keyword needs to be prefixed with a space
-   * @param keyword the keyword to be appended
-   * @return `true` if subsequent keywords need to be prefixed with a space
-   */
-  bool _appendKeyword(JavaStringBuilder builder, bool needsSpace, Token keyword) {
-    if (keyword != null) {
-      if (needsSpace) {
-        builder.appendChar(0x20);
-      }
-      builder.append(keyword.lexeme);
-      return true;
-    }
-    return needsSpace;
-  }
-}
-
-/**
  * Instances of the class `IncrementalParseDispatcher` implement a dispatcher that will invoke
  * the right parse method when re-parsing a specified child of the visited node. All of the methods
  * in this class assume that the parser is positioned to parse the replacement for the node. All of
@@ -182,14 +109,6 @@ class IncrementalParseDispatcher implements AstVisitor<AstNode> {
       throw new InsufficientContextException();
     } else if (identical(_oldNode, node.arguments)) {
       return _parser.parseArgumentList();
-    }
-    return _notAChild(node);
-  }
-
-  @override
-  AstNode visitArgumentDefinitionTest(ArgumentDefinitionTest node) {
-    if (identical(_oldNode, node.identifier)) {
-      return _parser.parseSimpleIdentifier();
     }
     return _notAChild(node);
   }
@@ -1420,6 +1339,80 @@ class InsufficientContextException extends IncrementalParseException {
 }
 
 /**
+ * Instances of the class `Modifiers` implement a simple data-holder for a method that needs
+ * to return multiple values.
+ */
+class Modifiers {
+  /**
+   * The token representing the keyword 'abstract', or `null` if the keyword was not found.
+   */
+  Token abstractKeyword;
+
+  /**
+   * The token representing the keyword 'const', or `null` if the keyword was not found.
+   */
+  Token constKeyword;
+
+  /**
+   * The token representing the keyword 'external', or `null` if the keyword was not found.
+   */
+  Token externalKeyword;
+
+  /**
+   * The token representing the keyword 'factory', or `null` if the keyword was not found.
+   */
+  Token factoryKeyword;
+
+  /**
+   * The token representing the keyword 'final', or `null` if the keyword was not found.
+   */
+  Token finalKeyword;
+
+  /**
+   * The token representing the keyword 'static', or `null` if the keyword was not found.
+   */
+  Token staticKeyword;
+
+  /**
+   * The token representing the keyword 'var', or `null` if the keyword was not found.
+   */
+  Token varKeyword;
+
+  @override
+  String toString() {
+    JavaStringBuilder builder = new JavaStringBuilder();
+    bool needsSpace = _appendKeyword(builder, false, abstractKeyword);
+    needsSpace = _appendKeyword(builder, needsSpace, constKeyword);
+    needsSpace = _appendKeyword(builder, needsSpace, externalKeyword);
+    needsSpace = _appendKeyword(builder, needsSpace, factoryKeyword);
+    needsSpace = _appendKeyword(builder, needsSpace, finalKeyword);
+    needsSpace = _appendKeyword(builder, needsSpace, staticKeyword);
+    _appendKeyword(builder, needsSpace, varKeyword);
+    return builder.toString();
+  }
+
+  /**
+   * If the given keyword is not `null`, append it to the given builder, prefixing it with a
+   * space if needed.
+   *
+   * @param builder the builder to which the keyword will be appended
+   * @param needsSpace `true` if the keyword needs to be prefixed with a space
+   * @param keyword the keyword to be appended
+   * @return `true` if subsequent keywords need to be prefixed with a space
+   */
+  bool _appendKeyword(JavaStringBuilder builder, bool needsSpace, Token keyword) {
+    if (keyword != null) {
+      if (needsSpace) {
+        builder.appendChar(0x20);
+      }
+      builder.append(keyword.lexeme);
+      return true;
+    }
+    return needsSpace;
+  }
+}
+
+/**
  * Instances of the class `Parser` are used to parse tokens into an AST structure.
  */
 class Parser {
@@ -1444,6 +1437,11 @@ class Parser {
   bool _parseFunctionBodies = true;
 
   /**
+   * A flag indicating whether parser is to parse deferred libraries.
+   */
+  bool _parseDeferredLibraries = AnalysisOptionsImpl.DEFAULT_ENABLE_DEFERRED_LOADING;
+
+  /**
    * The next token to be parsed.
    */
   Token _currentToken;
@@ -1457,6 +1455,12 @@ class Parser {
    * A flag indicating whether the parser is currently in a switch statement.
    */
   bool _inSwitch = false;
+
+  /**
+   * A flag indicating whether the parser is currently in a constructor field initializer, with no
+   * intervening parens, braces, or brackets.
+   */
+  bool _inInitializer = false;
 
   static String _HIDE = "hide";
 
@@ -1488,6 +1492,24 @@ class Parser {
     try {
       _currentToken = token;
       return parseCompilationUnit2();
+    } finally {
+      instrumentation.log2(2);
+    }
+  }
+
+  /**
+   * Parse the script tag and directives in a compilation unit, starting with the given token, until
+   * the first non-directive is encountered. The remainder of the compilation unit will not be
+   * parsed. Specifically, if there are directives later in the file, they will not be parsed.
+   *
+   * @param token the first token of the compilation unit
+   * @return the compilation unit that was parsed
+   */
+  CompilationUnit parseDirectives(Token token) {
+    InstrumentationBuilder instrumentation = Instrumentation.builder2("dart.engine.Parser.parseDirectives");
+    try {
+      _currentToken = token;
+      return _parseDirectives();
     } finally {
       instrumentation.log2(2);
     }
@@ -1542,6 +1564,15 @@ class Parser {
     } finally {
       instrumentation.log();
     }
+  }
+
+  /**
+   * Set whether parser is to parse deferred libraries.
+   *
+   * @param parseDeferredLibraries `true` if parser is to parse deferred libraries
+   */
+  void set parseDeferredLibraries(bool parseDeferredLibraries) {
+    this._parseDeferredLibraries = parseDeferredLibraries;
   }
 
   /**
@@ -1629,28 +1660,34 @@ class Parser {
     // Even though unnamed arguments must all appear before any named arguments, we allow them to
     // appear in any order so that we can recover faster.
     //
-    Expression argument = parseArgument();
-    arguments.add(argument);
-    bool foundNamedArgument = argument is NamedExpression;
-    bool generatedError = false;
-    while (_optional(TokenType.COMMA)) {
-      argument = parseArgument();
+    bool wasInInitializer = _inInitializer;
+    _inInitializer = false;
+    try {
+      Expression argument = parseArgument();
       arguments.add(argument);
-      if (foundNamedArgument) {
-        if (!generatedError && argument is! NamedExpression) {
-          // Report the error, once, but allow the arguments to be in any order in the AST.
-          _reportErrorForCurrentToken(ParserErrorCode.POSITIONAL_AFTER_NAMED_ARGUMENT, []);
-          generatedError = true;
+      bool foundNamedArgument = argument is NamedExpression;
+      bool generatedError = false;
+      while (_optional(TokenType.COMMA)) {
+        argument = parseArgument();
+        arguments.add(argument);
+        if (foundNamedArgument) {
+          if (!generatedError && argument is! NamedExpression) {
+            // Report the error, once, but allow the arguments to be in any order in the AST.
+            _reportErrorForCurrentToken(ParserErrorCode.POSITIONAL_AFTER_NAMED_ARGUMENT, []);
+            generatedError = true;
+          }
+        } else if (argument is NamedExpression) {
+          foundNamedArgument = true;
         }
-      } else if (argument is NamedExpression) {
-        foundNamedArgument = true;
       }
+      // TODO(brianwilkerson) Recovery: Look at the left parenthesis to see whether there is a
+      // matching right parenthesis. If there is, then we're more likely missing a comma and should
+      // go back to parsing arguments.
+      Token rightParenthesis = _expect(TokenType.CLOSE_PAREN);
+      return new ArgumentList(leftParenthesis, arguments, rightParenthesis);
+    } finally {
+      _inInitializer = wasInInitializer;
     }
-    // TODO(brianwilkerson) Recovery: Look at the left parenthesis to see whether there is a
-    // matching right parenthesis. If there is, then we're more likely missing a comma and should
-    // go back to parsing arguments.
-    Token rightParenthesis = _expect(TokenType.CLOSE_PAREN);
-    return new ArgumentList(leftParenthesis, arguments, rightParenthesis);
   }
 
   /**
@@ -1856,6 +1893,13 @@ class Parser {
       _validateModifiersForGetterOrSetterOrMethod(modifiers);
       _validateFormalParameterList(parameters);
       return _parseMethodDeclarationAfterParameters(commentAndMetadata, modifiers.externalKeyword, modifiers.staticKeyword, type, methodName, parameters);
+    } else if (_tokenMatches(_peek(), TokenType.OPEN_CURLY_BRACKET)) {
+      // We have found "TypeName identifier {", and are guessing that this is a getter without the
+      // keyword 'get'.
+      _validateModifiersForGetterOrSetterOrMethod(modifiers);
+      _reportErrorForCurrentToken(ParserErrorCode.MISSING_GET, []);
+      _currentToken = _injectToken(new Parser_SyntheticKeywordToken(Keyword.GET, _currentToken.offset));
+      return _parseGetter(commentAndMetadata, modifiers.externalKeyword, modifiers.staticKeyword, type);
     }
     return _parseInitializedIdentifierList(commentAndMetadata, modifiers.staticKeyword, _validateModifiersForField(modifiers), type);
   }
@@ -2006,7 +2050,7 @@ class Parser {
   }
 
   /**
-   * Parse an expression that does not contain any cascades.
+   * Parse an expression that might contain a cascade.
    *
    * <pre>
    * expression ::=
@@ -3072,6 +3116,10 @@ class Parser {
    * @return `true` if the given token appears to be the beginning of a function expression
    */
   bool _isFunctionExpression(Token startToken) {
+    // Function expressions aren't allowed in initializer lists.
+    if (_inInitializer) {
+      return false;
+    }
     Token afterParameters = _skipFormalParameterList(startToken);
     if (afterParameters == null) {
       return false;
@@ -3388,23 +3436,6 @@ class Parser {
   }
 
   /**
-   * Parse an argument definition test.
-   *
-   * <pre>
-   * argumentDefinitionTest ::=
-   *     '?' identifier
-   * </pre>
-   *
-   * @return the argument definition test that was parsed
-   */
-  ArgumentDefinitionTest _parseArgumentDefinitionTest() {
-    Token question = _expect(TokenType.QUESTION);
-    SimpleIdentifier identifier = parseSimpleIdentifier();
-    _reportErrorForToken(ParserErrorCode.DEPRECATED_ARGUMENT_DEFINITION_TEST, question, []);
-    return new ArgumentDefinitionTest(question, identifier);
-  }
-
-  /**
    * Parse an assert statement.
    *
    * <pre>
@@ -3499,14 +3530,21 @@ class Parser {
    *
    * @param prefix the expression preceding the selector
    * @param optional `true` if the selector is optional
-   * @return the assignable selector that was parsed
+   * @return the assignable selector that was parsed, or the original prefix if there was no
+   *         assignable selector
    */
   Expression _parseAssignableSelector(Expression prefix, bool optional) {
     if (_matches(TokenType.OPEN_SQUARE_BRACKET)) {
       Token leftBracket = andAdvance;
-      Expression index = parseExpression2();
-      Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
-      return new IndexExpression.forTarget(prefix, leftBracket, index, rightBracket);
+      bool wasInInitializer = _inInitializer;
+      _inInitializer = false;
+      try {
+        Expression index = parseExpression2();
+        Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
+        return new IndexExpression.forTarget(prefix, leftBracket, index, rightBracket);
+      } finally {
+        _inInitializer = wasInInitializer;
+      }
     } else if (_matches(TokenType.PERIOD)) {
       Token period = andAdvance;
       return new PropertyAccess(prefix, period, parseSimpleIdentifier());
@@ -3617,14 +3655,21 @@ class Parser {
       functionName = parseSimpleIdentifier();
     } else if (_currentToken.type == TokenType.OPEN_SQUARE_BRACKET) {
       Token leftBracket = andAdvance;
-      Expression index = parseExpression2();
-      Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
-      expression = new IndexExpression.forCascade(period, leftBracket, index, rightBracket);
-      period = null;
+      bool wasInInitializer = _inInitializer;
+      _inInitializer = false;
+      try {
+        Expression index = parseExpression2();
+        Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
+        expression = new IndexExpression.forCascade(period, leftBracket, index, rightBracket);
+        period = null;
+      } finally {
+        _inInitializer = wasInInitializer;
+      }
     } else {
       _reportErrorForToken(ParserErrorCode.MISSING_IDENTIFIER, _currentToken, [_currentToken.lexeme]);
       functionName = _createSyntheticIdentifier();
     }
+    assert((expression == null && functionName != null) || (expression != null && functionName == null));
     if (_currentToken.type == TokenType.OPEN_PAREN) {
       while (_currentToken.type == TokenType.OPEN_PAREN) {
         if (functionName != null) {
@@ -3642,6 +3687,7 @@ class Parser {
       expression = new PropertyAccess(expression, period, functionName);
       period = null;
     }
+    assert(expression != null);
     bool progress = true;
     while (progress) {
       progress = false;
@@ -3830,13 +3876,12 @@ class Parser {
       typeParameters = parseTypeParameterList();
     }
     Token equals = _expect(TokenType.EQ);
-    if (_matchesKeyword(Keyword.ABSTRACT)) {
-      abstractKeyword = andAdvance;
-    }
     TypeName superclass = parseTypeName();
     WithClause withClause = null;
     if (_matchesKeyword(Keyword.WITH)) {
       withClause = parseWithClause();
+    } else {
+      _reportErrorForCurrentToken(ParserErrorCode.EXPECTED_TOKEN, [Keyword.WITH.syntax]);
     }
     ImplementsClause implementsClause = null;
     if (_matchesKeyword(Keyword.IMPLEMENTS)) {
@@ -4235,20 +4280,26 @@ class Parser {
     }
     SimpleIdentifier fieldName = parseSimpleIdentifier();
     Token equals = _expect(TokenType.EQ);
-    Expression expression = parseConditionalExpression();
-    TokenType tokenType = _currentToken.type;
-    if (tokenType == TokenType.PERIOD_PERIOD) {
-      List<Expression> cascadeSections = new List<Expression>();
-      while (tokenType == TokenType.PERIOD_PERIOD) {
-        Expression section = _parseCascadeSection();
-        if (section != null) {
-          cascadeSections.add(section);
+    bool wasInInitializer = _inInitializer;
+    _inInitializer = true;
+    try {
+      Expression expression = parseConditionalExpression();
+      TokenType tokenType = _currentToken.type;
+      if (tokenType == TokenType.PERIOD_PERIOD) {
+        List<Expression> cascadeSections = new List<Expression>();
+        while (tokenType == TokenType.PERIOD_PERIOD) {
+          Expression section = _parseCascadeSection();
+          if (section != null) {
+            cascadeSections.add(section);
+          }
+          tokenType = _currentToken.type;
         }
-        tokenType = _currentToken.type;
+        expression = new CascadeExpression(expression, cascadeSections);
       }
-      expression = new CascadeExpression(expression, cascadeSections);
+      return new ConstructorFieldInitializer(keyword, period, fieldName, equals, expression);
+    } finally {
+      _inInitializer = wasInInitializer;
     }
-    return new ConstructorFieldInitializer(keyword, period, fieldName, equals, expression);
   }
 
   /**
@@ -4305,6 +4356,41 @@ class Parser {
       // other than one of the above.
       throw new IllegalStateException("parseDirective invoked in an invalid state; currentToken = ${_currentToken}");
     }
+  }
+
+  /**
+   * Parse the script tag and directives in a compilation unit until the first non-directive is
+   * encountered.
+   *
+   *
+   * <pre>
+   * compilationUnit ::=
+   *     scriptTag? directive*
+   * </pre>
+   *
+   * @return the compilation unit that was parsed
+   */
+  CompilationUnit _parseDirectives() {
+    Token firstToken = _currentToken;
+    ScriptTag scriptTag = null;
+    if (_matches(TokenType.SCRIPT_TAG)) {
+      scriptTag = new ScriptTag(andAdvance);
+    }
+    List<Directive> directives = new List<Directive>();
+    while (!_matches(TokenType.EOF)) {
+      CommentAndMetadata commentAndMetadata = _parseCommentAndMetadata();
+      if ((_matchesKeyword(Keyword.IMPORT) || _matchesKeyword(Keyword.EXPORT) || _matchesKeyword(Keyword.LIBRARY) || _matchesKeyword(Keyword.PART)) && !_tokenMatches(_peek(), TokenType.PERIOD) && !_tokenMatches(_peek(), TokenType.LT) && !_tokenMatches(_peek(), TokenType.OPEN_PAREN)) {
+        directives.add(_parseDirective(commentAndMetadata));
+      } else if (_matches(TokenType.SEMICOLON)) {
+        _advance();
+      } else {
+        while (!_matches(TokenType.EOF)) {
+          _advance();
+        }
+        return new CompilationUnit(firstToken, scriptTag, directives, new List<CompilationUnitMember>(), _currentToken);
+      }
+    }
+    return new CompilationUnit(firstToken, scriptTag, directives, new List<CompilationUnitMember>(), _currentToken);
   }
 
   /**
@@ -4919,7 +5005,12 @@ class Parser {
     Token asToken = null;
     SimpleIdentifier prefix = null;
     if (_matchesKeyword(Keyword.DEFERRED)) {
-      deferredToken = andAdvance;
+      if (_parseDeferredLibraries) {
+        deferredToken = andAdvance;
+      } else {
+        _reportErrorForCurrentToken(ParserErrorCode.DEFERRED_IMPORTS_NOT_SUPPORTED, []);
+        _advance();
+      }
     }
     if (_matchesKeyword(Keyword.AS)) {
       asToken = andAdvance;
@@ -5055,16 +5146,22 @@ class Parser {
     if (_matches(TokenType.CLOSE_SQUARE_BRACKET)) {
       return new ListLiteral(modifier, typeArguments, leftBracket, null, andAdvance);
     }
-    List<Expression> elements = new List<Expression>();
-    elements.add(parseExpression2());
-    while (_optional(TokenType.COMMA)) {
-      if (_matches(TokenType.CLOSE_SQUARE_BRACKET)) {
-        return new ListLiteral(modifier, typeArguments, leftBracket, elements, andAdvance);
-      }
+    bool wasInInitializer = _inInitializer;
+    _inInitializer = false;
+    try {
+      List<Expression> elements = new List<Expression>();
       elements.add(parseExpression2());
+      while (_optional(TokenType.COMMA)) {
+        if (_matches(TokenType.CLOSE_SQUARE_BRACKET)) {
+          return new ListLiteral(modifier, typeArguments, leftBracket, elements, andAdvance);
+        }
+        elements.add(parseExpression2());
+      }
+      Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
+      return new ListLiteral(modifier, typeArguments, leftBracket, elements, rightBracket);
+    } finally {
+      _inInitializer = wasInInitializer;
     }
-    Token rightBracket = _expect(TokenType.CLOSE_SQUARE_BRACKET);
-    return new ListLiteral(modifier, typeArguments, leftBracket, elements, rightBracket);
   }
 
   /**
@@ -5133,15 +5230,21 @@ class Parser {
     if (_matches(TokenType.CLOSE_CURLY_BRACKET)) {
       return new MapLiteral(modifier, typeArguments, leftBracket, entries, andAdvance);
     }
-    entries.add(parseMapLiteralEntry());
-    while (_optional(TokenType.COMMA)) {
-      if (_matches(TokenType.CLOSE_CURLY_BRACKET)) {
-        return new MapLiteral(modifier, typeArguments, leftBracket, entries, andAdvance);
-      }
+    bool wasInInitializer = _inInitializer;
+    _inInitializer = false;
+    try {
       entries.add(parseMapLiteralEntry());
+      while (_optional(TokenType.COMMA)) {
+        if (_matches(TokenType.CLOSE_CURLY_BRACKET)) {
+          return new MapLiteral(modifier, typeArguments, leftBracket, entries, andAdvance);
+        }
+        entries.add(parseMapLiteralEntry());
+      }
+      Token rightBracket = _expect(TokenType.CLOSE_CURLY_BRACKET);
+      return new MapLiteral(modifier, typeArguments, leftBracket, entries, rightBracket);
+    } finally {
+      _inInitializer = wasInInitializer;
     }
-    Token rightBracket = _expect(TokenType.CLOSE_CURLY_BRACKET);
-    return new MapLiteral(modifier, typeArguments, leftBracket, entries, rightBracket);
   }
 
   /**
@@ -5679,13 +5782,21 @@ class Parser {
         return parseFunctionExpression();
       }
       Token leftParenthesis = andAdvance;
-      Expression expression = parseExpression2();
-      Token rightParenthesis = _expect(TokenType.CLOSE_PAREN);
-      return new ParenthesizedExpression(leftParenthesis, expression, rightParenthesis);
+      bool wasInInitializer = _inInitializer;
+      _inInitializer = false;
+      try {
+        Expression expression = parseExpression2();
+        Token rightParenthesis = _expect(TokenType.CLOSE_PAREN);
+        return new ParenthesizedExpression(leftParenthesis, expression, rightParenthesis);
+      } finally {
+        _inInitializer = wasInInitializer;
+      }
     } else if (_matches(TokenType.LT)) {
       return _parseListOrMapLiteral(null);
-    } else if (_matches(TokenType.QUESTION)) {
-      return _parseArgumentDefinitionTest();
+    } else if (_matches(TokenType.QUESTION) && _tokenMatches(_peek(), TokenType.IDENTIFIER)) {
+      _reportErrorForCurrentToken(ParserErrorCode.UNEXPECTED_TOKEN, [_currentToken.lexeme]);
+      _advance();
+      return _parsePrimaryExpression();
     } else if (_matchesKeyword(Keyword.VOID)) {
       //
       // Recover from having a return type of "void" where a return type is not expected.
@@ -5884,9 +5995,15 @@ class Parser {
     while (hasMore) {
       if (_matches(TokenType.STRING_INTERPOLATION_EXPRESSION)) {
         Token openToken = andAdvance;
-        Expression expression = parseExpression2();
-        Token rightBracket = _expect(TokenType.CLOSE_CURLY_BRACKET);
-        elements.add(new InterpolationExpression(openToken, expression, rightBracket));
+        bool wasInInitializer = _inInitializer;
+        _inInitializer = false;
+        try {
+          Expression expression = parseExpression2();
+          Token rightBracket = _expect(TokenType.CLOSE_CURLY_BRACKET);
+          elements.add(new InterpolationExpression(openToken, expression, rightBracket));
+        } finally {
+          _inInitializer = wasInInitializer;
+        }
       } else {
         Token openToken = andAdvance;
         Expression expression = null;
@@ -5948,7 +6065,7 @@ class Parser {
     bool wasInSwitch = _inSwitch;
     _inSwitch = true;
     try {
-      Set<String> definedLabels = new Set<String>();
+      HashSet<String> definedLabels = new HashSet<String>();
       Token keyword = _expectKeyword(Keyword.SWITCH);
       Token leftParenthesis = _expect(TokenType.OPEN_PAREN);
       Expression expression = parseExpression2();
@@ -6454,7 +6571,17 @@ class Parser {
    * Skips a block with all containing blocks.
    */
   void _skipBlock() {
-    _currentToken = (_currentToken as BeginToken).endToken.next;
+    Token endToken = (_currentToken as BeginToken).endToken;
+    if (endToken == null) {
+      endToken = _currentToken.next;
+      while (!identical(endToken, _currentToken)) {
+        _currentToken = endToken;
+        endToken = _currentToken.next;
+      }
+      _reportErrorForToken(ParserErrorCode.EXPECTED_TOKEN, _currentToken.previous, ["}"]);
+    } else {
+      _currentToken = endToken.next;
+    }
   }
 
   /**
@@ -7316,25 +7443,6 @@ class Parser {
 }
 
 /**
- * Instances of the class `SyntheticKeywordToken` implement a synthetic keyword token.
- */
-class Parser_SyntheticKeywordToken extends KeywordToken {
-  /**
-   * Initialize a newly created token to represent the given keyword.
-   *
-   * @param keyword the keyword being represented by this token
-   * @param offset the offset from the beginning of the file to the first character in the token
-   */
-  Parser_SyntheticKeywordToken(Keyword keyword, int offset) : super(keyword, offset);
-
-  @override
-  Token copy() => new Parser_SyntheticKeywordToken(keyword, offset);
-
-  @override
-  int get length => 0;
-}
-
-/**
  * The enumeration `ParserErrorCode` defines the error codes used for errors detected by the
  * parser. The convention for this class is for the name of the error code to indicate the problem
  * that caused the error to be generated and for the error message to explain what is wrong and,
@@ -7381,7 +7489,7 @@ class ParserErrorCode extends Enum<ParserErrorCode> implements ErrorCode {
 
   static const ParserErrorCode CONTINUE_WITHOUT_LABEL_IN_CASE = const ParserErrorCode.con3('CONTINUE_WITHOUT_LABEL_IN_CASE', 19, "A continue statement in a switch statement must have a label as a target");
 
-  static const ParserErrorCode DEPRECATED_ARGUMENT_DEFINITION_TEST = const ParserErrorCode.con3('DEPRECATED_ARGUMENT_DEFINITION_TEST', 20, "The argument definition test ('?' operator) has been deprecated");
+  static const ParserErrorCode DEFERRED_IMPORTS_NOT_SUPPORTED = const ParserErrorCode.con3('DEFERRED_IMPORTS_NOT_SUPPORTED', 20, "Deferred imports are not supported by default");
 
   static const ParserErrorCode DEPRECATED_CLASS_TYPE_ALIAS = const ParserErrorCode.con3('DEPRECATED_CLASS_TYPE_ALIAS', 21, "The 'typedef' mixin application was replaced with 'class'");
 
@@ -7495,117 +7603,119 @@ class ParserErrorCode extends Enum<ParserErrorCode> implements ErrorCode {
 
   static const ParserErrorCode MISSING_FUNCTION_PARAMETERS = const ParserErrorCode.con3('MISSING_FUNCTION_PARAMETERS', 76, "Functions must have an explicit list of parameters");
 
-  static const ParserErrorCode MISSING_IDENTIFIER = const ParserErrorCode.con3('MISSING_IDENTIFIER', 77, "Expected an identifier");
+  static const ParserErrorCode MISSING_GET = const ParserErrorCode.con3('MISSING_GET', 77, "Getters must have the keyword 'get' before the getter name");
 
-  static const ParserErrorCode MISSING_KEYWORD_OPERATOR = const ParserErrorCode.con3('MISSING_KEYWORD_OPERATOR', 78, "Operator declarations must be preceeded by the keyword 'operator'");
+  static const ParserErrorCode MISSING_IDENTIFIER = const ParserErrorCode.con3('MISSING_IDENTIFIER', 78, "Expected an identifier");
 
-  static const ParserErrorCode MISSING_NAME_IN_LIBRARY_DIRECTIVE = const ParserErrorCode.con3('MISSING_NAME_IN_LIBRARY_DIRECTIVE', 79, "Library directives must include a library name");
+  static const ParserErrorCode MISSING_KEYWORD_OPERATOR = const ParserErrorCode.con3('MISSING_KEYWORD_OPERATOR', 79, "Operator declarations must be preceeded by the keyword 'operator'");
 
-  static const ParserErrorCode MISSING_NAME_IN_PART_OF_DIRECTIVE = const ParserErrorCode.con3('MISSING_NAME_IN_PART_OF_DIRECTIVE', 80, "Library directives must include a library name");
+  static const ParserErrorCode MISSING_NAME_IN_LIBRARY_DIRECTIVE = const ParserErrorCode.con3('MISSING_NAME_IN_LIBRARY_DIRECTIVE', 80, "Library directives must include a library name");
 
-  static const ParserErrorCode MISSING_PREFIX_IN_DEFERRED_IMPORT = const ParserErrorCode.con3('MISSING_PREFIX_IN_DEFERRED_IMPORT', 81, "Deferred imports must have a prefix");
+  static const ParserErrorCode MISSING_NAME_IN_PART_OF_DIRECTIVE = const ParserErrorCode.con3('MISSING_NAME_IN_PART_OF_DIRECTIVE', 81, "Library directives must include a library name");
 
-  static const ParserErrorCode MISSING_STATEMENT = const ParserErrorCode.con3('MISSING_STATEMENT', 82, "Expected a statement");
+  static const ParserErrorCode MISSING_PREFIX_IN_DEFERRED_IMPORT = const ParserErrorCode.con3('MISSING_PREFIX_IN_DEFERRED_IMPORT', 82, "Deferred imports must have a prefix");
 
-  static const ParserErrorCode MISSING_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('MISSING_TERMINATOR_FOR_PARAMETER_GROUP', 83, "There is no '%s' to close the parameter group");
+  static const ParserErrorCode MISSING_STATEMENT = const ParserErrorCode.con3('MISSING_STATEMENT', 83, "Expected a statement");
 
-  static const ParserErrorCode MISSING_TYPEDEF_PARAMETERS = const ParserErrorCode.con3('MISSING_TYPEDEF_PARAMETERS', 84, "Type aliases for functions must have an explicit list of parameters");
+  static const ParserErrorCode MISSING_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('MISSING_TERMINATOR_FOR_PARAMETER_GROUP', 84, "There is no '%s' to close the parameter group");
 
-  static const ParserErrorCode MISSING_VARIABLE_IN_FOR_EACH = const ParserErrorCode.con3('MISSING_VARIABLE_IN_FOR_EACH', 85, "A loop variable must be declared in a for-each loop before the 'in', but none were found");
+  static const ParserErrorCode MISSING_TYPEDEF_PARAMETERS = const ParserErrorCode.con3('MISSING_TYPEDEF_PARAMETERS', 85, "Type aliases for functions must have an explicit list of parameters");
 
-  static const ParserErrorCode MIXED_PARAMETER_GROUPS = const ParserErrorCode.con3('MIXED_PARAMETER_GROUPS', 86, "Cannot have both positional and named parameters in a single parameter list");
+  static const ParserErrorCode MISSING_VARIABLE_IN_FOR_EACH = const ParserErrorCode.con3('MISSING_VARIABLE_IN_FOR_EACH', 86, "A loop variable must be declared in a for-each loop before the 'in', but none were found");
 
-  static const ParserErrorCode MULTIPLE_EXTENDS_CLAUSES = const ParserErrorCode.con3('MULTIPLE_EXTENDS_CLAUSES', 87, "Each class definition can have at most one extends clause");
+  static const ParserErrorCode MIXED_PARAMETER_GROUPS = const ParserErrorCode.con3('MIXED_PARAMETER_GROUPS', 87, "Cannot have both positional and named parameters in a single parameter list");
 
-  static const ParserErrorCode MULTIPLE_IMPLEMENTS_CLAUSES = const ParserErrorCode.con3('MULTIPLE_IMPLEMENTS_CLAUSES', 88, "Each class definition can have at most one implements clause");
+  static const ParserErrorCode MULTIPLE_EXTENDS_CLAUSES = const ParserErrorCode.con3('MULTIPLE_EXTENDS_CLAUSES', 88, "Each class definition can have at most one extends clause");
 
-  static const ParserErrorCode MULTIPLE_LIBRARY_DIRECTIVES = const ParserErrorCode.con3('MULTIPLE_LIBRARY_DIRECTIVES', 89, "Only one library directive may be declared in a file");
+  static const ParserErrorCode MULTIPLE_IMPLEMENTS_CLAUSES = const ParserErrorCode.con3('MULTIPLE_IMPLEMENTS_CLAUSES', 89, "Each class definition can have at most one implements clause");
 
-  static const ParserErrorCode MULTIPLE_NAMED_PARAMETER_GROUPS = const ParserErrorCode.con3('MULTIPLE_NAMED_PARAMETER_GROUPS', 90, "Cannot have multiple groups of named parameters in a single parameter list");
+  static const ParserErrorCode MULTIPLE_LIBRARY_DIRECTIVES = const ParserErrorCode.con3('MULTIPLE_LIBRARY_DIRECTIVES', 90, "Only one library directive may be declared in a file");
 
-  static const ParserErrorCode MULTIPLE_PART_OF_DIRECTIVES = const ParserErrorCode.con3('MULTIPLE_PART_OF_DIRECTIVES', 91, "Only one part-of directive may be declared in a file");
+  static const ParserErrorCode MULTIPLE_NAMED_PARAMETER_GROUPS = const ParserErrorCode.con3('MULTIPLE_NAMED_PARAMETER_GROUPS', 91, "Cannot have multiple groups of named parameters in a single parameter list");
 
-  static const ParserErrorCode MULTIPLE_POSITIONAL_PARAMETER_GROUPS = const ParserErrorCode.con3('MULTIPLE_POSITIONAL_PARAMETER_GROUPS', 92, "Cannot have multiple groups of positional parameters in a single parameter list");
+  static const ParserErrorCode MULTIPLE_PART_OF_DIRECTIVES = const ParserErrorCode.con3('MULTIPLE_PART_OF_DIRECTIVES', 92, "Only one part-of directive may be declared in a file");
 
-  static const ParserErrorCode MULTIPLE_VARIABLES_IN_FOR_EACH = const ParserErrorCode.con3('MULTIPLE_VARIABLES_IN_FOR_EACH', 93, "A single loop variable must be declared in a for-each loop before the 'in', but %s were found");
+  static const ParserErrorCode MULTIPLE_POSITIONAL_PARAMETER_GROUPS = const ParserErrorCode.con3('MULTIPLE_POSITIONAL_PARAMETER_GROUPS', 93, "Cannot have multiple groups of positional parameters in a single parameter list");
 
-  static const ParserErrorCode MULTIPLE_WITH_CLAUSES = const ParserErrorCode.con3('MULTIPLE_WITH_CLAUSES', 94, "Each class definition can have at most one with clause");
+  static const ParserErrorCode MULTIPLE_VARIABLES_IN_FOR_EACH = const ParserErrorCode.con3('MULTIPLE_VARIABLES_IN_FOR_EACH', 94, "A single loop variable must be declared in a for-each loop before the 'in', but %s were found");
 
-  static const ParserErrorCode NAMED_FUNCTION_EXPRESSION = const ParserErrorCode.con3('NAMED_FUNCTION_EXPRESSION', 95, "Function expressions cannot be named");
+  static const ParserErrorCode MULTIPLE_WITH_CLAUSES = const ParserErrorCode.con3('MULTIPLE_WITH_CLAUSES', 95, "Each class definition can have at most one with clause");
 
-  static const ParserErrorCode NAMED_PARAMETER_OUTSIDE_GROUP = const ParserErrorCode.con3('NAMED_PARAMETER_OUTSIDE_GROUP', 96, "Named parameters must be enclosed in curly braces ('{' and '}')");
+  static const ParserErrorCode NAMED_FUNCTION_EXPRESSION = const ParserErrorCode.con3('NAMED_FUNCTION_EXPRESSION', 96, "Function expressions cannot be named");
 
-  static const ParserErrorCode NATIVE_CLAUSE_IN_NON_SDK_CODE = const ParserErrorCode.con3('NATIVE_CLAUSE_IN_NON_SDK_CODE', 97, "Native clause can only be used in the SDK and code that is loaded through native extensions");
+  static const ParserErrorCode NAMED_PARAMETER_OUTSIDE_GROUP = const ParserErrorCode.con3('NAMED_PARAMETER_OUTSIDE_GROUP', 97, "Named parameters must be enclosed in curly braces ('{' and '}')");
 
-  static const ParserErrorCode NATIVE_FUNCTION_BODY_IN_NON_SDK_CODE = const ParserErrorCode.con3('NATIVE_FUNCTION_BODY_IN_NON_SDK_CODE', 98, "Native functions can only be declared in the SDK and code that is loaded through native extensions");
+  static const ParserErrorCode NATIVE_CLAUSE_IN_NON_SDK_CODE = const ParserErrorCode.con3('NATIVE_CLAUSE_IN_NON_SDK_CODE', 98, "Native clause can only be used in the SDK and code that is loaded through native extensions");
 
-  static const ParserErrorCode NON_CONSTRUCTOR_FACTORY = const ParserErrorCode.con3('NON_CONSTRUCTOR_FACTORY', 99, "Only constructors can be declared to be a 'factory'");
+  static const ParserErrorCode NATIVE_FUNCTION_BODY_IN_NON_SDK_CODE = const ParserErrorCode.con3('NATIVE_FUNCTION_BODY_IN_NON_SDK_CODE', 99, "Native functions can only be declared in the SDK and code that is loaded through native extensions");
 
-  static const ParserErrorCode NON_IDENTIFIER_LIBRARY_NAME = const ParserErrorCode.con3('NON_IDENTIFIER_LIBRARY_NAME', 100, "The name of a library must be an identifier");
+  static const ParserErrorCode NON_CONSTRUCTOR_FACTORY = const ParserErrorCode.con3('NON_CONSTRUCTOR_FACTORY', 100, "Only constructors can be declared to be a 'factory'");
 
-  static const ParserErrorCode NON_PART_OF_DIRECTIVE_IN_PART = const ParserErrorCode.con3('NON_PART_OF_DIRECTIVE_IN_PART', 101, "The part-of directive must be the only directive in a part");
+  static const ParserErrorCode NON_IDENTIFIER_LIBRARY_NAME = const ParserErrorCode.con3('NON_IDENTIFIER_LIBRARY_NAME', 101, "The name of a library must be an identifier");
 
-  static const ParserErrorCode NON_USER_DEFINABLE_OPERATOR = const ParserErrorCode.con3('NON_USER_DEFINABLE_OPERATOR', 102, "The operator '%s' is not user definable");
+  static const ParserErrorCode NON_PART_OF_DIRECTIVE_IN_PART = const ParserErrorCode.con3('NON_PART_OF_DIRECTIVE_IN_PART', 102, "The part-of directive must be the only directive in a part");
 
-  static const ParserErrorCode NORMAL_BEFORE_OPTIONAL_PARAMETERS = const ParserErrorCode.con3('NORMAL_BEFORE_OPTIONAL_PARAMETERS', 103, "Normal parameters must occur before optional parameters");
+  static const ParserErrorCode NON_USER_DEFINABLE_OPERATOR = const ParserErrorCode.con3('NON_USER_DEFINABLE_OPERATOR', 103, "The operator '%s' is not user definable");
 
-  static const ParserErrorCode POSITIONAL_AFTER_NAMED_ARGUMENT = const ParserErrorCode.con3('POSITIONAL_AFTER_NAMED_ARGUMENT', 104, "Positional arguments must occur before named arguments");
+  static const ParserErrorCode NORMAL_BEFORE_OPTIONAL_PARAMETERS = const ParserErrorCode.con3('NORMAL_BEFORE_OPTIONAL_PARAMETERS', 104, "Normal parameters must occur before optional parameters");
 
-  static const ParserErrorCode POSITIONAL_PARAMETER_OUTSIDE_GROUP = const ParserErrorCode.con3('POSITIONAL_PARAMETER_OUTSIDE_GROUP', 105, "Positional parameters must be enclosed in square brackets ('[' and ']')");
+  static const ParserErrorCode POSITIONAL_AFTER_NAMED_ARGUMENT = const ParserErrorCode.con3('POSITIONAL_AFTER_NAMED_ARGUMENT', 105, "Positional arguments must occur before named arguments");
 
-  static const ParserErrorCode REDIRECTION_IN_NON_FACTORY_CONSTRUCTOR = const ParserErrorCode.con3('REDIRECTION_IN_NON_FACTORY_CONSTRUCTOR', 106, "Only factory constructor can specify '=' redirection.");
+  static const ParserErrorCode POSITIONAL_PARAMETER_OUTSIDE_GROUP = const ParserErrorCode.con3('POSITIONAL_PARAMETER_OUTSIDE_GROUP', 106, "Positional parameters must be enclosed in square brackets ('[' and ']')");
 
-  static const ParserErrorCode SETTER_IN_FUNCTION = const ParserErrorCode.con3('SETTER_IN_FUNCTION', 107, "Setters cannot be defined within methods or functions");
+  static const ParserErrorCode REDIRECTION_IN_NON_FACTORY_CONSTRUCTOR = const ParserErrorCode.con3('REDIRECTION_IN_NON_FACTORY_CONSTRUCTOR', 107, "Only factory constructor can specify '=' redirection.");
 
-  static const ParserErrorCode STATIC_AFTER_CONST = const ParserErrorCode.con3('STATIC_AFTER_CONST', 108, "The modifier 'static' should be before the modifier 'const'");
+  static const ParserErrorCode SETTER_IN_FUNCTION = const ParserErrorCode.con3('SETTER_IN_FUNCTION', 108, "Setters cannot be defined within methods or functions");
 
-  static const ParserErrorCode STATIC_AFTER_FINAL = const ParserErrorCode.con3('STATIC_AFTER_FINAL', 109, "The modifier 'static' should be before the modifier 'final'");
+  static const ParserErrorCode STATIC_AFTER_CONST = const ParserErrorCode.con3('STATIC_AFTER_CONST', 109, "The modifier 'static' should be before the modifier 'const'");
 
-  static const ParserErrorCode STATIC_AFTER_VAR = const ParserErrorCode.con3('STATIC_AFTER_VAR', 110, "The modifier 'static' should be before the modifier 'var'");
+  static const ParserErrorCode STATIC_AFTER_FINAL = const ParserErrorCode.con3('STATIC_AFTER_FINAL', 110, "The modifier 'static' should be before the modifier 'final'");
 
-  static const ParserErrorCode STATIC_CONSTRUCTOR = const ParserErrorCode.con3('STATIC_CONSTRUCTOR', 111, "Constructors cannot be static");
+  static const ParserErrorCode STATIC_AFTER_VAR = const ParserErrorCode.con3('STATIC_AFTER_VAR', 111, "The modifier 'static' should be before the modifier 'var'");
 
-  static const ParserErrorCode STATIC_GETTER_WITHOUT_BODY = const ParserErrorCode.con3('STATIC_GETTER_WITHOUT_BODY', 112, "A 'static' getter must have a body");
+  static const ParserErrorCode STATIC_CONSTRUCTOR = const ParserErrorCode.con3('STATIC_CONSTRUCTOR', 112, "Constructors cannot be static");
 
-  static const ParserErrorCode STATIC_OPERATOR = const ParserErrorCode.con3('STATIC_OPERATOR', 113, "Operators cannot be static");
+  static const ParserErrorCode STATIC_GETTER_WITHOUT_BODY = const ParserErrorCode.con3('STATIC_GETTER_WITHOUT_BODY', 113, "A 'static' getter must have a body");
 
-  static const ParserErrorCode STATIC_SETTER_WITHOUT_BODY = const ParserErrorCode.con3('STATIC_SETTER_WITHOUT_BODY', 114, "A 'static' setter must have a body");
+  static const ParserErrorCode STATIC_OPERATOR = const ParserErrorCode.con3('STATIC_OPERATOR', 114, "Operators cannot be static");
 
-  static const ParserErrorCode STATIC_TOP_LEVEL_DECLARATION = const ParserErrorCode.con3('STATIC_TOP_LEVEL_DECLARATION', 115, "Top-level declarations cannot be declared to be 'static'");
+  static const ParserErrorCode STATIC_SETTER_WITHOUT_BODY = const ParserErrorCode.con3('STATIC_SETTER_WITHOUT_BODY', 115, "A 'static' setter must have a body");
 
-  static const ParserErrorCode SWITCH_HAS_CASE_AFTER_DEFAULT_CASE = const ParserErrorCode.con3('SWITCH_HAS_CASE_AFTER_DEFAULT_CASE', 116, "The 'default' case should be the last case in a switch statement");
+  static const ParserErrorCode STATIC_TOP_LEVEL_DECLARATION = const ParserErrorCode.con3('STATIC_TOP_LEVEL_DECLARATION', 116, "Top-level declarations cannot be declared to be 'static'");
 
-  static const ParserErrorCode SWITCH_HAS_MULTIPLE_DEFAULT_CASES = const ParserErrorCode.con3('SWITCH_HAS_MULTIPLE_DEFAULT_CASES', 117, "The 'default' case can only be declared once");
+  static const ParserErrorCode SWITCH_HAS_CASE_AFTER_DEFAULT_CASE = const ParserErrorCode.con3('SWITCH_HAS_CASE_AFTER_DEFAULT_CASE', 117, "The 'default' case should be the last case in a switch statement");
 
-  static const ParserErrorCode TOP_LEVEL_OPERATOR = const ParserErrorCode.con3('TOP_LEVEL_OPERATOR', 118, "Operators must be declared within a class");
+  static const ParserErrorCode SWITCH_HAS_MULTIPLE_DEFAULT_CASES = const ParserErrorCode.con3('SWITCH_HAS_MULTIPLE_DEFAULT_CASES', 118, "The 'default' case can only be declared once");
 
-  static const ParserErrorCode UNEXPECTED_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('UNEXPECTED_TERMINATOR_FOR_PARAMETER_GROUP', 119, "There is no '%s' to open a parameter group");
+  static const ParserErrorCode TOP_LEVEL_OPERATOR = const ParserErrorCode.con3('TOP_LEVEL_OPERATOR', 119, "Operators must be declared within a class");
 
-  static const ParserErrorCode UNEXPECTED_TOKEN = const ParserErrorCode.con3('UNEXPECTED_TOKEN', 120, "Unexpected token '%s'");
+  static const ParserErrorCode UNEXPECTED_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('UNEXPECTED_TERMINATOR_FOR_PARAMETER_GROUP', 120, "There is no '%s' to open a parameter group");
 
-  static const ParserErrorCode WITH_BEFORE_EXTENDS = const ParserErrorCode.con3('WITH_BEFORE_EXTENDS', 121, "The extends clause must be before the with clause");
+  static const ParserErrorCode UNEXPECTED_TOKEN = const ParserErrorCode.con3('UNEXPECTED_TOKEN', 121, "Unexpected token '%s'");
 
-  static const ParserErrorCode WITH_WITHOUT_EXTENDS = const ParserErrorCode.con3('WITH_WITHOUT_EXTENDS', 122, "The with clause cannot be used without an extends clause");
+  static const ParserErrorCode WITH_BEFORE_EXTENDS = const ParserErrorCode.con3('WITH_BEFORE_EXTENDS', 122, "The extends clause must be before the with clause");
 
-  static const ParserErrorCode WRONG_SEPARATOR_FOR_NAMED_PARAMETER = const ParserErrorCode.con3('WRONG_SEPARATOR_FOR_NAMED_PARAMETER', 123, "The default value of a named parameter should be preceeded by ':'");
+  static const ParserErrorCode WITH_WITHOUT_EXTENDS = const ParserErrorCode.con3('WITH_WITHOUT_EXTENDS', 123, "The with clause cannot be used without an extends clause");
 
-  static const ParserErrorCode WRONG_SEPARATOR_FOR_POSITIONAL_PARAMETER = const ParserErrorCode.con3('WRONG_SEPARATOR_FOR_POSITIONAL_PARAMETER', 124, "The default value of a positional parameter should be preceeded by '='");
+  static const ParserErrorCode WRONG_SEPARATOR_FOR_NAMED_PARAMETER = const ParserErrorCode.con3('WRONG_SEPARATOR_FOR_NAMED_PARAMETER', 124, "The default value of a named parameter should be preceeded by ':'");
 
-  static const ParserErrorCode WRONG_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('WRONG_TERMINATOR_FOR_PARAMETER_GROUP', 125, "Expected '%s' to close parameter group");
+  static const ParserErrorCode WRONG_SEPARATOR_FOR_POSITIONAL_PARAMETER = const ParserErrorCode.con3('WRONG_SEPARATOR_FOR_POSITIONAL_PARAMETER', 125, "The default value of a positional parameter should be preceeded by '='");
 
-  static const ParserErrorCode VAR_AND_TYPE = const ParserErrorCode.con3('VAR_AND_TYPE', 126, "Variables cannot be declared using both 'var' and a type name; remove the 'var'");
+  static const ParserErrorCode WRONG_TERMINATOR_FOR_PARAMETER_GROUP = const ParserErrorCode.con3('WRONG_TERMINATOR_FOR_PARAMETER_GROUP', 126, "Expected '%s' to close parameter group");
 
-  static const ParserErrorCode VAR_AS_TYPE_NAME = const ParserErrorCode.con3('VAR_AS_TYPE_NAME', 127, "The keyword 'var' cannot be used as a type name");
+  static const ParserErrorCode VAR_AND_TYPE = const ParserErrorCode.con3('VAR_AND_TYPE', 127, "Variables cannot be declared using both 'var' and a type name; remove the 'var'");
 
-  static const ParserErrorCode VAR_CLASS = const ParserErrorCode.con3('VAR_CLASS', 128, "Classes cannot be declared to be 'var'");
+  static const ParserErrorCode VAR_AS_TYPE_NAME = const ParserErrorCode.con3('VAR_AS_TYPE_NAME', 128, "The keyword 'var' cannot be used as a type name");
 
-  static const ParserErrorCode VAR_RETURN_TYPE = const ParserErrorCode.con3('VAR_RETURN_TYPE', 129, "The return type cannot be 'var'");
+  static const ParserErrorCode VAR_CLASS = const ParserErrorCode.con3('VAR_CLASS', 129, "Classes cannot be declared to be 'var'");
 
-  static const ParserErrorCode VAR_TYPEDEF = const ParserErrorCode.con3('VAR_TYPEDEF', 130, "Type aliases cannot be declared to be 'var'");
+  static const ParserErrorCode VAR_RETURN_TYPE = const ParserErrorCode.con3('VAR_RETURN_TYPE', 130, "The return type cannot be 'var'");
 
-  static const ParserErrorCode VOID_PARAMETER = const ParserErrorCode.con3('VOID_PARAMETER', 131, "Parameters cannot have a type of 'void'");
+  static const ParserErrorCode VAR_TYPEDEF = const ParserErrorCode.con3('VAR_TYPEDEF', 131, "Type aliases cannot be declared to be 'var'");
 
-  static const ParserErrorCode VOID_VARIABLE = const ParserErrorCode.con3('VOID_VARIABLE', 132, "Variables cannot have a type of 'void'");
+  static const ParserErrorCode VOID_PARAMETER = const ParserErrorCode.con3('VOID_PARAMETER', 132, "Parameters cannot have a type of 'void'");
+
+  static const ParserErrorCode VOID_VARIABLE = const ParserErrorCode.con3('VOID_VARIABLE', 133, "Variables cannot have a type of 'void'");
 
   static const List<ParserErrorCode> values = const [
       ABSTRACT_CLASS_MEMBER,
@@ -7628,7 +7738,7 @@ class ParserErrorCode extends Enum<ParserErrorCode> implements ErrorCode {
       CONSTRUCTOR_WITH_RETURN_TYPE,
       CONTINUE_OUTSIDE_OF_LOOP,
       CONTINUE_WITHOUT_LABEL_IN_CASE,
-      DEPRECATED_ARGUMENT_DEFINITION_TEST,
+      DEFERRED_IMPORTS_NOT_SUPPORTED,
       DEPRECATED_CLASS_TYPE_ALIAS,
       DIRECTIVE_AFTER_DECLARATION,
       DUPLICATE_LABEL_IN_SWITCH_STATEMENT,
@@ -7685,6 +7795,7 @@ class ParserErrorCode extends Enum<ParserErrorCode> implements ErrorCode {
       MISSING_EXPRESSION_IN_THROW,
       MISSING_FUNCTION_BODY,
       MISSING_FUNCTION_PARAMETERS,
+      MISSING_GET,
       MISSING_IDENTIFIER,
       MISSING_KEYWORD_OPERATOR,
       MISSING_NAME_IN_LIBRARY_DIRECTIVE,
@@ -7784,6 +7895,28 @@ class ParserErrorCode extends Enum<ParserErrorCode> implements ErrorCode {
 
   @override
   ErrorType get type => ErrorType.SYNTACTIC_ERROR;
+
+  @override
+  String get uniqueName => "${runtimeType.toString()}.${name}";
+}
+
+/**
+ * Instances of the class `SyntheticKeywordToken` implement a synthetic keyword token.
+ */
+class Parser_SyntheticKeywordToken extends KeywordToken {
+  /**
+   * Initialize a newly created token to represent the given keyword.
+   *
+   * @param keyword the keyword being represented by this token
+   * @param offset the offset from the beginning of the file to the first character in the token
+   */
+  Parser_SyntheticKeywordToken(Keyword keyword, int offset) : super(keyword, offset);
+
+  @override
+  Token copy() => new Parser_SyntheticKeywordToken(keyword, offset);
+
+  @override
+  int get length => 0;
 }
 
 /**
@@ -7820,17 +7953,6 @@ class ResolutionCopier implements AstVisitor<bool> {
     Annotation toNode = this._toNode as Annotation;
     if (javaBooleanAnd(javaBooleanAnd(javaBooleanAnd(javaBooleanAnd(_isEqualTokens(node.atSign, toNode.atSign), _isEqualNodes(node.name, toNode.name)), _isEqualTokens(node.period, toNode.period)), _isEqualNodes(node.constructorName, toNode.constructorName)), _isEqualNodes(node.arguments, toNode.arguments))) {
       toNode.element = node.element;
-      return true;
-    }
-    return false;
-  }
-
-  @override
-  bool visitArgumentDefinitionTest(ArgumentDefinitionTest node) {
-    ArgumentDefinitionTest toNode = this._toNode as ArgumentDefinitionTest;
-    if (javaBooleanAnd(_isEqualTokens(node.question, toNode.question), _isEqualNodes(node.identifier, toNode.identifier))) {
-      toNode.propagatedType = node.propagatedType;
-      toNode.staticType = node.staticType;
       return true;
     }
     return false;
@@ -8759,6 +8881,7 @@ class ResolutionCopier implements AstVisitor<bool> {
 }
 Map<String, MethodTrampoline> methodTable_Parser = <String, MethodTrampoline> {
   'parseCompilationUnit_1': new MethodTrampoline(1, (Parser target, arg0) => target.parseCompilationUnit(arg0)),
+  'parseDirectives_1': new MethodTrampoline(1, (Parser target, arg0) => target.parseDirectives(arg0)),
   'parseExpression_1': new MethodTrampoline(1, (Parser target, arg0) => target.parseExpression(arg0)),
   'parseStatement_1': new MethodTrampoline(1, (Parser target, arg0) => target.parseStatement(arg0)),
   'parseStatements_1': new MethodTrampoline(1, (Parser target, arg0) => target.parseStatements(arg0)),
@@ -8827,7 +8950,6 @@ Map<String, MethodTrampoline> methodTable_Parser = <String, MethodTrampoline> {
   'matchesString_1': new MethodTrampoline(1, (Parser target, arg0) => target._matchesString(arg0)),
   'optional_1': new MethodTrampoline(1, (Parser target, arg0) => target._optional(arg0)),
   'parseAdditiveExpression_0': new MethodTrampoline(0, (Parser target) => target._parseAdditiveExpression()),
-  'parseArgumentDefinitionTest_0': new MethodTrampoline(0, (Parser target) => target._parseArgumentDefinitionTest()),
   'parseAssertStatement_0': new MethodTrampoline(0, (Parser target) => target._parseAssertStatement()),
   'parseAssignableExpression_1': new MethodTrampoline(1, (Parser target, arg0) => target._parseAssignableExpression(arg0)),
   'parseAssignableSelector_2': new MethodTrampoline(2, (Parser target, arg0, arg1) => target._parseAssignableSelector(arg0, arg1)),
@@ -8848,6 +8970,7 @@ Map<String, MethodTrampoline> methodTable_Parser = <String, MethodTrampoline> {
   'parseConstructorFieldInitializer_0': new MethodTrampoline(0, (Parser target) => target._parseConstructorFieldInitializer()),
   'parseContinueStatement_0': new MethodTrampoline(0, (Parser target) => target._parseContinueStatement()),
   'parseDirective_1': new MethodTrampoline(1, (Parser target, arg0) => target._parseDirective(arg0)),
+  'parseDirectives_0': new MethodTrampoline(0, (Parser target) => target._parseDirectives()),
   'parseDocumentationComment_0': new MethodTrampoline(0, (Parser target) => target._parseDocumentationComment()),
   'parseDoStatement_0': new MethodTrampoline(0, (Parser target) => target._parseDoStatement()),
   'parseEmptyStatement_0': new MethodTrampoline(0, (Parser target) => target._parseEmptyStatement()),

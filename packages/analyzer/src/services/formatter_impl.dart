@@ -421,16 +421,10 @@ class SourceVisitor implements AstVisitor {
     visit(node.arguments);
   }
 
-  visitArgumentDefinitionTest(ArgumentDefinitionTest node) {
-    token(node.question);
-    visit(node.identifier);
-  }
-
   visitArgumentList(ArgumentList node) {
     token(node.leftParenthesis);
     breakableNonSpace();
     visitCommaSeparatedNodes(node.arguments);
-    breakableNonSpace();
     token(node.rightParenthesis);
   }
 
@@ -530,7 +524,7 @@ class SourceVisitor implements AstVisitor {
 
   visitClassDeclaration(ClassDeclaration node) {
     preserveLeadingNewlines();
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.abstractKeyword);
     token(node.classKeyword);
     space();
@@ -556,7 +550,7 @@ class SourceVisitor implements AstVisitor {
 
   visitClassTypeAlias(ClassTypeAlias node) {
     preserveLeadingNewlines();
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.abstractKeyword);
     token(node.keyword);
     space();
@@ -615,7 +609,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitConstructorDeclaration(ConstructorDeclaration node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.externalKeyword);
     modifier(node.constKeyword);
     modifier(node.factoryKeyword);
@@ -743,7 +737,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitExportDirective(ExportDirective node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitDirectiveMetadata(node.metadata);
     token(node.keyword);
     space();
     visit(node.uri);
@@ -772,7 +766,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitFieldDeclaration(FieldDeclaration node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.staticKeyword);
     visit(node.fields);
     token(node.semicolon);
@@ -813,7 +807,8 @@ class SourceVisitor implements AstVisitor {
     for (var i = 0; i < size; i++) {
       var parameter = parameters[i];
       if (i > 0) {
-        append(', ');
+        append(',');
+        space();
       }
       if (groupEnd == null && parameter is DefaultFormalParameter) {
         if (identical(parameter.kind, ParameterKind.NAMED)) {
@@ -862,7 +857,7 @@ class SourceVisitor implements AstVisitor {
 
   visitFunctionDeclaration(FunctionDeclaration node) {
     preserveLeadingNewlines();
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.externalKeyword);
     visitNode(node.returnType, followedBy: space);
     modifier(node.propertyKeyword);
@@ -888,7 +883,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitFunctionTypeAlias(FunctionTypeAlias node) {
-    visitNodes(node.metadata, separatedBy: newlines, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     token(node.keyword);
     space();
     visitNode(node.returnType, followedBy: space);
@@ -942,10 +937,11 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitImportDirective(ImportDirective node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitDirectiveMetadata(node.metadata);
     token(node.keyword);
     nonBreakingSpace();
     visit(node.uri);
+    token(node.deferredToken, precededBy: space);
     token(node.asToken, precededBy: space, followedBy: space);
     allowContinuedLines((){
       visit(node.prefix);
@@ -1011,7 +1007,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitLibraryDirective(LibraryDirective node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitDirectiveMetadata(node.metadata);
     token(node.keyword);
     space();
     visit(node.name);
@@ -1034,7 +1030,7 @@ class SourceVisitor implements AstVisitor {
 
   visitMapLiteral(MapLiteral node) {
     modifier(node.constKeyword);
-    visitNode(node.typeArguments, followedBy: space);
+    visitNode(node.typeArguments);
     token(node.leftBracket);
     if (!node.entries.isEmpty) {
       newlines();
@@ -1055,7 +1051,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitMethodDeclaration(MethodDeclaration node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.externalKeyword);
     modifier(node.modifierKeyword);
     visitNode(node.returnType, followedBy: space);
@@ -1065,7 +1061,7 @@ class SourceVisitor implements AstVisitor {
     if (!node.isGetter) {
       visit(node.parameters);
     }
-    visitPrefixedBody(space, node.body);
+    visitPrefixedBody(nonBreakingSpace, node.body);
   }
 
   visitMethodInvocation(MethodInvocation node) {
@@ -1182,9 +1178,9 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitSimpleFormalParameter(SimpleFormalParameter node) {
-    visitNodes(node.metadata, followedBy: space);
+    visitMemberMetadata(node.metadata);
     modifier(node.keyword);
-    visitNode(node.type, followedBy: space);
+    visitNode(node.type, followedBy: nonBreakingSpace);
     visit(node.identifier);
   }
 
@@ -1305,7 +1301,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitTypeParameter(TypeParameter node) {
-    visitNodes(node.metadata, followedBy: space);
+    visitMemberMetadata(node.metadata);
     visit(node.name);
     token(node.keyword /* extends */, precededBy: space, followedBy: space);
     visit(node.bound);
@@ -1336,7 +1332,7 @@ class SourceVisitor implements AstVisitor {
   }
 
   visitVariableDeclarationList(VariableDeclarationList node) {
-    visitNodes(node.metadata, followedBy: newlines);
+    visitMemberMetadata(node.metadata);
     modifier(node.keyword);
     visitNode(node.type, followedBy: space);
 
@@ -1397,6 +1393,24 @@ class SourceVisitor implements AstVisitor {
     if (node != null) {
       node.accept(this);
     }
+  }
+
+  /// Visit member metadata
+  visitMemberMetadata(NodeList<Annotation> metadata) {
+    visitNodes(metadata,
+      separatedBy: () {
+        space();
+        preserveLeadingNewlines();
+      },
+      followedBy: space);
+    if (metadata != null && metadata.length > 0) {
+      preserveLeadingNewlines();
+    }
+  }
+
+  /// Visit member metadata
+  visitDirectiveMetadata(NodeList<Annotation> metadata) {
+    visitNodes(metadata, separatedBy: newlines, followedBy: newlines);
   }
 
   /// Visit the given function [body], printing the [prefix] before if given
@@ -1672,6 +1686,10 @@ class SourceVisitor implements AstVisitor {
   }
 
 
+  /// Test if this EOL [comment] is at the beginning of a line.
+  bool isAtBOL(Token comment) =>
+      lineInfo.getLocation(comment.offset).columnNumber == 1;
+
   /// Test if this [comment] is at the end of a line.
   bool isAtEOL(Token comment) =>
       comment != null && comment.toString().trim().startsWith(twoSlashes) &&
@@ -1685,6 +1703,11 @@ class SourceVisitor implements AstVisitor {
       if (ws > 0 && leadingSpaces == 0) {
         space();
       }
+    }
+
+    // Don't indent commented-out lines
+    if (isAtBOL(comment)) {
+      writer.currentLine.clear();
     }
 
     append(comment.toString().trim());

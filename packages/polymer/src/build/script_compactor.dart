@@ -45,7 +45,47 @@ class ScriptCompactor extends Transformer {
   final TransformOptions options;
 
   ScriptCompactor(this.options, {String sdkDir})
-      : resolvers = new Resolvers(sdkDir != null ? sdkDir : dartSdkDirectory);
+      // TODO(sigmund): consider restoring here a resolver that uses the real
+      // SDK once the analyzer is lazy and only an resolves what it needs:
+      //: resolvers = new Resolvers(sdkDir != null ? sdkDir : dartSdkDirectory);
+      : resolvers = new Resolvers.fromMock({
+        // The list of types below is derived from:
+        //   * types we use via our smoke queries, including HtmlElement and
+        //     types from `_typeHandlers` (deserialize.dart)
+        //   * types that are used internally by the resolver (see
+        //   _initializeFrom in resolver.dart).
+        'dart:core': '''
+            library dart.core;
+            class Object {}
+            class Function {}
+            class StackTrace {}
+            class Symbol {}
+            class Type {}
+
+            class String extends Object {}
+            class bool extends Object {}
+            class num extends Object {}
+            class int extends num {}
+            class double extends num {}
+            class DateTime extends Object {}
+            class Null extends Object {}
+
+            class Deprecated extends Object {
+              final String expires;
+              const Deprecated(this.expires);
+            }
+            const Object deprecated = const Deprecated("next release");
+
+            class List<V> extends Object {}
+            class Map<K, V> extends Object {}
+            ''',
+        'dart:html': '''
+            library dart.html;
+            class HtmlElement {}
+            ''',
+      });
+
+
 
   /// Only run on entry point .html files.
   // TODO(nweiz): This should just take an AssetId when barback <0.13.0 support
@@ -73,6 +113,9 @@ class _ScriptCompactor extends PolymerTransformer {
   /// List of ids for each Dart entry script tag (the main tag and any tag
   /// included on each custom element definition).
   List<AssetId> entryLibraries;
+
+  /// Whether we are using the experimental bootstrap logic.
+  bool experimentalBootstrap;
 
   /// Initializers that will register custom tags or invoke `initMethod`s.
   final List<_Initializer> initializers = [];
@@ -111,12 +154,14 @@ class _ScriptCompactor extends PolymerTransformer {
 
   /// Populates [entryLibraries] as a list containing the asset ids of each
   /// library loaded on a script tag. The actual work of computing this is done
-  /// in an earlier phase and emited in the `entrypoint.scriptUrls` asset.
+  /// in an earlier phase and emited in the `entrypoint._data` asset.
   Future _loadEntryLibraries(_) =>
-      transform.readInputAsString(docId.addExtension('.scriptUrls'))
-          .then((libraryIds) {
-        entryLibraries = (JSON.decode(libraryIds) as Iterable)
-            .map((data) => new AssetId.deserialize(data)).toList();
+      transform.readInputAsString(docId.addExtension('._data')).then((data) {
+        var map = JSON.decode(data);
+        experimentalBootstrap = map['experimental_bootstrap'];
+        entryLibraries = map['script_ids']
+              .map((id) => new AssetId.deserialize(id))
+              .toList();
       });
 
   /// Removes unnecessary script tags, and identifies the main entry point Dart
@@ -128,7 +173,7 @@ class _ScriptCompactor extends PolymerTransformer {
         tag.remove();
         continue;
       }
-      if (tag.attributes['type'] == 'application/dart;component=1') {
+      if (tag.attributes['type'] == 'application/dart') {
         logger.warning('unexpected script. The '
           'ScriptCompactor transformer should run after running the '
           'ImportInliner', span: tag.sourceSpan);
@@ -139,12 +184,8 @@ class _ScriptCompactor extends PolymerTransformer {
   /// Emits the main HTML and Dart bootstrap code for the application. If there
   /// were not Dart entry point files, then this simply emits the original HTML.
   Future _emitNewEntrypoint(_) {
-    if (entryLibraries.isEmpty) {
-      // We didn't find code, nothing to do.
-      transform.addOutput(transform.primaryInput);
-      return null;
-    }
-
+    // If we don't find code, there is nothing to do.
+    if (entryLibraries.isEmpty) return null;
     return _initResolver()
         .then(_extractUsesOfMirrors)
         .then(_emitFiles)
@@ -157,10 +198,18 @@ class _ScriptCompactor extends PolymerTransformer {
   /// [entryLibraries], then use it to initialize the [recorder] (for import
   /// resolution) and to resolve specific elements (for analyzing the user's
   /// code).
-  Future _initResolver() => resolvers.get(transform, entryLibraries).then((r) {
-    resolver = r;
-    types = new _ResolvedTypes(resolver);
-  });
+  Future _initResolver() {
+    // We include 'polymer.dart' to simplify how we do resolution below. This
+    // way we can assume polymer is there, even if the user didn't include an
+    // import to it. If not, the polymer build will fail with an error when
+    // trying to create _ResolvedTypes below.
+    var libsToLoad = [new AssetId('polymer', 'lib/polymer.dart')]
+        ..addAll(entryLibraries);
+    return resolvers.get(transform, libsToLoad).then((r) {
+      resolver = r;
+      types = new _ResolvedTypes(resolver);
+    });
+  }
 
   /// Inspects the entire program to find out anything that polymer accesses
   /// using mirrors and produces static information that can be used to replace
@@ -265,7 +314,8 @@ class _ScriptCompactor extends PolymerTransformer {
       var attrs = publishedAttributes[tagName];
       if (attrs == null) continue;
       for (var attr in attrs) {
-        recorder.lookupMember(cls, attr, recursive: true);
+        recorder.lookupMember(cls, attr, recursive: true,
+            includeUpTo: types.htmlElementElement);
       }
     }
   }
@@ -345,15 +395,28 @@ class _ScriptCompactor extends PolymerTransformer {
     generator.writeTopLevelDeclarations(code);
     code.writeln('\nvoid main() {');
     generator.writeInitCall(code);
-    code.writeln('  startPolymer([');
+    if (experimentalBootstrap) {
+      code.write('  startPolymer([');
+    } else {
+      code.write('  configureForDeployment([');
+    }
 
     // Include initializers to switch from mirrors_loader to static_loader.
-    for (var init in initializers) {
-      var initCode = init.asCode(prefixes[init.assetId]);
-      code.write("      $initCode,\n");
+    if (!initializers.isEmpty) {
+      code.writeln();
+      for (var init in initializers) {
+        var initCode = init.asCode(prefixes[init.assetId]);
+        code.write("      $initCode,\n");
+      }
+      code.writeln('    ]);');
+    } else {
+      if (experimentalBootstrap) logger.warning(NO_INITIALIZERS_ERROR);
+      code.writeln(']);');
     }
-    code..writeln('    ]);')
-        ..writeln('}');
+    if (!experimentalBootstrap) {
+      code.writeln('  i${entryLibraries.length - 1}.main();');
+    }
+    code.writeln('}');
     transform.addOutput(new Asset.fromString(bootstrapId, code.toString()));
 
 
@@ -403,6 +466,13 @@ library app_bootstrap;
 
 import 'package:polymer/polymer.dart';
 """;
+
+const NO_INITIALIZERS_ERROR =
+    'No polymer initializers were found. Make sure to either '
+    'annotate your polymer elements with @CustomTag or include a '
+    'top level method annotated with @initMethod that registers your '
+    'elements. Both annotations are defined in the polymer library ('
+    'package:polymer/polymer.dart).';
 
 /// An html visitor that:
 ///   * finds all polymer expressions and records the getters and setters that
@@ -484,6 +554,7 @@ class _HtmlExtractor extends TreeVisitor {
   void _addExpression(String stringExpression, bool inEvent, bool isTwoWay) {
     if (inEvent) {
       if (!stringExpression.startsWith("@")) {
+        if (stringExpression == '') return;
         generator.addGetter(stringExpression);
         generator.addSymbol(stringExpression);
         return;
@@ -540,7 +611,7 @@ class _SubExpressionVisitor extends pe.RecursiveVisitor {
 
   visitInvoke(pe.Invoke e) {
     _includeSetter = false; // Invoke is only valid as an r-value.
-    _add(e.method);
+    if (e.method != null) _add(e.method);
     super.visitInvoke(e);
   }
 }

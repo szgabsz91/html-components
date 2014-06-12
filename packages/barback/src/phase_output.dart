@@ -7,12 +7,10 @@ library barback.phase_output;
 import 'dart:async';
 import 'dart:collection';
 
-import 'asset_cascade.dart';
 import 'asset_forwarder.dart';
 import 'asset_node.dart';
 import 'errors.dart';
 import 'phase.dart';
-import 'utils.dart';
 
 /// A class that handles a single output of a phase.
 ///
@@ -28,6 +26,9 @@ class PhaseOutput {
   /// The phase for which this is an output.
   final Phase _phase;
 
+  /// A string describing the location of [this] in the transformer graph.
+  final String _location;
+
   /// The asset node for this output.
   AssetNode get output => _outputForwarder.node;
   AssetForwarder _outputForwarder;
@@ -35,7 +36,8 @@ class PhaseOutput {
   /// A stream that emits an [AssetNode] each time this output starts forwarding
   /// a new asset.
   Stream<AssetNode> get onAsset => _onAssetController.stream;
-  final _onAssetController = new StreamController<AssetNode>();
+  final _onAssetController =
+      new StreamController<AssetNode>.broadcast(sync: true);
 
   /// The assets for this output.
   ///
@@ -53,7 +55,7 @@ class PhaseOutput {
         output.id);
   }
 
-  PhaseOutput(this._phase, AssetNode output)
+  PhaseOutput(this._phase, AssetNode output, this._location)
       : _outputForwarder = new AssetForwarder(output) {
     assert(!output.state.isRemoved);
     add(output);
@@ -102,11 +104,11 @@ class PhaseOutput {
       // If there's still a collision, report it. This lets the user know if
       // they've successfully resolved the collision or not.
       if (_assets.length > 1) {
-        // Pump the event queue to ensure that the removal of the input triggers
-        // a new build to which we can attach the error.
         // TODO(nweiz): report this through the output asset.
-        newFuture(() => _phase.cascade.reportError(collisionException));
+        _phase.cascade.reportError(collisionException);
       }
     });
   }
+
+  String toString() => "phase output in $_location for $output";
 }

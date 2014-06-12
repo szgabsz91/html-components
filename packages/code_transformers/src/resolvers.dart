@@ -5,10 +5,15 @@
 library code_transformers.src.resolvers;
 
 import 'dart:async';
-import 'package:barback/barback.dart' show AssetId, Transformer, Transform;
+import 'package:barback/barback.dart';
 
+import 'package:analyzer/src/generated/sdk.dart' show DartSdk;
+import 'package:analyzer/src/generated/source.dart' show DartUriResolver;
+
+import 'entry_point.dart';
 import 'resolver.dart';
 import 'resolver_impl.dart';
+import 'dart_sdk.dart' hide dartSdkDirectory;
 
 /// Barback-based code resolvers which maintains up-to-date resolved ASTs for
 /// the specified code entry points.
@@ -20,9 +25,22 @@ import 'resolver_impl.dart';
 /// the same Resolvers object to minimize re-parsing the AST.
 class Resolvers {
   final Map<AssetId, Resolver> _resolvers = {};
-  final String dartSdkDirectory;
+  final DartSdk dartSdk;
+  final DartUriResolver dartUriResolver;
 
-  Resolvers(this.dartSdkDirectory);
+  Resolvers.fromSdk(this.dartSdk, this.dartUriResolver);
+
+  factory Resolvers(dartSdkDirectory) {
+    var sdk = new DirectoryBasedDartSdkProxy(dartSdkDirectory);
+    var uriResolver = new DartUriResolverProxy(sdk);
+    return new Resolvers.fromSdk(sdk, uriResolver);
+  }
+
+  factory Resolvers.fromMock(Map<String, String> sources,
+      {bool reportMissing: false}) {
+    var sdk = new MockDartSdk(sources, reportMissing: reportMissing);
+    return new Resolvers.fromSdk(sdk, sdk.resolver);
+  }
 
   /// Get a resolver for [transform]. If provided, this resolves the code
   /// starting from each of the assets in [entryPoints]. If not, this resolves
@@ -34,7 +52,7 @@ class Resolvers {
   Future<Resolver> get(Transform transform, [List<AssetId> entryPoints]) {
     var id = transform.primaryInput.id;
     var resolver = _resolvers.putIfAbsent(id,
-        () => new ResolverImpl(dartSdkDirectory));
+        () => new ResolverImpl(dartSdk, dartUriResolver));
     return resolver.resolve(transform, entryPoints);
   }
 }
@@ -47,6 +65,24 @@ abstract class ResolverTransformer implements Transformer {
   /// The cache of resolvers- must be set from subclass.
   Resolvers resolvers;
 
+  /// By default only process prossible entry point assets.
+  ///
+  /// This is only a preliminary check based on the asset ID.
+  Future<bool> isPrimary(assetOrId) {
+    // assetOrId is to handle the transition from Asset to AssetID between
+    // pub 1.3 and 1.4. Once support for 1.3 is dropped this should only
+    // support AssetId.
+    var id = assetOrId is AssetId ? assetOrId : assetOrId.id;
+    return new Future.value(isPossibleDartEntryId(id));
+  }
+
+  /// Check to see if this should apply with the resolver on the provided asset.
+  ///
+  /// By default this will only apply on possible Dart entry points (see
+  /// [isPossibleDartEntry]).
+  Future<bool> shouldApplyResolver(Asset asset) => isPossibleDartEntry(asset);
+
+
   /// This provides a default implementation of `Transformer.apply` that will
   /// get and release resolvers automatically. Internally this:
   ///   * Gets a resolver associated with the transform primary input.
@@ -56,7 +92,11 @@ abstract class ResolverTransformer implements Transformer {
   ///
   /// Use [applyToEntryPoints] instead if you need to override the entry points
   /// to run the resolver on.
-  Future apply(Transform transform) => applyToEntryPoints(transform);
+  Future apply(Transform transform) =>
+      shouldApplyResolver(transform.primaryInput).then((result) {
+        if (result) return applyToEntryPoints(transform);
+      });
+
 
   /// Helper function to make it easy to write an `Transformer.apply` method
   /// that automatically gets and releases the resolver. This is typically used

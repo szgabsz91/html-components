@@ -172,22 +172,6 @@ String _systemToAssetPath(String assetPath) {
   return path.posix.joinAll(path.split(assetPath));
 }
 
-
-/// Parse [code] using analyzer.
-CompilationUnit parseCompilationUnit(String code) {
-  var errorListener = new _ErrorCollector();
-  var reader = new CharSequenceReader(code);
-  var scanner = new Scanner(null, reader, errorListener);
-  var token = scanner.tokenize();
-  var parser = new Parser(null, errorListener);
-  return parser.parseCompilationUnit(token);
-}
-
-class _ErrorCollector extends AnalysisErrorListener {
-  final errors = <AnalysisError>[];
-  onError(error) => errors.add(error);
-}
-
 /// These names have meaning in SVG or MathML, so they aren't allowed as custom
 /// tags. See [isCustomTagName].
 const invalidTagNames = const {
@@ -211,3 +195,5 @@ bool isCustomTagName(String name) {
 /// Regex to split names in the 'attributes' attribute, which supports 'a b c',
 /// 'a,b,c', or even 'a b,c'. This is the same as in `lib/src/declaration.dart`.
 final ATTRIBUTES_REGEX = new RegExp(r'\s|,');
+
+const POLYMER_EXPERIMENTAL_HTML = 'packages/polymer/polymer_experimental.html';
