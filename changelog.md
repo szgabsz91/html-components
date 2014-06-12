@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+* Updated to latest SDK (1.4.2) and polymer (0.10.1+1) version
+
 ## 0.2.0
 * Updated to latest SDK (1.3) and polymer version
 * Some bug fixes

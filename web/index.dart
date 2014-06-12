@@ -2,8 +2,9 @@ import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
 
-@initMethod
 void main() {
+  initPolymer();
+  
   scheduleMicrotask(() {
     // Open the dropdown if it is clicked
     document.querySelectorAll('.dropdown').forEach((LIElement menuItem) {
