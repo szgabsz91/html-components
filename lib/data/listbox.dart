@@ -24,8 +24,8 @@ class ListboxComponent extends PolymerElement {
   ListboxComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     Element headerElement = $['hidden'].querySelector('content').getDistributedNodes().firstWhere((Node node) => node is Element && node.tagName == 'HEADER', orElse: () => null);
     if (headerElement != null) {

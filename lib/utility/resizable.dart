@@ -26,8 +26,8 @@ class ResizableComponent extends PolymerElement {
   ResizableComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     if (currentWidth > 0) {
       return;

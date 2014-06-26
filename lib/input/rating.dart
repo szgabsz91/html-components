@@ -15,8 +15,8 @@ class RatingComponent extends PolymerElement {
   RatingComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
   }
   
   void starsChanged() {

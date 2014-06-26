@@ -11,8 +11,8 @@ class MenubarComponent extends PolymerElement {
   MenubarComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     orientationChanged();
   }

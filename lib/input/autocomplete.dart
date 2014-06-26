@@ -53,8 +53,8 @@ class AutocompleteComponent extends PolymerElement {
   AutocompleteComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<Node> children = $['hidden'].querySelector('content').getDistributedNodes();
     

@@ -12,8 +12,8 @@ class TabviewComponent extends PolymerElement {
   TabviewComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     scheduleMicrotask(() {
       ContentElement content = $['hidden'].querySelector('content');

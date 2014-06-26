@@ -9,8 +9,8 @@ class ClockComponent extends PolymerElement {
   ClockComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     DateTime date = new DateTime.now();
     

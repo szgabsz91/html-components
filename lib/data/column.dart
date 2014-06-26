@@ -22,8 +22,8 @@ class ColumnComponent extends PolymerElement {
   ColumnComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<Node> childNodes = $['hidden'].querySelector('content').getDistributedNodes();
     

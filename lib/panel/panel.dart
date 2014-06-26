@@ -18,8 +18,8 @@ class PanelComponent extends PolymerElement {
   PanelComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<Element> elements = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
     Element headerElement = elements.firstWhere((Element element) => element.tagName == 'HEADER', orElse: () => null);

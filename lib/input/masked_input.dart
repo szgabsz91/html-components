@@ -17,8 +17,8 @@ class MaskedInputComponent extends PolymerElement {
   MaskedInputComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     _refreshInputField();
   }

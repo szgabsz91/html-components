@@ -22,8 +22,8 @@ class LightboxComponent extends PolymerElement {
   LightboxComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     $['thumbnails'].querySelector('content').getDistributedNodes().where((Node node) => node is AnchorElement).forEach((AnchorElement anchor) {
       anchor.style.textDecoration = 'none';

@@ -18,8 +18,8 @@ class ImageCompareComponent extends PolymerElement {
   ImageCompareComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     new Timer(const Duration(milliseconds: 500), () {
       void init() {

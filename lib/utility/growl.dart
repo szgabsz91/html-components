@@ -12,8 +12,8 @@ class GrowlComponent extends PolymerElement {
   GrowlComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     ContentElement content = $['hidden'].querySelector('content');
     List growlMessageComponents = content.getDistributedNodes();

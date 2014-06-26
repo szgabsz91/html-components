@@ -18,8 +18,8 @@ class PaginatorComponent extends PolymerElement {
   PaginatorComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     visiblePageLinks = toObservable(_getVisiblePageLinks().toList(growable: false));
   }

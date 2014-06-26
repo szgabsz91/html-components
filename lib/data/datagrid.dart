@@ -36,8 +36,8 @@ class DatagridComponent extends PolymerElement {
   DatagridComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     Element templateElement = $['hidden'].querySelector('content').getDistributedNodes().firstWhere((Node node) => node is Element, orElse: () => null);
     if (templateElement != null) {

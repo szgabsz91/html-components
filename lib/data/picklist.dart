@@ -29,8 +29,8 @@ class PicklistComponent extends PolymerElement {
   PicklistComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     Element sourceHeaderElement = $['hidden'].querySelector('content').getDistributedNodes().firstWhere((Node node) => node is Element && node.tagName == 'HEADER', orElse: () => null);
     if (sourceHeaderElement != null) {

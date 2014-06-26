@@ -28,8 +28,8 @@ class TreeComponent extends PolymerElement {
   TreeComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     if (root != null) {
       _dataFetcher = new TreeClientDataFetcher(root);
