@@ -25,8 +25,8 @@ class FeedReaderComponent extends PolymerElement {
   FeedReaderComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     itemTemplate = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).first.parent.innerHtml;
     

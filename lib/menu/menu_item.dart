@@ -14,8 +14,8 @@ class MenuItemComponent extends PolymerElement {
   MenuItemComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     ContentElement contentElement = $['hidden'].querySelector('content');
     List children = contentElement.getDistributedNodes();

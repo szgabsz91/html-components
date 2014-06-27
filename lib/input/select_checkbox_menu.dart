@@ -34,8 +34,8 @@ class SelectCheckboxMenuComponent extends PolymerElement {
   SelectCheckboxMenuComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<SelectItemComponent> selectItems = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is SelectItemComponent).toList(growable: false);
     

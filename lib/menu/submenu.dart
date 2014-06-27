@@ -10,8 +10,8 @@ class SubmenuComponent extends PolymerElement {
   SubmenuComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     ContentElement contentElement = $['child-item'].querySelector('content');
     List children = contentElement.getDistributedNodes().where((Node node) => node is Element).toList(growable: false);

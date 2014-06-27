@@ -41,8 +41,8 @@ class CarouselComponent extends PolymerElement {
   CarouselComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     Timer.run(() {
       List<Element> children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);

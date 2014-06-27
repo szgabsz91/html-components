@@ -13,8 +13,8 @@ class DraggableComponent extends PolymerElement {
   DraggableComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     document.body.onMouseMove.listen(onDragging);
     document.body.onMouseUp.listen(onDragStopped);

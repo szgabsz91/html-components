@@ -8,8 +8,8 @@ class RowExpansionComponent extends PolymerElement {
   RowExpansionComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     content = $['hidden'].querySelector('content').getDistributedNodes().first.parent.innerHtml;
     

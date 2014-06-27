@@ -23,8 +23,8 @@ class GalleryComponent extends PolymerElement {
   GalleryComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     new Timer(const Duration(milliseconds: 500), () {
       List<ImageElement> imageElements = $['hidden'].querySelector('content').getDistributedNodes();

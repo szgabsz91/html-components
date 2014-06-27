@@ -13,8 +13,8 @@ class SelectButtonComponent extends PolymerElement {
   SelectButtonComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<SelectItemComponent> selectItems = $['container'].querySelector('content').getDistributedNodes().where((Node node) => node is SelectItemComponent).toList(growable: false);
     

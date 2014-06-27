@@ -13,8 +13,8 @@ class AccordionComponent extends PolymerElement {
   AccordionComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     Timer.run(() {
       ContentElement content = $['hidden'].querySelector('content');

@@ -15,8 +15,8 @@ class ContextMenuComponent extends PolymerElement {
   ContextMenuComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     document.onContextMenu.listen((MouseEvent event) {
       if (!disabled) {

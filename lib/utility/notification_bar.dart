@@ -13,8 +13,8 @@ class NotificationBarComponent extends PolymerElement {
   NotificationBarComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     DivElement container = $['container'];
     _contentHeight = container.clientHeight;

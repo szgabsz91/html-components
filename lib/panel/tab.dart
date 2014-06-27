@@ -17,8 +17,8 @@ class TabComponent extends PolymerElement {
   TabComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     ContentElement contentElement = $['hidden'].querySelector('content');
     List nodes = contentElement.getDistributedNodes();

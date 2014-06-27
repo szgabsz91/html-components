@@ -18,9 +18,8 @@ class DialogComponent extends PolymerElement {
   DialogComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
-    
+  void attached() {
+    super.attached();
     documentWidth = document.body.clientWidth;
     documentHeight = document.body.clientHeight;
     windowHeight = window.innerHeight;

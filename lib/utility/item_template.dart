@@ -16,8 +16,8 @@ class ItemTemplateComponent extends PolymerElement {
   ItemTemplateComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     _refresh();
     

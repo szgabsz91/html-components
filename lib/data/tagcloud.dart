@@ -12,8 +12,8 @@ class TagcloudComponent extends PolymerElement {
   TagcloudComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     List<TagComponent> tagComponents = $['hidden'].querySelector('content').getDistributedNodes();
     

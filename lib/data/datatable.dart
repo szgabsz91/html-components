@@ -50,8 +50,8 @@ class DatatableComponent extends PolymerElement with FilterListener {
   DatatableComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     scheduleMicrotask(() {
       List<ColumnComponent> columnComponents = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is ColumnComponent).toList(growable: false);
