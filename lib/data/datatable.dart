@@ -156,6 +156,13 @@ class DatatableComponent extends PolymerElement with FilterListener {
     totalPages = newTotalPages;
   }
   
+  // This was needed because of a bug: page 1 --> page 2 --> page 1 and still the 2nd page was displayed
+  void newPageRequested(CustomEvent event, int detail, Element target) {
+    if (currentPage != detail) {
+      currentPage = detail;
+    }
+  }
+  
   void loadPage(int page) {
     if (_dataFetcher == null) {
       return;
@@ -297,7 +304,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
       return;
     }
     
-    int itemIndex = ((target.parent.children.indexOf(target) - 1) / 2).floor();
+    int itemIndex = target.parent.parent.children.indexOf(target.parent) - 3;
     Object item = visibleItems[itemIndex];
     
     if (selectedItems.contains(item)) {
@@ -312,7 +319,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
       return;
     }
     
-    int itemIndex = ((target.parent.children.indexOf(target) - 1) / 2).floor();
+    int itemIndex = target.parent.parent.children.indexOf(target.parent) - 3;
     Object item = visibleItems[itemIndex];
     
     if (selectedItems.contains(item)) {
@@ -327,7 +334,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
       return;
     }
     
-    int itemIndex = ((target.parent.children.indexOf(target) - 1) / 2).floor();
+    int itemIndex = target.parent.parent.children.indexOf(target.parent) - 3;
     Object item = visibleItems[itemIndex];
     
     event.preventDefault();
@@ -372,7 +379,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
     int columnIndex = target.parent.children.indexOf(target) - 1;
     ColumnModel column = columns[columnIndex];
     
-    int itemIndex = ((target.parent.parent.children.indexOf(target.parent) - 1) / 2).floor();
+    int itemIndex = target.parent.parent.parent.children.indexOf(target.parent.parent) - 3;;
     Object item = visibleItems[itemIndex];
     
     if (!column.editable) {
@@ -384,8 +391,13 @@ class DatatableComponent extends PolymerElement with FilterListener {
     cellEditor.startEditing(column, item);
   }
   
-  void onEditorKeyUp(KeyboardEvent event, var detail, InputElement target) {
+  void onEditorKeyDown(KeyboardEvent event, var detail, InputElement target) {
     switch (event.which) {
+      // Esc
+      case 27:
+        cellEditor.cancelEditing();
+        break;
+      
       // Enter
       case 13:
         Object newValue = target.value;
@@ -394,11 +406,6 @@ class DatatableComponent extends PolymerElement with FilterListener {
         }
         cellEditor.acceptEditing(newValue);
         this.dispatchEvent(new Event('edited'));
-        break;
-      
-      // Esc
-      case 27:
-        cellEditor.cancelEditing();
         break;
     }
   }
@@ -410,7 +417,7 @@ class DatatableComponent extends PolymerElement with FilterListener {
   }
   
   void onRowExpansionIconClicked(MouseEvent event, var detail, Element target) {
-    TableRowElement expansionRow = target.parent.parent.nextElementSibling.nextElementSibling;
+    TableRowElement expansionRow = target.parent.parent.parent.querySelector('.expansion-row');
     
     if (target.classes.contains("circle-triangle-e")) {
       target.classes.remove("circle-triangle-e");

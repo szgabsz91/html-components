@@ -20,6 +20,7 @@ class DialogComponent extends PolymerElement {
   @override
   void attached() {
     super.attached();
+    
     documentWidth = document.body.clientWidth;
     documentHeight = document.body.clientHeight;
     windowHeight = window.innerHeight;

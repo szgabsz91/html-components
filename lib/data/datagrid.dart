@@ -111,6 +111,13 @@ class DatagridComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('selected', detail: visibleItems[rowIndex * columns + columnIndex]));
   }
   
+  // This was needed because of a bug: page 1 --> page 2 --> page 1 and still the 2nd page was displayed
+  void newPageRequested(CustomEvent event, int detail, Element target) {
+    if (currentPage != detail) {
+      currentPage = detail;
+    }
+  }
+  
   void loadPage(int page) {
     if (_dataFetcher == null) {
       return;

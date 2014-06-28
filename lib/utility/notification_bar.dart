@@ -1,6 +1,5 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
-import 'package:animation/animation.dart' as animation;
 
 @CustomTag('h-notification-bar')
 class NotificationBarComponent extends PolymerElement {
@@ -29,11 +28,7 @@ class NotificationBarComponent extends PolymerElement {
       return;
     }
     
-    Map<String, Object> animationProperties = {
-      'height': _contentHeight
-    };
-    
-    animation.animate($['container'], properties: animationProperties, duration: 500);
+    $['container'].style.height = '${_contentHeight}px';
     
     _visible = true;
   }
@@ -43,11 +38,7 @@ class NotificationBarComponent extends PolymerElement {
       return;
     }
     
-    Map<String, Object> animationProperties = {
-      'height': 0
-    };
-    
-    animation.animate($['container'], properties: animationProperties, duration: 500);
+    $['container'].style.height = '0';
     
     _visible = false;
   }

@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 import '../panel/tab.dart';
 import 'carousel/data.dart';
 import '../common/image_model.dart';
@@ -203,11 +202,7 @@ class CarouselComponent extends PolymerElement {
     
     int newLeft = -(page - 1) * visibleItems * (itemWidth + 4);
     
-    Map<String, Object> animationProperties = {
-      'left': newLeft
-    };
-    
-    animation.animate($['item-list'], properties: animationProperties, duration: 500);
+    $['item-list'].style.left = '${newLeft}px';
     
     if (data != null) {
       if (data.any((Object item) => item is TabModel)) {

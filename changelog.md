@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.3.0
+* Updated to latest SDK (1.5.1) and polymer (0.11.0) version
+* Renamed the web folder to example
+* Updated Bootstrap CSS to use /deep/ selectors
+* Added the `packages/polymer/polymer.html` import to every Polymer element definition page.
+* `packages/web_components/platform.js` and `packages/web_components/dart_support.js` added to the example pages instead of the `packages/polymer/polymer.html` HTML import
+* `packages/browser/dart.js` removed from the example pages
+* `enteredView` and `leftView` lifecycle methods replaced with `attached` and `detached` respectively
+* `@host` CSS rules changed to `:host`
+* Removed the dependency to the `animation` package
+* An old pagination bug reintroduced by Polymer.dart was fixed in the library
+* For the `h-image-compare` component, now the `before` and `after` CSS classes are required as the `:first-child` and `:last-child` pseudo selectors got out of the spec
+* Fixed the animation bug in `h-accordion`
+* Refactored the example CSS files, some of them could be removed
+* Removed `applyAuthorStyles` from everywhere
+* Removed some example dart files and modified those components to be `noscript`
+* Fixed some warning messages in `pub build`
+* Fixed the undefined function error in `h-paginator`
+* Fixed `h-datatable` issues outside of Dartium
+* The components can be used in Dartium (SDK 1.5.1), Chrome Stable 35, Chrome Canary 38, Opera 22, Firefox 30, Safari 7
+
 ## 0.2.1
 * Updated to latest SDK (1.4.2) and polymer (0.10.1+1) version
 

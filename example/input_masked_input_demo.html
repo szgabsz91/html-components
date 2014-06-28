@@ -1,0 +1,29 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/input/masked_input.html">
+
+<polymer-element name="masked-input-demo">
+  <template>
+    <h1>Masked Input</h1>
+    
+    <h4>Pattern: 99/99/9999</h4>
+    <h-masked-input mask="99/99/9999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-masked-input</span><span class="pln"> </span><span class="atn">mask</span><span class="pun">=</span><span class="atv">"99/99/9999"</span><span class="pln"></span>
+                <span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-masked-input&gt;</span></pre>
+    
+    <h4>Pattern: aaa-999</h4>
+    <h-masked-input mask="aaa-999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-masked-input</span><span class="pln"> </span><span class="atn">mask</span><span class="pun">=</span><span class="atv">"aaa-999"</span><span class="pln">
+                </span><span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-masked-input&gt;</span></pre>
+    
+    <h4>Pattern: +3699/999-99-99<br>Placeholder: *</h4>
+    <h-masked-input mask="+3699/999-99-99" placeholder="*" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-masked-input</span><span class="pln"> </span><span class="atn">mask</span><span class="pun">=</span><span class="atv">"+3699/999-99-99"</span><span class="pln">
+                </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"*"</span><span class="pln">
+                </span><span class="atn">on-valuechanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onValueChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-masked-input&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart" src="input_masked_input_demo.dart"></script>
+</polymer-element>

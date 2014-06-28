@@ -1,3 +1,5 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
 <polymer-element name="h-lightbox">
   <template>
     <link rel="stylesheet" href="lightbox.css">
@@ -8,7 +10,7 @@
     
     <div id="image-loader"></div>
     
-    <div id="container" class="{{ {'hidden': hidden} }}" style="left:{{(documentWidth - currentWidth) / 2}}px; top:{{(windowHeight - currentHeight) / 2}}px">
+    <div id="container" class="{{ {'hidden': hidden} }}" style="left:{{(documentWidth - currentWidth) / 2}}px; top:{{(windowHeight - currentHeight) / 2}}px; width:{{currentWidth}}px; height:{{currentHeight}}px">
       <div id="image-wrapper">
         <a id="previous-button" on-click="{{onPreviousButtonClicked}}">
           <span>go</span>

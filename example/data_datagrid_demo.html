@@ -1,0 +1,94 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/panel/panel.html">
+<link rel="import" href="packages/html_components/data/datagrid.html">
+
+<polymer-element name="datagrid-demo">
+  <template>
+    <h1>Datagrid</h1>
+    
+    <h4>Data from Client Side</h4>
+    <h-datagrid columns="3" rows="9" maxPageLinks="5" paginatorPosition="bottom" rowsPerPageTemplate="9,12,15" data="{{cars}}" on-selected="{{onItemSelected}}">
+      <h-panel>
+        <header>${model}</header>
+        <div style="text-align: center">
+          <p>
+            <img src="img/cars/${imagePath}" alt="${manufacturer}">
+          </p>
+          <p>${year}</p>
+          <p>${datagrid:selectButton}</p>
+        </div>
+      </h-panel>
+    </h-datagrid>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-datagrid</span><span class="pln"> </span><span class="atn">data</span><span class="pun">=</span><span class="atv">"{<span></span>{cars}}"</span><span class="pln"> </span><span class="atn">columns</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">rows</span><span class="pun">=</span><span class="atv">"9"</span><span class="pln"> </span><span class="atn">maxPageLinks</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"></span>
+            <span class="atn">paginatorPosition</span><span class="pun">=</span><span class="atv">"bottom"</span><span class="pln"> </span><span class="atn">rowsPerPageTemplate</span><span class="pun">=</span><span class="atv">"9,12,15"</span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-panel&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">
+        </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${datagrid:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-panel&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-datagrid&gt;</span></pre>
+    
+    <h4>No Paginator</h4>
+    <h-datagrid columns="3" rows="9" data="{{carsSmall}}" on-selected="{{onItemSelected}}">
+      <h-panel>
+        <header>${model}</header>
+        <div style="text-align: center">
+          <p>
+            <img src="img/cars/${imagePath}" alt="${manufacturer}">
+          </p>
+          <p>${year}</p>
+          <p>${datagrid:selectButton}</p>
+        </div>
+      </h-panel>
+    </h-datagrid>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-datagrid</span><span class="pln"> </span><span class="atn">data</span><span class="pun">=</span><span class="atv">"{<span></span>{carsSmall}}"</span><span class="pln"> </span><span class="atn">columns</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">rows</span><span class="pun">=</span><span class="atv">"9"</span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-panel&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">
+        </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${datagrid:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-panel&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-datagrid&gt;</span></pre>
+    
+    <h4>Data from Server Side <b class="glyphicon glyphicon-warning-sign" title="Does not work without server side"></b></h4>
+    <h-datagrid source="http://localhost:9090/datagrid/cars" columns="2" rows="6" maxPageLinks="5" paginatorPosition="top" rowsPerPageTemplate="4,6,8" on-selected="{{onItemSelected}}">
+      <h-panel>
+        <header>${model}</header>
+        <div style="text-align: center">
+          <p>
+            <img src="img/cars/${imagePath}" alt="${manufacturer}">
+          </p>
+          <p>${year}</p>
+          <p>${datagrid:selectButton}</p>
+        </div>
+      </h-panel>
+    </h-datagrid>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-datagrid</span><span class="pln"> </span><span class="atn">source</span><span class="pun">=</span><span class="atv">"/datagrid/cars"</span><span class="pln"> </span><span class="atn">columns</span><span class="pun">=</span><span class="atv">"2"</span><span class="pln"> </span><span class="atn">rows</span><span class="pun">=</span><span class="atv">"6"</span><span class="pln"> </span><span class="atn">maxPageLinks</span><span class="pun">=</span><span class="atv">"5"</span><span class="pln"></span>
+            <span class="atn">paginatorPosition</span><span class="pun">=</span><span class="atv">"top"</span><span class="pln"> </span><span class="atn">rowsPerPageTemplate</span><span class="pun">=</span><span class="atv">"4,6,8"</span><span class="pln"></span>
+            <span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-panel&gt;</span><span class="pln">
+    </span><span class="tag">&lt;header&gt;</span><span class="pln">${model}</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">
+        </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/cars/${imagePath}"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"${manufacturer}"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${year}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+      </span><span class="tag">&lt;p&gt;</span><span class="pln">${datagrid:selectButton}</span><span class="tag">&lt;/p&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/h-panel&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-datagrid&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart" src="data_datagrid_demo.dart"></script>
+</polymer-element>

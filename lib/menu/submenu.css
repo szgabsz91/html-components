@@ -1,3 +1,15 @@
+:host {
+  display: block;
+}
+
+:host * {
+  -webkit-box-sizing: initial !important;
+  -moz-box-sizing: initial !important;
+  -ms-box-sizing: initial !important;
+  -o-box-sizing: initial !important;
+  box-sizing: initial !important;
+}
+
 #submenu-container {
   border: none;
   width: 100% !important;
@@ -6,8 +18,10 @@
   padding: 0;
   position: relative;
   margin-right: 5px;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -23,8 +37,10 @@
   line-height: 16px;
   cursor: pointer;
   width: 92%;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -38,8 +54,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
 }
 
@@ -55,8 +73,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   float: right;
 }
@@ -66,8 +86,10 @@
   color: #4f4f4f;
   position: static;
   z-index: 1006;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
   display: block;
   width: 12.5em;
@@ -78,9 +100,13 @@
   line-height: 1.3;
   text-decoration: none;
   list-style: none;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -ms-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -o-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
   box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
 }
 
@@ -97,11 +123,15 @@
 }
 
 #submenu-container > a.hover {
+  background: #85b2cb linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0));
   background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+  background: #85b2cb -moz-linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0));
   color: #313131;
+  -webkit-box-shadow: 0 0 5px #85b2cb;
   -moz-box-shadow: 0 0 5px #85b2cb;
-  -webkit-box-shadow: 0px 0px 8px #85b2cb;
-  box-shadow: 0px 0px 8px #85b2cb;
+  -ms-box-shadow: 0 0 5px #85b2cb;
+  -o-box-shadow: 0 0 5px #85b2cb;
+  box-shadow: 0 0 5px #85b2cb;
 }
 
 #submenu-container > #child-list > #child-item {
@@ -113,7 +143,7 @@
 }
 
 #submenu-container > #child-list.drop-left {
-  left: 175px;
+  left: 170px;
   top: 0;
 }
 

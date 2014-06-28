@@ -1,3 +1,11 @@
+:host * {
+  -webkit-box-sizing: initial !important;
+  -moz-box-sizing: initial !important;
+  -ms-box-sizing: initial !important;
+  -o-box-sizing: initial !important;
+  box-sizing: initial !important;
+}
+
 #image-loader {
   display: none;
   position: relative;
@@ -9,13 +17,19 @@
   display: block;
   width: 50px;
   height: 50px;
-  transition: opacity 1000ms;
-  -webkit-transition: opacity 1000ms;
-  -moz-border-radius: 3px;
+  -webkit-transition: opacity 0.5s, width 0.5s, height 0.5s, left 0.5s, top 0.5s;
+  -moz-transition: opacity 0.5s, width 0.5s, height 0.5s, left 0.5s, top 0.5s;
+  -o-transition: opacity 0.5s, width 0.5s, height 0.5s, left 0.5s, top 0.5s;
+  transition: opacity 0.5s, width 0.5s, height 0.5s, left 0.5s, top 0.5s;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
-  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
   -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -ms-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -o-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
   box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
 }
 
@@ -24,11 +38,15 @@
 }
 
 #previous-button {
-  -moz-box-shadow: inset 0px 1px 0px #fff;
   -webkit-box-shadow: inset 0px 1px 0px #fff;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -ms-box-shadow: inset 0px 1px 0px #fff;
+  -o-box-shadow: inset 0px 1px 0px #fff;
   box-shadow: inset 0px 1px 0px #fff;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   font-weight: bold;
   color: #4f4f4f;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
@@ -45,8 +63,10 @@
   z-index: 1010;
   display: inline;
   opacity: 0;
-  transition: opacity 500ms;
   -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
 }
 
 #previous-button span {
@@ -57,8 +77,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -96px 0;
 }
@@ -70,15 +92,23 @@
   background-color: #000000;
   width: 50px;
   height: 50px;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
+  -webkit-transition: width 0.5s, height 0.5s;
+  -moz-transition: width 0.5s, height 0.5s;
+  -o-transition: width 0.5s, height 0.5s;
+  transition: width 0.5s, height 0.5s;
 }
 
 #image-placeholder img {
   opacity: 0;
-  transition: opacity 1000ms;
-  -webkit-transition: opacity 1000ms;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
 }
 
 .loading {
@@ -89,11 +119,15 @@
 }
 
 #next-button {
-  -moz-box-shadow: inset 0px 1px 0px #fff;
   -webkit-box-shadow: inset 0px 1px 0px #fff;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -ms-box-shadow: inset 0px 1px 0px #fff;
+  -o-box-shadow: inset 0px 1px 0px #fff;
   box-shadow: inset 0px 1px 0px #fff;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   font-weight: bold;
   color: #4f4f4f;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
@@ -110,8 +144,10 @@
   z-index: 1010;
   display: inline;
   opacity: 0;
-  transition: opacity 500ms;
   -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
 }
 
 #next-button span {
@@ -122,8 +158,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -32px 0;
 }
@@ -133,15 +171,21 @@
   height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: opacity 500ms;
-  -webkit-transition: opacity 500ms;
+  -webkit-transition: opacity 500ms, height 500ms;
+  -moz-transition: opacity 500ms, height 500ms;
+  -o-transition: opacity 500ms, height 500ms;
+  transition: opacity 500ms, height 500ms;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   color: #333;
   font-weight: bold;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
-  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
   -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -ms-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+  -o-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
   box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
 }
 
@@ -155,8 +199,10 @@
   margin: 0;
   padding: 1px;
   margin-top: 3px;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -168,8 +214,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -96px -128px;
 }
@@ -179,14 +227,18 @@
 }
 
 #overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
   background: #2d5972;
   opacity: .30;
   z-index: 1000;
-  transition: opacity 1000ms;
-  -webkit-transition: opacity 1000ms;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
   opacity: .30;
 }
 

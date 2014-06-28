@@ -1,56 +1,51 @@
 name: html_components
-version: 0.2.1
+version: 0.3.0
 author: Gabor Szabo <szgabsz91@gmail.com>
 description: A reusable component library written in HTML and Dart using Polymer.dart.
 homepage: https://github.com/szgabsz91/html-components
 environment:
-  sdk: ">=1.4.2"
+  sdk: ">=1.5.1"
 dependencies:
-  animation:
-    git:
-      ref: browser_upgrade
-      url: https://github.com/szgabsz91/Animation
-    version: 0.5.24
-  polymer: ">=0.10.1+1"
+  polymer: ">=0.11.0"
 dev_dependencies:
   unittest: 0.10.1+2
 transformers:
 - polymer:
     entry_points:
-    - web/index.html
-    - web/data_carousel.html
-    - web/data_datagrid.html
-    - web/data_datatable.html
-    - web/data_listbox.html
-    - web/data_picklist.html
-    - web/data_tagcloud.html
-    - web/data_tree.html
-    - web/data_treetable.html
-    - web/dialog_confirmation_dialog.html
-    - web/dialog_dialog.html
-    - web/input_autocomplete.html
-    - web/input_boolean_button.html
-    - web/input_masked_input.html
-    - web/input_rating.html
-    - web/input_select_button.html
-    - web/input_select_checkbox_menu.html
-    - web/menu_breadcrumb.html
-    - web/menu_context_menu.html
-    - web/menu_menu_button.html
-    - web/menu_menubar.html
-    - web/menu_split_button.html
-    - web/multimedia_feed_reader.html
-    - web/multimedia_gallery.html
-    - web/multimedia_image_compare.html
-    - web/multimedia_lightbox.html
-    - web/multimedia_photocam.html
-    - web/panel_accordion.html
-    - web/panel_panel.html
-    - web/panel_tabview.html
-    - web/utility_clock.html
-    - web/utility_draggable.html
-    - web/utility_growl.html
-    - web/utility_item_template.html
-    - web/utility_notification_bar.html
-    - web/utility_resizable.html
-    - web/utility_safe_html.html
+    - example/index.html
+    - example/data_carousel.html
+    - example/data_datagrid.html
+    - example/data_datatable.html
+    - example/data_listbox.html
+    - example/data_picklist.html
+    - example/data_tagcloud.html
+    - example/data_tree.html
+    - example/data_treetable.html
+    - example/dialog_confirmation_dialog.html
+    - example/dialog_dialog.html
+    - example/input_autocomplete.html
+    - example/input_boolean_button.html
+    - example/input_masked_input.html
+    - example/input_rating.html
+    - example/input_select_button.html
+    - example/input_select_checkbox_menu.html
+    - example/menu_breadcrumb.html
+    - example/menu_context_menu.html
+    - example/menu_menu_button.html
+    - example/menu_menubar.html
+    - example/menu_split_button.html
+    - example/multimedia_feed_reader.html
+    - example/multimedia_gallery.html
+    - example/multimedia_image_compare.html
+    - example/multimedia_lightbox.html
+    - example/multimedia_photocam.html
+    - example/panel_accordion.html
+    - example/panel_panel.html
+    - example/panel_tabview.html
+    - example/utility_clock.html
+    - example/utility_draggable.html
+    - example/utility_growl.html
+    - example/utility_item_template.html
+    - example/utility_notification_bar.html
+    - example/utility_resizable.html
+    - example/utility_safe_html.html

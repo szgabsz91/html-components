@@ -1,0 +1,29 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/utility/draggable.html">
+
+<polymer-element name="draggable-demo">
+  <template>
+    <link rel="stylesheet" href="utility_draggable_demo.css">
+    
+    <h1>Draggable</h1>
+    
+    <form class="form-inline" role="form">
+      <label for="axis">Direction:</label>
+      <select id="axis" class="form-control" value="{{axis}}">
+        <option value="xy">Both directions</option>
+        <option value="x">Horizontal</option>
+        <option value="y">Vertical</option>
+      </select>
+    </form>
+    
+    <h-draggable axis="{{axis}}" on-dropped="{{onDraggableDropped}}">
+      <img src="img/nature/nature1.jpg" alt="Nature">
+    </h-draggable>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-draggable</span><span class="pln"> </span><span class="atn">axis</span><span class="pun">=</span><span class="atv">"{<span></span>{axis}}"</span><span class="pln"> </span><span class="atn">on-dropped</span><span class="pun">=</span><span class="atv">"{<span></span>{onDraggableDropped}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-draggable&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart" src="utility_draggable_demo.dart"></script>
+</polymer-element>

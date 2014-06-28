@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 
 @CustomTag('h-resizable')
 class ResizableComponent extends PolymerElement {
@@ -19,6 +18,7 @@ class ResizableComponent extends PolymerElement {
   @observable String resizeMode;
   
   Point _previousPoint;
+  bool _animate = false;
   
   Element get _content => $['container'].querySelector('*').getDistributedNodes().where((Node node) => node is Element).first;
   Element get _ghost => $['container'].querySelector('#ghost');
@@ -95,9 +95,11 @@ class ResizableComponent extends PolymerElement {
       return;
     }
     
+    _animate = true;
     _previousPoint = null;
     document.body.style.cursor = "auto";
     _refreshView(refreshEverything: true);
+    _animate = false;
   }
   
   void _refreshWidth(int currentX) {
@@ -208,12 +210,12 @@ class ResizableComponent extends PolymerElement {
     }
     else {
       if (ghost) {
-        Map<String, Object> animationProperties = {
-          'width': currentWidth,
-          'height': currentHeight
-        };
-        
-        animation.animate(_content, properties: animationProperties, duration: 500).onComplete.listen((_) {
+        _content.classes.add('animating');
+        _content.style
+          ..width = '${currentWidth}px'
+          ..height = '${currentHeight}px';
+        new Timer(const Duration(milliseconds: 500), () {
+          _content.classes.remove('animating');
           this.dispatchEvent(new Event('resized'));
         });
       }

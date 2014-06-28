@@ -1,6 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
-import 'package:animation/animation.dart' as animation;
+import 'dart:async';
 import 'tree/data.dart';
 import 'tree_node.dart';
 import 'tree/template.dart';
@@ -131,17 +131,17 @@ class TreeComponent extends PolymerElement {
         _insertTreeNodes(childContainer, treeNodes);
         
         if (animating) {
-          int height = childContainer.clientHeight == 0 ? int.parse(childContainer.style.height.replaceAll("px", "")) : childContainer.clientHeight;
-          childContainer.style.height = "0";
+          int height = childContainer.clientHeight == 0 ? int.parse(childContainer.attributes['data-height']) : childContainer.clientHeight;
+          childContainer.style.maxHeight = "0";
           childContainer.style.display = "block";
           node.expanded = true;
           
-          Map<String, Object> animationProperties = <String, Object>{
-            "height": height
-          };
-          
-          animation.animate(childContainer, duration: 500, properties: animationProperties).onComplete.listen((_) {
-            childContainer.style.height = "auto";
+          new Timer(const Duration(milliseconds: 50), () {
+            childContainer.style.maxHeight = '${height}px';
+            new Timer(const Duration(milliseconds: 250), () {
+              childContainer.attributes['data-height'] = '${height}';
+              childContainer.style.maxHeight = 'none';
+            });
           });
         }
         else {
@@ -172,23 +172,22 @@ class TreeComponent extends PolymerElement {
     }
     else {
       if (animating) {
-        int height = childContainer.clientHeight == 0 ? int.parse(childContainer.style.height.replaceAll("px", "")) : childContainer.clientHeight;
-        childContainer.style.height = "0";
+        int height = childContainer.clientHeight == 0 ? int.parse(childContainer.attributes['data-height']) : childContainer.clientHeight;
+        childContainer.style.maxHeight = "0";
         childContainer.style.display = "block";
         node.expanded = true;
         
-        Map<String, Object> animationProperties = <String, Object>{
-          "height": height
-        };
-        
-        animation.animate(childContainer, duration: 500, properties: animationProperties).onComplete.listen((_) {
-          childContainer.style.height = "auto";
+        new Timer(const Duration(milliseconds: 50), () {
+          childContainer.style.maxHeight = '${height}px';
+          new Timer(const Duration(milliseconds: 250), () {
+            childContainer.attributes['data-height'] = '${height}';
+            childContainer.style.maxHeight = 'none';
+          });
         });
       }
       else {
         childContainer.style.display = "block";
         node.expanded = true;
-        
       }
       
       if (nodeIcon != null) {
@@ -268,13 +267,13 @@ class TreeComponent extends PolymerElement {
         }
       }
       
-      Map<String, Object> animationProperties = <String, Object>{
-        "height": 0
-      };
-      
-      animation.animate(childContainer, duration: 500, properties: animationProperties).onComplete.listen((_) {
-        childContainer.style.display = "none";
-        childContainer.style.height = "${height}px";
+      childContainer.style.maxHeight = '${height}px';
+      new Timer(const Duration(milliseconds: 50), () {
+        childContainer.style.maxHeight = '0';
+        new Timer(const Duration(milliseconds: 250), () {
+          childContainer.style.display = 'none';
+          childContainer.style.maxHeight = '${height}px';
+        });
       });
     }
     else {

@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 
 @CustomTag('h-lightbox')
 class LightboxComponent extends PolymerElement {
@@ -59,7 +58,7 @@ class LightboxComponent extends PolymerElement {
     $['container'].style.opacity = '0';
     $['overlay'].style.opacity = '0';
     
-    new Future.delayed(new Duration(milliseconds: 1000), () {
+    new Future.delayed(new Duration(milliseconds: 500), () {
       hidden = true;
       
       $['previous-button'].style.opacity = '0';
@@ -68,14 +67,11 @@ class LightboxComponent extends PolymerElement {
       loading = true;
       $['caption'].style.opacity = '0';
       
-      $['caption'].style.height = "0";
+      $['caption'].style.height = '0';
       $['image-placeholder'].querySelector('img').remove();
       
       currentWidth = 50;
       currentHeight = 50;
-      $['container'].style
-        ..width = '50px'
-        ..height = '50px';
       
       $['overlay'].style.opacity = null;
     });
@@ -92,24 +88,21 @@ class LightboxComponent extends PolymerElement {
     currentWidth = hiddenImage.width;
     currentHeight = hiddenImage.height;
     
-    Map<String, int> animationProperties = {
-      'width': hiddenImage.width,
-      'height': hiddenImage.height,
-      'left': (documentWidth - currentWidth) / 2,
-      'top': (windowHeight - currentHeight) / 2
-    };
-    
     currentLabel = _smallImageAnchor.title;
     $['image-placeholder'].children.add(hiddenImage);
     
-    animation.animate($['image-placeholder'], properties: {'width': currentWidth, 'height': currentHeight}, duration: 1000);
-    animation.animate($['container'], properties: animationProperties, duration: 1000).onComplete.listen((_) {
+    $['image-placeholder'].style
+      ..width = '${currentWidth}px'
+      ..height = '${currentHeight}px';
+    
+    new Timer(const Duration(milliseconds: 500), () {
       loading = false;
       $['image-placeholder'].querySelector('img').style.opacity = '1';
       $['previous-button'].style.opacity = '1';
       $['next-button'].style.opacity = '1';
-      $['caption'].style.opacity = "1";
-      animation.animate($['caption'], properties: {'height': 31}, duration: 500);
+      $['caption'].style
+        ..opacity = '1'
+        ..height = '31px';
     });
   }
   
@@ -130,9 +123,10 @@ class LightboxComponent extends PolymerElement {
     $['next-button'].style.opacity = '0';
     $['image-placeholder'].querySelector('img').style.opacity = '0';
     loading = true;
-    $['caption'].style.opacity = "0";
+    $['caption'].style.opacity = '0';
     
-    animation.animate($['caption'], properties: {'height': 0}, duration: 500).onComplete.listen((_) {
+    $['caption'].style.height = '0';
+    new Timer(const Duration(milliseconds: 500), () {
       $['image-placeholder'].querySelector('img').remove();
       _setCurrentIndexTo(index);
       _refreshImage();

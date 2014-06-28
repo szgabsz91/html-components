@@ -1,11 +1,12 @@
-@host {
-  * {
-    display: block;
-  }
-}
-
 :host {
   display: block;
+}
+
+::content img.animating {
+  -webkit-transition: width 0.5s, height 0.5s;
+  -moz-transition: width 0.5s, height 0.5s;
+  -o-transition: width 0.5s, height 0.5s;
+  transition: width 0.5s, height 0.5s;
 }
 
 #container {
@@ -55,10 +56,11 @@
   overflow: hidden;
   background-repeat: no-repeat;
   background-image: url("../resources/icons.png");
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
-  background-position: -64px -224px;
 }
 
 .hidden {

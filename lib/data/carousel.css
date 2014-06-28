@@ -1,7 +1,13 @@
-@host {
-  * {
-    display: block;
-  }
+:host {
+  display: block;
+}
+
+:host * {
+  -webkit-box-sizing: initial !important;
+  -moz-box-sizing: initial !important;
+  -ms-box-sizing: initial !important;
+  -o-box-sizing: initial !important;
+  box-sizing: initial !important;
 }
 
 #container {
@@ -11,8 +17,10 @@
   border: 1px solid #a8a8a8;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -25,12 +33,16 @@
   padding-right: 10px;
   padding-left: 10px;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   color: #333;
   font-weight: bold;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -52,8 +64,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -48px -192px;
 }
@@ -69,8 +83,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -80px -192px;
 }
@@ -90,8 +106,10 @@
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   cursor: pointer;
   float: left;
@@ -114,12 +132,16 @@ select {
   height: auto !important;
   padding: 0 !important;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   font-weight: bold;
   color: #4f4f4f;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
-  -moz-box-shadow: inset 0px 1px 0px #fff;
   -webkit-box-shadow: inset 0px 1px 0px #fff;
+  -moz-box-shadow: inset 0px 1px 0px #fff;
+  -ms-box-shadow: inset 0px 1px 0px #fff;
+  -o-box-shadow: inset 0px 1px 0px #fff;
   box-shadow: inset 0px 1px 0px #fff;
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
@@ -142,6 +164,10 @@ select {
   position: absolute;
   left: 0;
   width: 32000px;
+  -webkit-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -o-transition: left 0.5s;
+  transition: left 0.5s;
 }
 
 #viewport ul li {
@@ -151,8 +177,10 @@ select {
   border: 1px solid #a8a8a8;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -165,21 +193,25 @@ select {
   padding-left: 10px;
   overflow: hidden;
   border: 1px solid #a8a8a8;
+  background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+  background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
   color: #333;
   font-weight: bold;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
-.select-button {
+h-item-template /deep/ .select-button {
   display: inline-block;
   cursor: pointer;
 }
 
-.select-button span {
+h-item-template /deep/ .select-button span {
   background-image: url("../resources/icons.png") !important;
   display: block;
   text-indent: -99999px;
@@ -187,8 +219,10 @@ select {
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
-  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
   background-position: -160px -112px;
   margin: 0 auto;

@@ -15,13 +15,19 @@ class PaginatorComponent extends PolymerElement {
   @observable List<int> visiblePageLinks;
   @observable int selectedRowsPerPageIndex = 0;
   
+  static const EventStreamProvider<CustomEvent> _CURRENT_PAGE_CHANGED_EVENT = const EventStreamProvider<CustomEvent>('currentpagechanged');
+  Stream<CustomEvent> get onCurrentPageChanged => _CURRENT_PAGE_CHANGED_EVENT.forTarget(this);
+  static void _dispatchCurrentPageChangedEvent(Element element, int currentPage) {
+    element.dispatchEvent(new CustomEvent('currentpagechanged', detail: currentPage));
+  }
+  
   PaginatorComponent.created() : super.created();
   
   @override
   void attached() {
     super.attached();
     
-    visiblePageLinks = toObservable(_getVisiblePageLinks().toList(growable: false));
+    _refreshVisiblePageLinks();
   }
   
   void selectedRowsPerPageIndexChanged() {
@@ -42,6 +48,7 @@ class PaginatorComponent extends PolymerElement {
   
   void currentPageChanged() {
     _refreshVisiblePageLinks();
+    _dispatchCurrentPageChangedEvent(this, currentPage);
   }
   
   void _refreshVisiblePageLinks() {

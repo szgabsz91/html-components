@@ -1,3 +1,5 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
 <polymer-element name="h-menu-item">
   <template>
     <link rel="stylesheet" href="menu_item.css">
@@ -9,7 +11,7 @@
     <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
       <a id="link" href="{{url}}" target="{{target}}">
         <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
+          <span id="icon" class="icon {{icon}}"></span>
         </template>
         
         <span id="text">{{label}}</span>

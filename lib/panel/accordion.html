@@ -1,3 +1,4 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="../utility/safe_html.html">
 
 <polymer-element name="h-accordion">
@@ -7,6 +8,7 @@
     <div id="hidden">
       <content select="h-tab"></content>
     </div>
+    <div id="hidden2"></div>
     
     <div id="container">
       <template repeat="{{tab in tabs}}">
@@ -15,7 +17,7 @@
           <a href="#">{{tab.header}}</a>
         </h3>
         
-        <div class="{{ {'content': true, 'hidden': !tab.selected} }}">
+        <div class="{{ {'content': true} }}" style="max-height: {{!tab.selected ? '0' : 'none'}}; padding-top: {{tab.selected ? '5px' : '0'}}; padding-bottom: {{tab.selected ? '5px' : '0'}}">
           <h-safe-html content="{{tab.content}}"></h-safe-html>
         </div>
       </template>

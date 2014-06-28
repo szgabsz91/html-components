@@ -1,0 +1,140 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/dialog/dialog.html">
+
+<polymer-element name="dialog-demo">
+  <template>
+    <link rel="stylesheet" href="dialog_dialog_demo.css">
+    
+    <h1>Dialog</h1>
+    
+    <button class="btn btn-primary" on-click="{{showNonModalDialog}}">Non-Modal</button>
+    <button class="btn btn-danger" on-click="{{showModalDialog}}">Modal</button>
+    
+    <h-dialog id="nonmodal" closable>
+      <header>Login</header>
+      <form role="form">
+        <div class="form-group">
+          <label for="username1">Username</label>
+          <input id="username1" type="text" class="form-control" placeholder="Username" required value="{{user1.username}}">
+        </div>
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input id="password1" type="password" class="form-control" placeholder="Password" required value="{{user1.password}}">
+        </div>
+        <button id="loginButton1" type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </h-dialog>
+    
+    <h-dialog id="modal" modal>
+      <header>Login</header>
+      <form role="form">
+        <div class="form-group">
+          <label for="username2">Username</label>
+          <input id="username2" type="text" class="form-control" placeholder="Username" required value="{{user2.username}}">
+        </div>
+        <div class="form-group">
+          <label for="password2">Password</label>
+          <input id="password2" type="password" class="form-control" placeholder="Password" required value="{{user2.password}}">
+        </div>
+        <button id="loginButton2" type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </h-dialog>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{showNonModalDialog}}"</span><span class="tag">&gt;</span><span class="pln">Non-Modal</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+</span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">on-click</span><span class="pun">=</span><span class="atv">"{<span></span>{showModalDialog}}"</span><span class="tag">&gt;</span><span class="pln">Modal</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;h-dialog</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nonmodal"</span><span class="pln"> </span><span class="atn">closable</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Login</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;form&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"username1"</span><span class="tag">&gt;</span><span class="pln">Username</span><span class="tag">&lt;/label&gt;</span><span class="pln">
+      </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"username1"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"{<span></span>{user1.username}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"password1"</span><span class="tag">&gt;</span><span class="pln">Password</span><span class="tag">&lt;/label&gt;</span><span class="pln">
+      </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"password1"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"{<span></span>{user1.password}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"loginButton1"</span><span class="tag">&gt;</span><span class="pln">Login</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-dialog&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;h-dialog</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"modal"</span><span class="pln"> </span><span class="atn">modal</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;header&gt;</span><span class="pln">Login</span><span class="tag">&lt;/header&gt;</span><span class="pln">
+  </span><span class="tag">&lt;form&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"username2"</span><span class="tag">&gt;</span><span class="pln">Username</span><span class="tag">&lt;/label&gt;</span><span class="pln">
+      </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"username2"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"{<span></span>{user2.username}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"password2"</span><span class="tag">&gt;</span><span class="pln">Password</span><span class="tag">&lt;/label&gt;</span><span class="pln">
+      </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"password2"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"{<span></span>{user2.password}}"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"loginButton2"</span><span class="tag">&gt;</span><span class="pln">Login</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-dialog&gt;</span></pre>
+
+    <pre class="prettyprint lang-dart prettyprinted" data-lang="Dart" style=""><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:polymer/polymer.dart'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'dart:html'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="str">'package:html_components/html_components.dart'</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">class</span><span class="pln"> User </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Object</span><span class="pln"> with Observable </span><span class="pun">{</span><span class="pln">
+  @observable </span><span class="typ">String</span><span class="pln"> username</span><span class="pun">;</span><span class="pln">
+  @observable </span><span class="typ">String</span><span class="pln"> password</span><span class="pun">;</span><span class="pln">
+  
+  User</span><span class="pun">([</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">username </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">password </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">]);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+@CustomTag</span><span class="pun">(</span><span class="str">'dialog-demo'</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> DialogDemo </span><span class="kwd">extends</span><span class="pln"> PolymerElement </span><span class="pun">{</span><span class="pln">
+  
+  @observable User user1 </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> User</span><span class="pun">();</span><span class="pln">
+  @observable User user2 </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> User</span><span class="pun">();</span><span class="pln">
+  
+  DialogDemo</span><span class="pun">.</span><span class="pln">created</span><span class="pun">()</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">created</span><span class="pun">();</span><span class="pln">
+  
+  @override
+  </span><span class="typ">void</span><span class="pln"> enteredView</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">enteredView</span><span class="pun">();</span><span class="pln">
+    
+    $</span><span class="pun">[</span><span class="str">'loginButton1'</span><span class="pun">].</span><span class="pln">onClick</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">((</span><span class="pln">MouseEvent event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      onLoginButtonClicked</span><span class="pun">(</span><span class="pln">user1</span><span class="pun">,</span><span class="pln"> $</span><span class="pun">[</span><span class="str">'nonmodal'</span><span class="pun">]);</span><span class="pln">
+      event</span><span class="pun">.</span><span class="pln">preventDefault</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">});</span><span class="pln">
+    
+    $</span><span class="pun">[</span><span class="str">'loginButton2'</span><span class="pun">].</span><span class="pln">onClick</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">((</span><span class="pln">MouseEvent event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      onLoginButtonClicked</span><span class="pun">(</span><span class="pln">user2</span><span class="pun">,</span><span class="pln"> $</span><span class="pun">[</span><span class="str">'modal'</span><span class="pun">]);</span><span class="pln">
+      event</span><span class="pun">.</span><span class="pln">preventDefault</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">});</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> showNonModalDialog</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'nonmodal'</span><span class="pun">].</span><span class="kwd">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> showModalDialog</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $</span><span class="pun">[</span><span class="str">'modal'</span><span class="pun">].</span><span class="kwd">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+  </span><span class="typ">void</span><span class="pln"> onLoginButtonClicked</span><span class="pun">(</span><span class="pln">User user</span><span class="pun">,</span><span class="pln"> DialogComponent dialog</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">user</span><span class="pun">.</span><span class="pln">username </span><span class="pun">==</span><span class="pln"> </span><span class="str">''</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> user</span><span class="pun">.</span><span class="pln">password </span><span class="pun">==</span><span class="pln"> </span><span class="str">''</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">return</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">user</span><span class="pun">.</span><span class="pln">username </span><span class="pun">==</span><span class="pln"> </span><span class="str">'admin'</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> user</span><span class="pun">.</span><span class="pln">password </span><span class="pun">==</span><span class="pln"> </span><span class="str">'admin'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      GrowlComponent</span><span class="pun">.</span><span class="pln">postMessage</span><span class="pun">(</span><span class="str">'Login successful!'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'Welcome, admin!'</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      GrowlComponent</span><span class="pun">.</span><span class="pln">postMessage</span><span class="pun">(</span><span class="str">'Login failed!'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'The username or password is incorrect'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'warn'</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    
+    user</span><span class="pun">.</span><span class="pln">username </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+    user</span><span class="pun">.</span><span class="pln">password </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+    
+    dialog</span><span class="pun">.</span><span class="kwd">hide</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  
+</span><span class="pun">}</span></pre>
+  </template>
+  
+  <script type="application/dart" src="dialog_dialog_demo.dart"></script>
+</polymer-element>

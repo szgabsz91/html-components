@@ -1,3 +1,4 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="../utility/safe_html.html">
 <link rel="import" href="../utility/item_template.html">
 
@@ -12,26 +13,24 @@
     <table id="container" style="width:{{width}}px; height:{{height}}px">
       <tbody>
         <tr>
-          <template if="{{sidebarPosition == 'left'}}">
-            <td>
-              <button disabled?="{{selectedItems.isEmpty}}" title="{{moveUpLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onUpButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" title="{{moveTopLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onTopButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" title="{{moveDownLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onDownButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" title="{{moveBottomLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onBottomButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-            </td>
-          </template>
+          <td style="display:{{sidebarPosition == 'left' ? 'table-cell' : 'none'}}">
+            <button disabled?="{{selectedItems.isEmpty}}" title="{{moveUpLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onUpButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" title="{{moveTopLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onTopButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" title="{{moveDownLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onDownButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" title="{{moveBottomLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onBottomButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+          </td>
           
           <td>
             <template if="{{header != null}}">
@@ -54,26 +53,24 @@
             </ul>
           </td>
           
-          <template if="{{sidebarPosition == 'right'}}">
-            <td>
-              <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveUpLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onUpButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveTopLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onTopButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveDownLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onDownButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-              <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveBottomLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onBottomButtonClicked}}">
-                <span></span>
-                <span>ui-button</span>
-              </button>
-            </td>
-          </template>
+          <td style="display:{{sidebarPosition == 'right' ? 'table-cell' : 'none'}}">
+            <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveUpLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onUpButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveTopLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onTopButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveDownLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onDownButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+            <button disabled?="{{selectedItems.isEmpty}}" class="{{ {'disabled': selectedItems.isEmpty} }}" title="{{moveBottomLabel}}" on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onBottomButtonClicked}}">
+              <span></span>
+              <span>ui-button</span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

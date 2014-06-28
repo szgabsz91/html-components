@@ -1,0 +1,43 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/utility/resizable.html">
+
+<polymer-element name="resizable-demo">
+  <template>
+    <link rel="stylesheet" href="utility_resizable_demo.css">
+    
+    <h1>Resizable</h1>
+    
+    <form role="form">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{aspectRatio}}"> Keep aspect ratio
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{ghost}}"> Ghost
+        </label>
+      </div>
+    </form>
+    
+    <h-resizable aspectRatio="{{aspectRatio}}" ghost="{{ghost}}" on-resized="{{onResizableResized}}">
+      <img src="img/nature/nature1.jpg" alt="Nature">
+    </h-resizable>
+    
+    <h-resizable minWidth="100" maxWidth="500" minHeight="100" maxHeight="500" on-resized="{{onResizableResized}}">
+      <img src="img/nature/nature1.jpg" alt="Nature">
+    </h-resizable>
+    
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-resizable</span><span class="pln"> </span><span class="atn">aspectRatio</span><span class="pun">=</span><span class="atv">"{{aspectRatio}}"</span><span class="pln"> </span><span class="atn">ghost</span><span class="pun">=</span><span class="atv">"{<span></span>{ghost}}"</span><span class="pln"></span>
+             <span class="atn">on-resized</span><span class="pun">=</span><span class="atv">"{<span></span>{onResizableResized}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-resizable&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;h-resizable</span><span class="pln"> </span><span class="atn">minWidth</span><span class="pun">=</span><span class="atv">"100"</span><span class="pln"> </span><span class="atn">maxWidth</span><span class="pun">=</span><span class="atv">"500"</span><span class="pln"> </span><span class="atn">minHeight</span><span class="pun">=</span><span class="atv">"100"</span><span class="pln"> </span><span class="atn">maxHeight</span><span class="pun">=</span><span class="atv">"500"</span><span class="pln"></span>
+             <span class="atn">on-resized</span><span class="pun">=</span><span class="atv">"{<span></span>{onResizableResized}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"img/nature/nature1.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Nature"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-resizable&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart" src="utility_resizable_demo.dart"></script>
+</polymer-element>

@@ -1,0 +1,37 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/html_components/input/select_item.html">
+<link rel="import" href="packages/html_components/input/select_button.html">
+
+<polymer-element name="select-button-demo">
+  <template>
+    <h1>Select Button</h1>
+    
+    <h4>Single selection</h4>
+    <h-select-button selection="single" on-selectionchanged="{{onSelectionChangedFired}}">
+      <h-select-item label="Option 1" value="1" selected></h-select-item>
+      <h-select-item label="Option 2" value="2" selected></h-select-item>
+      <h-select-item label="Option 3" value="3"></h-select-item>
+    </h-select-button>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-select-button</span><span class="pln"> </span><span class="atn">selection</span><span class="pun">=</span><span class="atv">"single"</span><span class="pln"></span>
+                 <span class="atn">on-selectionchanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onSelectionChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Option 1"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="atn">selected</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Option 2"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"2"</span><span class="pln"> </span><span class="atn">selected</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Option 3"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"3"</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-select-button&gt;</span></pre>
+    
+    <h4>Multiple selection</h4>
+    <h-select-button selection="multiple" on-selectionchanged="{{onSelectionChangedFired}}">
+      <h-select-item label="B" value="Bold" selected></h-select-item>
+      <h-select-item label="I" value="Italic"></h-select-item>
+      <h-select-item label="U" value="Underline" selected></h-select-item>
+    </h-select-button>
+    <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-select-button</span><span class="pln"> </span><span class="atn">selection</span><span class="pun">=</span><span class="atv">"multiple"</span><span class="pln">
+                 </span><span class="atn">on-selectionchanged</span><span class="pun">=</span><span class="atv">"{<span></span>{onSelectionChangedFired}}"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"B"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Bold"</span><span class="pln"> </span><span class="atn">selected</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"I"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Italic"</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-select-item</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"U"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Underline"</span><span class="pln"> </span><span class="atn">selected</span><span class="tag">&gt;&lt;/h-select-item&gt;</span><span class="pln">
+</span><span class="tag">&lt;/h-select-button&gt;</span></pre>
+  </template>
+  
+  <script type="application/dart" src="input_select_button_demo.dart"></script>
+</polymer-element>

@@ -8,7 +8,7 @@ class SelectButtonComponent extends PolymerElement {
   
   @published String selection = 'single';
   
-  @observable List<SelectItemComponent> _selectedItems = toObservable([]);
+  List<SelectItemComponent> _selectedItems = [];
   
   SelectButtonComponent.created() : super.created();
   

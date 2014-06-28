@@ -10,4 +10,8 @@
   border: 1px solid #a8a8a8;
   color: #4f4f4f;
   opacity: 0.9;
+  -webkit-transition: height 0.5s;
+  -moz-transition: height 0.5s;
+  -o-transition: height 0.5s;
+  transition: height 0.5s;
 }

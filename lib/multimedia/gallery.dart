@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 import '../common/image_model.dart';
 
 export '../common/image_model.dart';
@@ -51,18 +50,11 @@ class GalleryComponent extends PolymerElement {
     previousImage.opacity = 0.0;
     currentImage.opacity = 1.0;
     
-    Map<String, Object> hideAnimationProperties = {
-      'height': 0
-    };
-    
-    Map<String, Object> showAnimationProperties = {
-      'height': CAPTION_HEIGHT
-    };
-    
-    animation.animate($['caption'], properties: hideAnimationProperties, duration: 250).onComplete.listen((_) {
+    $['caption'].style.height = '0';
+    new Timer(const Duration(milliseconds: 250), () {
       currentTitle = currentImage.title;
       currentAlt = currentImage.alt;
-      animation.animate($['caption'], properties: showAnimationProperties, duration: 250);
+      $['caption'].style.height = '${CAPTION_HEIGHT}px';
     });
     
     new Future.delayed(new Duration(milliseconds: delay), showNext);
@@ -74,12 +66,7 @@ class GalleryComponent extends PolymerElement {
     currentAlt = currentImage.alt;
     
     images[currentIndex].opacity = 1.0;
-    
-    Map<String, Object> animationProperties = {
-      'height': CAPTION_HEIGHT
-    };
-    
-    animation.animate($['caption'], properties: animationProperties, duration: 250);
+    Timer.run(() => $['caption'].style.height = '${CAPTION_HEIGHT}px');
     
     new Future.delayed(new Duration(milliseconds: delay), showNext);
   }

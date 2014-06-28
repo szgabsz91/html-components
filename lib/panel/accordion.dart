@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 import 'tab.dart';
 
 @CustomTag('h-accordion')
@@ -57,68 +56,70 @@ class AccordionComponent extends PolymerElement {
     
     TabModel tab = tabs[tabHeaderIndex];
     DivElement tabContent = target.parent.children[tabContentIndex];
+    Element tabContentTemplate = tabContent.children[0].shadowRoot.children[0];
     
     if (tab.disabled) {
       return;
     }
     
     if (tab.selected) {
-      _closeTab(tabContent, tab);
+      _closeTab(tabContent, tabContentTemplate, tab);
     }
     else {
       if (selection == 'single') {
         for (int i = 0; i < tabs.length; i++) {
           if (tabs[i].selected) {
-            _closeTab(target.parent.children[(i + 1) * 2], tabs[i]);
+            _closeTab(target.parent.children[(i + 1) * 2], target.parent.children[(i + 1) * 2].children[0].shadowRoot.children[0], tabs[i]);
           }
         }
       }
       
-      _openTab(tabContent, tab);
+      _openTab(tabContent, tabContentTemplate, tab);
     }
   }
   
-  void _openTab(DivElement tabContent, TabModel tab) {
-    _getTabHeight(tabContent).then((int height) {
-      Map<String, Object> animationProperties = {
-        'height': height,
-        'padding-top': 5,
-        'padding-bottom': 5
-      };
-      
-      animation.animate(tabContent, properties: animationProperties, duration: 500).onComplete.listen((_) {
+  void _openTab(DivElement tabContent, Element tabContentTemplate, TabModel tab) {
+    _getTabHeight(tabContentTemplate, $['hidden']).then((int height) {
+      tabContent.style
+        ..maxHeight = '${height}px'
+        ..paddingTop = '5px'
+        ..paddingBottom = '5px';
+      new Timer(const Duration(milliseconds: 500), () {
         tab.selected = true;
         this.dispatchEvent(new CustomEvent('selected', detail: tab));
       });
     });
   }
   
-  void _closeTab(DivElement tabContent, TabModel tab) {
-    Map<String, Object> animationProperties = {
-      'height': 0,
-      'padding-top': 0,
-      'padding-bottom': 0
-    };
-    
-    animation.animate(tabContent, properties: animationProperties, duration: 500).onComplete.listen((_) {
-      tab.selected = false;
-      this.dispatchEvent(new CustomEvent('deselected', detail: tab));
+  void _closeTab(DivElement tabContent, Element tabContentTemplate, TabModel tab) {
+    _getTabHeight(tabContentTemplate, $['hidden2']).then((int height) {
+      tabContent.style.maxHeight = '${height}px';
+      new Timer(const Duration(milliseconds: 50), () {
+        tabContent.style
+          ..maxHeight = '0'
+          ..paddingTop = '0'
+          ..paddingBottom = '0';
+        new Timer(const Duration(milliseconds: 500), () {
+          tab.selected = false;
+          this.dispatchEvent(new CustomEvent('deselected', detail: tab));
+        });
+      });
     });
   }
   
-  Future<int> _getTabHeight(DivElement div) {
+  Future<int> _getTabHeight(Element div, DivElement hiddenElement) {
     Completer completer = new Completer();
     
-    $['hidden'].style.display = 'block';
-    DivElement clone = div.clone(true);
+    hiddenElement.style.display = 'block';
+    Element clone = div.clone(true);
     clone.classes.remove('hidden');
     clone.style.height = 'auto';
-    $['hidden'].children.add(clone);
+    hiddenElement.children.add(clone);
     
     new Future.delayed(new Duration(milliseconds: 50), () {
-      completer.complete($['hidden'].clientHeight);
+      completer.complete(hiddenElement.clientHeight);
       clone.remove();
-      $['hidden'].style.display = 'none';
+      hiddenElement.style.display = 'none';
     });
     
     return completer.future;

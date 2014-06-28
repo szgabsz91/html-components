@@ -21,8 +21,8 @@ class ConfirmationDialogComponent extends PolymerElement {
   ConfirmationDialogComponent.created() : super.created();
   
   @override
-  void enteredView() {
-    super.enteredView();
+  void attached() {
+    super.attached();
     
     _refreshSize();
     

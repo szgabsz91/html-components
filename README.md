@@ -14,20 +14,19 @@ If you want to try HTML Components, include this fragment in your `pubspec.yaml`
 
 The library can be used in HTML and Dart.
 
-For using the components in your HTML page, first you must import the component in the `head` section of the page, then put an instance of the component on your page.
-
-A basic example:
+The most basic example that uses one of the components:
 
     <!DOCTYPE html>
     <html>
       <head>
         <title>Utility - Clock</title>
+        <script src="packages/web_components/platform.js"></script>
+        <script src="packages/web_components/dart_support.js"></script>
         <link rel="import" href="packages/html_components/utility/clock.html">
-        <script type="application/dart">export 'package:polymer/init.dart';</script>
-        <script src="packages/browser/dart.js"></script>
       </head>
       <body>
         <h-clock size="500"></h-clock>
+        <script type="application/dart">export 'package:polymer/init.dart';</script>
       </body>
     </html>
 
@@ -47,13 +46,21 @@ For more examples and code samples, please visit this page: http://szgabsz91.git
 
 Here you can find most of the use cases of the components.
 
-Right now the examples must be viewed in Dartium, beacuse the dart2js compiler does not produce equivalent code to the Dart version.
+The examples were tested in the following browsers:
 
-If a component has some issues in Chrome or Chrome Canary, you can see a brief description on the component's page.
+* Dartium (SDK 1.5.1)
+* Chrome Stable 35
+* Chrome Canary 38
+* Opera 22
+
+Most of the components should work in the following browsers, but there are some style issues:
+
+* Firefox 30
+* Safari 7
 
 ## Components in the Library
 
-The list of components that are already migrate from the old Web UI framework to Polymer.dart:
+Here is the list of components:
 
 * Data Components
 	* Carousel

@@ -23,7 +23,7 @@ class SafeHtmlComponent extends PolymerElement {
     
     Element element = new Element.html('<span>${substitutedString}</span>', treeSanitizer: new NullTreeSanitizer());
     
-    this.shadowRoot.children
+    $['templateRoot'].children
       ..clear()
       ..add(element);
   }

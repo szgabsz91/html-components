@@ -1,3 +1,4 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="paginator.html">
 <link rel="import" href="../utility/item_template.html">
 <link rel="import" href="../utility/safe_html.html">
@@ -20,104 +21,96 @@
       <template if="{{paginatorPosition == 'top'}}">
         <h-paginator position="top" currentPage="{{currentPage}}" rows="{{rows}}"
                      rowsPerPage="{{rowsPerPage}}" maxPageLinks="{{maxPageLinks}}"
-                     totalPages="{{totalPages}}">
+                     totalPages="{{totalPages}}" on-currentpagechanged="{{newPageRequested}}">
         </h-paginator>
       </template>
       
       <div id="table-wrapper">
         <table>
-          <template if="{{showColumnHeader}}">
-            <thead>
-              <tr>
-                <th template repeat="{{column in columns | enumerate}}" class="{{ {'sortable': column.value.sortable, 'selected': column.value.sort != null} }}" on-mouseover="{{onColumnHeaderMouseOver}}" on-mouseout="{{onColumnHeaderMouseOut}}" on-click="{{onColumnHeaderClicked}}">
-                  <span>
-                    <h-safe-html content="{{column.value.header}}"></h-safe-html>
-                  </span>
-                  
-                  <template if="{{column.value.sortable}}">
-                    <span class="{{ {'icon-sort': true, 'carat-2-n-s': column.value.sort == null, 'triangle-1-n': column.value.sort.direction.index == 0, 'triangle-1-s': column.value.sort.direction.index == 1} }}"></span>
-                  </template>
-                  
-                  <template if="{{column.value.filterable}}">
-                    <div class="filter-icon-container">
-                      <span class="filter-icon" on-click="{{onFilterIconClicked}}"></span>
-                      <div class="filter-content invisible" style="z-index:{{2000 - column.index}}">
-                        <template if="{{column.value.type == 'string'}}">
-                          contains <input type="text" value="{{filters[column.value].first.value}}">
-                        </template>
-                        <template if="{{column.value.type == 'numeric'}}">
-                          = <input type="number" value="{{filters[column.value].first.value}}"><br/>
-                          &lt; <input type="number" value="{{filters[column.value].elementAt(1).value}}"><br/>
-                          &gt; <input type="number" value="{{filters[column.value].last.value}}">
-                        </template>
-                        <template if="{{column.value.type == 'boolean'}}">
-                          <label>
-                            <input type="checkbox" checked="{{filters[column.value].first.value}}"> True
-                          </label><br>
-                          <label>
-                            <input type="checkbox" checked="{{filters[column.value].last.value}}"> False
-                          </label>
-                        </template>
-                      </div>
-                    </div>
-                  </template>
-                  
-                  <template if="{{column.value.resizable}}">
-                    <span class="column-resizer" on-mousedown="{{onColumnResizeStarted}}">&nbsp;</span>
-                  </template>
-                </th>
-              </tr>
-            </thead>
-          </template>
-          
-          <template if="{{showColumnFooter}}">
-            <tfoot>
-              <tr>
-                <td template repeat="{{column in columns}}">
-                  <template if="{{column.footer != null}}">
-                    <h-safe-html content="{{column.footer}}"></h-safe-html>
-                  </template>
-                </td>
-              </tr>
-            </tfoot>
-          </template>
-          
-          <tbody>
-            <template repeat="{{item in visibleItems | enumerate}}">
-              <tr class="{{ {'row-even': (item.index / 2).floor() - (item.index / 2) == 0, 'row-odd': (item.index / 2).floor() - (item.index / 2) != 0, 'selected': selectedItems.contains(item.value)} }}" on-mouseover="{{onRowMouseOver}}" on-mouseout="{{onRowMouseOut}}" on-click="{{onRowClicked}}">
-                <td template repeat="{{column in columns | enumerate}}" class="column-{{column.value.textAlign}}" on-doubleclick="{{onCellDoubleClicked}}">
-                  <template if="{{rowExpansionTemplate != null && column.index == 0}}">
-                    <div class="toggler circle-triangle-e" on-click="{{onRowExpansionIconClicked}}"></div>
-                  </template>
-                  
-                  <template if="{{column.value.editing == false || cellEditor.item != item.value}}">
-                    <h-item-template template="{{column.value.content}}" model="{{item.value}}"></h-item-template>
-                  </template>
-                  
-                  <template if="{{column.value.editing && cellEditor.item == item.value}}">
-                    <div class="cell-editor">
+          <thead class="display:{{showColumnHeader ? 'table-header-group' : 'none'}}">
+            <tr>
+              <th template repeat="{{column in columns | enumerate}}" class="{{ {'sortable': column.value.sortable, 'selected': column.value.sort != null} }}" on-mouseover="{{onColumnHeaderMouseOver}}" on-mouseout="{{onColumnHeaderMouseOut}}" on-click="{{onColumnHeaderClicked}}">
+                <span>
+                  <h-safe-html content="{{column.value.header}}"></h-safe-html>
+                </span>
+                
+                <template if="{{column.value.sortable}}">
+                  <span class="{{ {'icon-sort': true, 'carat-2-n-s': column.value.sort == null, 'triangle-1-n': column.value.sort.direction.index == 0, 'triangle-1-s': column.value.sort.direction.index == 1} }}"></span>
+                </template>
+                
+                <template if="{{column.value.filterable}}">
+                  <div class="filter-icon-container">
+                    <span class="filter-icon" on-click="{{onFilterIconClicked}}"></span>
+                    <div class="filter-content invisible" style="z-index:{{2000 - column.index}}">
                       <template if="{{column.value.type == 'string'}}">
-                        <input type="text" autofocus value="{{getItemProperty(item.value, column.value.property)}}" on-keyup="{{onEditorKeyUp}}">
+                        contains <input type="text" value="{{filters[column.value].first.value}}">
                       </template>
                       <template if="{{column.value.type == 'numeric'}}">
-                        <input type="number" autofocus value="{{getItemProperty(item.value, column.value.property)}}" on-keyup="{{onEditorKeyUp}}">
+                        = <input type="number" value="{{filters[column.value].first.value}}"><br/>
+                        &lt; <input type="number" value="{{filters[column.value].elementAt(1).value}}"><br/>
+                        &gt; <input type="number" value="{{filters[column.value].last.value}}">
                       </template>
                       <template if="{{column.value.type == 'boolean'}}">
-                        <input type="checkbox" checked="{{getItemProperty(item.value, column.value.property)}}" on-mousedown="{{onCheckboxClicked}}">
+                        <label>
+                          <input type="checkbox" checked="{{filters[column.value].first.value}}"> True
+                        </label><br>
+                        <label>
+                          <input type="checkbox" checked="{{filters[column.value].last.value}}"> False
+                        </label>
                       </template>
                     </div>
-                  </template>
-                </td>
-              </tr>
-              
-              <template if="{{rowExpansionTemplate != null}}">
-                <tr class="expansion-row">
-                  <td colspan="{{columns.length}}">
-                    <h-item-template template="{{rowExpansionTemplate}}" model="{{item.value}}"></h-item-template>
-                  </td>
-                </tr>
-              </template>
-            </template>
+                  </div>
+                </template>
+                
+                <template if="{{column.value.resizable}}">
+                  <span class="column-resizer" on-mousedown="{{onColumnResizeStarted}}">&nbsp;</span>
+                </template>
+              </th>
+            </tr>
+          </thead>
+          
+          <tfoot class="{{showColumnFooter ? 'table-footer-group' : ''}}">
+            <tr>
+              <td template repeat="{{column in columns}}">
+                <template if="{{column.footer != null}}">
+                  <h-safe-html content="{{column.footer}}"></h-safe-html>
+                </template>
+              </td>
+            </tr>
+          </tfoot>
+          
+          <tbody template repeat="{{item in visibleItems | enumerate}}">
+            <tr class="{{ {'selected': selectedItems.contains(item.value)} }}" on-mouseover="{{onRowMouseOver}}" on-mouseout="{{onRowMouseOut}}" on-click="{{onRowClicked}}">
+              <td template repeat="{{column in columns | enumerate}}" class="column-{{column.value.textAlign}}" on-doubleclick="{{onCellDoubleClicked}}">
+                <template if="{{rowExpansionTemplate != null && rowExpansionTemplate != '' && column.index == 0}}">
+                  <div class="toggler circle-triangle-e" on-click="{{onRowExpansionIconClicked}}"></div>
+                </template>
+                
+                <template if="{{column.value.editing == false || cellEditor.item != item.value}}">
+                  <h-item-template template="{{column.value.content}}" model="{{item.value}}"></h-item-template>
+                </template>
+                
+                <template if="{{column.value.editing && cellEditor.item == item.value}}">
+                  <div class="cell-editor">
+                    <template if="{{column.value.type == 'string'}}">
+                      <input type="text" autofocus value="{{getItemProperty(item.value, column.value.property)}}" on-keydown="{{onEditorKeyDown}}">
+                    </template>
+                    <template if="{{column.value.type == 'numeric'}}">
+                      <input type="number" autofocus value="{{getItemProperty(item.value, column.value.property)}}" on-keydown="{{onEditorKeyDown}}">
+                    </template>
+                    <template if="{{column.value.type == 'boolean'}}">
+                      <input type="checkbox" checked="{{getItemProperty(item.value, column.value.property)}}" on-mousedown="{{onCheckboxClicked}}">
+                    </template>
+                  </div>
+                </template>
+              </td>
+            </tr>
+            
+            <tr class="expansion-row" style="display:{{rowExpansionTemplate != null && rowExpansionTemplate != '': 'table-row': 'none'}}">
+              <td colspan="{{columns.length}}">
+                <h-item-template template="{{rowExpansionTemplate}}" model="{{item.value}}"></h-item-template>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -125,7 +118,7 @@
       <template if="{{paginatorPosition == 'bottom'}}">
         <h-paginator position="bottom" currentPage="{{currentPage}}" rows="{{rows}}"
                      rowsPerPage="{{rowsPerPage}}" maxPageLinks="{{maxPageLinks}}"
-                     totalPages="{{totalPages}}">
+                     totalPages="{{totalPages}}" on-currentpagechanged="{{newPageRequested}}">
         </h-paginator>
       </template>
       

@@ -1,0 +1,40 @@
+@media (min-width: 768px) {
+  #content {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  #content {
+    margin-top: 50px;
+  }
+}
+
+body /deep/ .jumbotron p {
+  margin: 20px 0;
+}
+
+body /deep/ h1 {
+  margin-bottom: 50px !important;
+}
+
+body /deep/ h4 {
+  margin-bottom: 20px !important;
+}
+
+body /deep/ pre {
+  margin-top: 20px !important;
+}
+
+body /deep/ form.form-narrow {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+body /deep/ label {
+  margin-right: 20px;
+}
+
+body /deep/ form.margin-bottom {
+  margin-bottom: 50px !important;
+}

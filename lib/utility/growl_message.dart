@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 import 'growl_message/model.dart';
 
 export 'growl_message/model.dart';
@@ -33,11 +32,8 @@ class GrowlMessageComponent extends PolymerElement {
       ..margin = '0'
       ..padding = '0';
     
-    var animationProperties = {
-      'height': 0
-    };
-    
-    animation.animate(container, properties: animationProperties, duration: ANIMATION_DURATION).onComplete.listen((_) {
+    container.style.height = '0';
+    new Timer(const Duration(milliseconds: ANIMATION_DURATION), () {
       _dispatchClosedEvent(this);
     });
   }

@@ -1,5 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
+import 'dart:async';
 import '../common/reflection.dart';
 import '../common/null_tree_sanitizer.dart';
 
@@ -9,26 +10,19 @@ class ItemTemplateComponent extends PolymerElement {
   @published String template = '';
   @published Object model;
   @published Map<String, String> customTemplates;
-  bool loaded = false;
-  
-  bool get applyAuthorStyles => true;
   
   ItemTemplateComponent.created() : super.created();
   
   @override
   void attached() {
     super.attached();
-    
-    _refresh();
-    
-    loaded = true;
   }
   
   String getSubstitutedString(Object object) {
     String record = template;
     
     RegExp regExp = new RegExp(r"(\${[^\$^\s]+})");
-    List<String> placeholders = regExp.allMatches(template).map((Match match) => match.group(0)).toList(growable: false);
+    List<String> placeholders = regExp.allMatches(template.replaceAll('%7B', '{').replaceAll('%7D', '}')).map((Match match) => match.group(0)).toList(growable: false);
     
     placeholders.forEach((String placeholder) {
       String propertyName = placeholder.substring(2, placeholder.length - 1);
@@ -41,6 +35,7 @@ class ItemTemplateComponent extends PolymerElement {
       else {
         var propertyValue = getPropertyValue(object, propertyName);
         record = record.replaceAll(placeholder, propertyValue.toString());
+        record = record.replaceAll(placeholder.replaceAll('{', '%7B').replaceAll('}', '%7D'), propertyValue.toString());
       }
     });
     
@@ -48,21 +43,15 @@ class ItemTemplateComponent extends PolymerElement {
   }
   
   void templateChanged() {
-    if (loaded) {
-      _refresh();
-    }
+    _refresh();
   }
   
   void modelChanged() {
-    if (loaded) {
-      _refresh();
-    }
+    _refresh();
   }
   
   void customTemplatesChanged() {
-    if (loaded) {
-      _refresh();
-    }
+    _refresh();
   }
   
   void _refresh() {

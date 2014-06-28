@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
-import 'package:animation/animation.dart' as animation;
 
 @CustomTag('h-panel')
 class PanelComponent extends PolymerElement {
@@ -59,13 +58,11 @@ class PanelComponent extends PolymerElement {
   }
   
   void open() {
-    Map<String, Object> animationProperties = {
-      'height': _contentHeight,
-      'padding-top': 5,
-      'padding-bottom': 5
-    };
-    
-    animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
+    $['content'].style
+      ..maxHeight = '${_contentHeight}px'
+      ..paddingTop = '5px'
+      ..paddingBottom = '5px';
+    new Timer(const Duration(milliseconds: 500), () {
       collapsed = false;
       $['content'].style.overflow = 'auto';
       this.dispatchEvent(new CustomEvent('toggled', detail: 'VISIBLE'));
@@ -77,16 +74,18 @@ class PanelComponent extends PolymerElement {
       _refreshContentHeight();
     }
     
-    Map<String, Object> animationProperties = {
-      'height': 0,
-      'padding-top': 0,
-      'padding-bottom': 0
-    };
+    $['content'].style.maxHeight = '${_contentHeight}px';
     
-    $['content'].style.overflow = 'hidden';
-    animation.animate($['content'], properties: animationProperties, duration: 500).onComplete.listen((_) {
-      collapsed = true;
-      this.dispatchEvent(new CustomEvent('toggled', detail: 'HIDDEN'));
+    new Timer(const Duration(milliseconds: 50), () {
+      $['content'].style
+        ..maxHeight = '0'
+        ..paddingTop = '0'
+        ..paddingBottom = '0'
+        ..overflow = 'hidden';
+      new Timer(const Duration(milliseconds: 500), () {
+        collapsed = true;
+        this.dispatchEvent(new CustomEvent('toggled', detail: 'HIDDEN'));
+      });
     });
   }
   
@@ -101,19 +100,25 @@ class PanelComponent extends PolymerElement {
   void onClosed(MouseEvent event) {
     event.preventDefault();
     
-    Map<String, Object> animationProperties = {
-      'height': 0,
-      'padding': 0,
-      'margin': 0
-    };
+    if (_contentHeight == 0) {
+      _refreshContentHeight();
+    }
     
-    $['container'].style.opacity = "0";
-    this.style.overflow = "hidden";
+    $['container'].style.maxHeight = '${_contentHeight}px';
     
-    animation.animate($['container'], properties: animationProperties, duration: 500);
-    animation.animate(this, properties: animationProperties, duration: 500).onComplete.listen((_) {
-      this.dispatchEvent(new Event('closed'));
-      this.remove();
+    new Timer(const Duration(milliseconds: 50), () {
+      $['container'].style
+        ..opacity = '0'
+        ..overflow = 'hidden';
+      
+      $['container'].style
+        ..maxHeight = '0'
+        ..padding = '0'
+        ..margin = '0';
+      new Timer(const Duration(milliseconds: 500), () {
+        this.dispatchEvent(new Event('closed'));
+        this.remove();
+      });
     });
   }
   
