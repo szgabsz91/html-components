@@ -31027,7 +31027,6 @@ Rg:{
 $0:[function(){var z,y,x,w,v
 z=this.b
 y=J.YE(z)
-P.JS(J.dH(J.Eh(J.UQ(y.gKM(z),"before-container"),"content")))
 x=C.t5.gFV(J.dH(J.Eh(J.UQ(y.gKM(z),"before-container"),"content")))
 C.t5.gFV(J.dH(J.Eh(J.UQ(y.gKM(z),"after-container"),"content")))
 w=J.YE(x)
