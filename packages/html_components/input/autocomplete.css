@@ -1,16 +1,20 @@
 #input-container {
   width: auto;
   zoom: 1;
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
   box-shadow: none;
   position: static;
 }
 
 #input {
   background: #ffffff;
-  -moz-box-shadow: inset 0 2px 2px #8f8f8f !important;
   -webkit-box-shadow: inset 0 2px 2px #8f8f8f !important;
+  -moz-box-shadow: inset 0 2px 2px #8f8f8f !important;
+  -ms-box-shadow: inset 0 2px 2px #8f8f8f !important;
+  -o-box-shadow: inset 0 2px 2px #8f8f8f !important;
   box-shadow: inset 0 2px 2px #8f8f8f !important;
   color: #313131;
   margin: 0;
@@ -18,9 +22,10 @@
   padding: 4px;
   border: 1px solid #a8a8a8;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
-  -moz-box-shadow: inset 0px 1px 0px #fff;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -35,11 +40,15 @@
   display: block;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
+  -webkit-box-shadow: 2px 3px 7px rgba(0,0,0,0.8);
   -moz-box-shadow: 2px 3px 7px rgba(0,0,0,0.8);
-  -webkit-box-shadow: 2px 7px 10px rgba(0,0,0,0.8);
+  -ms-box-shadow: 2px 3px 7px rgba(0,0,0,0.8);
+  -o-box-shadow: 2px 3px 7px rgba(0,0,0,0.8);
   box-shadow: 2px 3px 7px rgba(0,0,0,0.8);
 }
 
@@ -47,8 +56,10 @@
   margin: 0 0 10px 5px;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
   margin: 0;
   padding: 0;
@@ -67,13 +78,17 @@
   margin: 1px 0;
   padding: 3px 5px;
   text-align: left;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
 .hover {
+  background: #aaaaaa linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
   background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+  background: #aaaaaa -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
   color: #ffffff;
   text-shadow: 1px 1px 1px #333333;
 }

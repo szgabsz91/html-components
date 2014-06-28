@@ -1,22 +1,10 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/data/column.html">
 <link rel="import" href="packages/html_components/data/treetable.html">
 
 <polymer-element name="treetable-demo">
   <template>
-    <link rel="stylesheet" href="data_treetable_demo.css">
-    
     <h1>Treetable</h1>
-    
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
-    
-    <table class="issues">
-      <tr>
-        <td>
-          <img src="img/chrome.svg">
-        </td>
-        <td>Not working</td>
-      </tr>
-    </table>
     
     <h4>Client Side Data and Single Selection</h4>
     <h-treetable root="{{documentRoot}}" selection="single" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-columnresized="{{onColumnResized}}">

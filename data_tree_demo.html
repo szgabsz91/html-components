@@ -1,13 +1,10 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/data/tree_node.html">
 <link rel="import" href="packages/html_components/data/tree.html">
 
 <polymer-element name="tree-demo">
   <template>
-    <link rel="stylesheet" href="data_tree_demo.css">
-    
     <h1>Tree</h1>
-    
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
     
     <h4>Strings with Single Selection</h4>
     <h-tree selection="single" root="{{stringRoot}}" on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" on-deselected="{{onItemDeselected}}"></h-tree>

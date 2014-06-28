@@ -1,12 +1,11 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/input/rating.html">
 
 <polymer-element name="rating-demo">
   <template>
-    <link rel="stylesheet" href="input_rating_demo.css">
-    
     <h1>Rating</h1>
     
-    <form class="form-narrow" role="form">
+    <form class="form-narrow margin-bottom" role="form">
       <div class="form-group">
         <label for="stars">Stars</label>
         <input id="stars" type="number" class="form-control" value="{{stars | asInteger}}" min="1">

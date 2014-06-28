@@ -4,5 +4,5 @@ h2.centered {
 }
 
 h3 {
-  margin-top: 50px;
+  margin-top: 50px !important;
 }

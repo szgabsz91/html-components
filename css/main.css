@@ -10,35 +10,31 @@
   }
 }
 
-.jumbotron p {
+body /deep/ .jumbotron p {
   margin: 20px 0;
 }
 
-h1 {
-  margin-bottom: 50px;
+body /deep/ h1 {
+  margin-bottom: 50px !important;
 }
 
-label {
-  margin-right: 20px;
+body /deep/ h4 {
+  margin-bottom: 20px !important;
 }
 
-form.form-narrow {
+body /deep/ pre {
+  margin-top: 20px !important;
+}
+
+body /deep/ form.form-narrow {
   max-width: 300px;
   margin: 0 auto;
 }
 
-table.issues {
-  margin: 0 auto;
+body /deep/ label {
+  margin-right: 20px;
 }
 
-table.issues.margin {
-  margin-bottom: 20px;
-}
-
-table.issues td {
-  padding: 3px 5px;
-}
-
-table.issues img {
-  width: 30px;
+body /deep/ form.margin-bottom {
+  margin-bottom: 50px !important;
 }

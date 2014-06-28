@@ -1,3 +1,4 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/menu/menu_item.html">
 <link rel="import" href="packages/html_components/menu/menu_separator.html">
 <link rel="import" href="packages/html_components/menu/submenu.html">
@@ -5,26 +6,9 @@
 
 <polymer-element name="menubar-demo">
   <template>
-    <link rel="stylesheet" href="menu_menubar_demo.css">
-    
     <h1>Menubar</h1>
     
-    <table class="issues margin">
-      <tr>
-        <td>
-          <img src="img/canary.svg">
-        </td>
-        <td>Events do not work properly</td>
-      </tr>
-      <tr>
-        <td>
-          <img src="img/chrome.svg">
-        </td>
-        <td>Changing orientation at runtime does not work properly</td>
-      </tr>
-    </table>
-    
-    <form class="form-inline" role="form">
+    <form class="form-inline margin-bottom" role="form">
       <label for="orientation">Orientation:</label>
       <select id="orientation" class="form-control" value="{{orientation}}">
         <option value="horizontal">Horizontal</option>
@@ -68,7 +52,7 @@
         </h-submenu>
       </h-submenu>
       
-      <h-menu-item url="/" target="_blank" icon="close">Quit</h-menu-item>
+      <h-menu-item url="." target="_blank" icon="close">Quit</h-menu-item>
     </h-menubar>
     
     <pre class="prettyprint lang-html prettyprinted" data-lang="HTML" style=""><span class="tag">&lt;h-menubar</span><span class="pln"> </span><span class="atn">orientation</span><span class="pun">=</span><span class="atv">"{<span></span>{orientation}}"</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onMenuItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">
@@ -107,7 +91,7 @@
     </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
   </span><span class="tag">&lt;/h-submenu&gt;</span><span class="pln">
   
-  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"/"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Quit</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"."</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Quit</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-menubar&gt;</span></pre>
   </template>
   

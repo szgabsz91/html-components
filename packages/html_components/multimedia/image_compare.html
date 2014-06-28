@@ -1,3 +1,5 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
 <polymer-element name="h-image-compare">
   <template>
     <link rel="stylesheet" href="image_compare.css">
@@ -5,20 +7,20 @@
     <div id="container" style="width:{{imageWidth}}px; height:{{imageHeight}}px" on-mouseover="{{onContainerMouseOver}}" on-mouseout="{{onContainerMouseOut}}" on-mousemove="{{onDragging}}" on-mouseup="{{onDragStopped}}">
       <div id="draggable" style="left:{{draggablePosition - 4}}px; height:{{imageHeight}}px">
         <div id="handle-container" style="height:{{imageHeight}}px" on-mousedown="{{onDragStarted}}">
-          <img src="resources/handle.gif" alt="Handle" title="Drag me left or right to see the before and after images" style="top:{{handleTop}}px">
+          <img src="../resources/handle.gif" alt="Handle" title="Drag me left or right to see the before and after images" style="top:{{handleTop}}px">
         </div>
       </div>
       
       <div id="before-container" style="width:{{draggablePosition}}px; height:{{imageHeight}}px">
-        <content select="img:first-child"></content>
+        <content select="img.before"></content>
       </div>
       
       <div id="after-container" style="width:{{imageWidth}}px; height:{{imageHeight}}px">
-        <content select="img:last-child"></content>
+        <content select="img.after"></content>
       </div>
       
-      <img id="handle-left" src="resources/lt-small.png" style="top:{{arrowTop}}px; left:{{draggablePosition - handlePosition}}px; opacity:{{handleOpacity}}">
-      <img id="handle-right" src="resources/rt-small.png" style="top:{{arrowTop}}px; left:{{draggablePosition + handlePosition - 8}}px; opacity:{{handleOpacity}}">
+      <img id="handle-left" src="../resources/lt-small.png" style="top:{{arrowTop}}px; left:{{draggablePosition - handlePosition}}px; opacity:{{handleOpacity}}">
+      <img id="handle-right" src="../resources/rt-small.png" style="top:{{arrowTop}}px; left:{{draggablePosition + handlePosition - 8}}px; opacity:{{handleOpacity}}">
     </div>
   </template>
   

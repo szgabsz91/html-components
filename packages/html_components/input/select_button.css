@@ -1,14 +1,14 @@
-@host {
-  * {
-    display: block;
-  }
+:host {
+  display: block;
 }
 
 h-select-button > #container {
   display: inline-block;
   padding: 1px;
   margin-right: 7px;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }

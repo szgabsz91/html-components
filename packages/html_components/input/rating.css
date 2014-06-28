@@ -1,7 +1,5 @@
-@host {
-  * {
-    display: block;
-  }
+:host {
+  display: block;
 }
 
 #container.readonly {

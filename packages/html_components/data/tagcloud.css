@@ -2,8 +2,10 @@
   border: 1px solid #a8a8a8;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -21,10 +23,10 @@ li {
 }
 
 li a {
-  text-decoration: none;
-  padding: 0 5px;
-  color: #4f4f4f;
-  outline: none;
+  text-decoration: none !important;
+  padding: 0 5px !important;
+  color: #4f4f4f !important;
+  outline: none !important;
 }
 
 .strength-1 {
@@ -48,11 +50,15 @@ li a {
 }
 
 .hover {
+  background: #85b2cb linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0));
   background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+  background: #85b2cb -moz-linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0));
   color: #313131;
+  -webkit-box-shadow: 0 0 5px #85b2cb;
   -moz-box-shadow: 0 0 5px #85b2cb;
-  -webkit-box-shadow: 0px 0px 8px #85b2cb;
-  box-shadow: 0px 0px 8px #85b2cb;
+  -ms-box-shadow: 0 0 5px #85b2cb;
+  -o-box-shadow: 0 0 5px #85b2cb;
+  box-shadow: 0 0 5px #85b2cb;
 }
 
 #hidden {

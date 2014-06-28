@@ -1,25 +1,9 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/data/listbox.html">
 
 <polymer-element name="listbox-demo">
   <template>
-    <link rel="stylesheet" href="data_listbox_demo.css">
-    
     <h1>Listbox</h1>
-    
-    <table class="issues">
-      <tr>
-        <td>
-          <img src="img/canary.svg">
-        </td>
-        <td>The buttons for reordering are always visible</td>
-      </tr>
-      <tr>
-        <td>
-          <img src="img/chrome.svg">
-        </td>
-        <td>The buttons for reordering are always visible</td>
-      </tr>
-    </table>
     
     <h4>Strings, Single Selection</h4>
     <h-listbox moveUpLabel="Up" moveTopLabel="Top" moveDownLabel="Down" moveBottomLabel="Bottom" data="{{playerNames}}" on-selected="{{onItemSelected}}">

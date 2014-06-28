@@ -1,3 +1,4 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/menu/menu_item.html">
 <link rel="import" href="packages/html_components/menu/menu_separator.html">
 <link rel="import" href="packages/html_components/menu/context_menu.html">
@@ -6,26 +7,11 @@
   <template>
     <h1>Context Menu</h1>
     
-    <table class="issues margin">
-      <tr>
-        <td>
-          <img src="img/canary.svg">
-        </td>
-        <td>Events do not work properly</td>
-      </tr>
-      <tr>
-        <td>
-          <img src="img/chrome.svg">
-        </td>
-        <td>Not working</td>
-      </tr>
-    </table>
-    
     <h-context-menu disabled="{{disabled}}" on-selected="{{onMenuItemSelected}}">
       <h-menu-item icon="arrowrefresh-1-w">Update</h-menu-item>
       <h-menu-item icon="close">Delete</h-menu-item>
       <h-menu-separator></h-menu-separator>
-      <h-menu-item url="/" target="_blank" icon="extlink">HTML Components</h-menu-item>
+      <h-menu-item url="." target="_blank" icon="extlink">HTML Components</h-menu-item>
     </h-context-menu>
     
     <h-context-menu disabled="{{disabled}}" attachedTo="image" on-selected="{{onMenuItemSelected}}">
@@ -36,7 +22,7 @@
   </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"arrowrefresh-1-w"</span><span class="tag">&gt;</span><span class="pln">Update</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
   </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">Delete</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
   </span><span class="tag">&lt;h-menu-separator&gt;&lt;/h-menu-separator&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"/"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"extlink"</span><span class="tag">&gt;</span><span class="pln">HTML Components</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
+  </span><span class="tag">&lt;h-menu-item</span><span class="pln"> </span><span class="atn">url</span><span class="pun">=</span><span class="atv">"."</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="pln"> </span><span class="atn">icon</span><span class="pun">=</span><span class="atv">"extlink"</span><span class="tag">&gt;</span><span class="pln">HTML Components</span><span class="tag">&lt;/h-menu-item&gt;</span><span class="pln">
 </span><span class="tag">&lt;/h-context-menu&gt;</span><span class="pln">
 
 </span><span class="tag">&lt;h-context-menu</span><span class="pln"> </span><span class="atn">attachedTo</span><span class="pun">=</span><span class="atv">"image"</span><span class="pln"> </span><span class="atn">on-selected</span><span class="pun">=</span><span class="atv">"{<span></span>{onMenuItemSelected}}"</span><span class="tag">&gt;</span><span class="pln">

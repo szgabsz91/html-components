@@ -4,8 +4,10 @@
   border: 1px solid #a8a8a8;
   background: #ffffff;
   color: #4f4f4f;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -25,8 +27,10 @@
 
 #image-container img {
   opacity: 0;
-  transition: opacity 500ms;
   -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
 }
 
 #caption {
@@ -38,6 +42,10 @@
   bottom: 0;
   height: 0;
   display: block;
+  -webkit-transition: height 250ms;
+  -moz-transition: height 250ms;
+  -o-transition: height 250ms;
+  transition: height 250ms;
 }
 
 #caption h4 {

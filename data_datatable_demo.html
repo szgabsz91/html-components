@@ -1,29 +1,11 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/data/column.html">
 <link rel="import" href="packages/html_components/data/row_expansion.html">
 <link rel="import" href="packages/html_components/data/datatable.html">
 
 <polymer-element name="datatable-demo">
   <template>
-    <link rel="stylesheet" href="data_datatable_demo.css">
-    
     <h1>Datatable</h1>
-    
-    <div class="alert alert-danger"><b>Warning!</b> Those samples that require a web service do not work without server side!</div>
-    
-    <table class="issues">
-      <tr>
-        <td>
-          <img src="img/canary.svg">
-        </td>
-        <td>Not working</td>
-      </tr>
-      <tr>
-        <td>
-          <img src="img/chrome.svg">
-        </td>
-        <td>Not working</td>
-      </tr>
-    </table>
     
     <h4>Simple Example</h4>
     <h-datatable data="{{cars}}" paginatorPosition="top" rows="15" rowsPerPageTemplate="15,20,25" maxPageLinks="5">

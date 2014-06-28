@@ -1,3 +1,4 @@
+<link rel="import" href="packages/polymer/polymer.html">
 <link rel="import" href="packages/html_components/multimedia/feed_reader.html">
 
 <polymer-element name="feed-reader-demo">
@@ -5,15 +6,6 @@
     <link rel="stylesheet" href="multimedia_feed_reader_demo.css">
     
     <h1>Feed Reader</h1>
-    
-    <table class="issues margin">
-      <tr>
-        <td>
-          <img src="img/canary.svg">
-        </td>
-        <td>Not working</td>
-      </tr>
-    </table>
     
     <h-feed-reader url="multimedia_feed_reader.xml" maxItems="5" autoRefresh on-refreshed="{{onFeedReaderRefreshed}}">
       <p>
