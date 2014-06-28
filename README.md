@@ -58,6 +58,8 @@ Most of the components should work in the following browsers, but there are some
 * Firefox 30
 * Safari 7
 
+For those examples that require a server side, use [services.dart](bin/services.dart).
+
 ## Components in the Library
 
 Here is the list of components:

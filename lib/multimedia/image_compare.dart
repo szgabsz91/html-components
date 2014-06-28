@@ -23,7 +23,6 @@ class ImageCompareComponent extends PolymerElement {
     
     new Timer(const Duration(milliseconds: 500), () {
       void init() {
-        print($['before-container'].querySelector('content').getDistributedNodes());
         ImageElement beforeImage = $['before-container'].querySelector('content').getDistributedNodes().first;
         ImageElement afterImage = $['after-container'].querySelector('content').getDistributedNodes().first;
         
