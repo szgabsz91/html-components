@@ -3,6 +3,7 @@
 <polymer-element name="h-menu-item">
   <template>
     <link rel="stylesheet" href="menu_item.css">
+    <link rel="stylesheet" href="../resources/icons.css">
     
     <div id="hidden">
       <content></content>
@@ -10,8 +11,8 @@
     
     <div id="menu-item-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
       <a id="link" href="{{url}}" target="{{target}}">
-        <template if="{{icon != null}}">
-          <span id="icon" class="icon {{icon}}"></span>
+        <template if="{{iconClass != null}}">
+          <span id="icon" class="icon {{iconClass}}"></span>
         </template>
         
         <span id="text">{{label}}</span>

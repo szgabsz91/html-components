@@ -1,0 +1,40 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/datatable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datatable-edit-demo" extends="showcase-item">
+  <template>
+    <h-datatable data="{{cars}}" paginatorPosition="top" rows="15" on-edited="{{onItemEdited}}">
+      <header>List of Cars</header>
+      
+      <h-column property="model" type="string" editable>
+        <header>Model</header>
+        <footer>8 digit code</footer>
+      </h-column>
+      
+      <h-column property="manufacturer" type="string" editable>
+        <header>Manufacturer</header>
+      </h-column>
+      
+      <h-column property="year" type="numeric" editable>
+        <header>Year</header>
+        <footer>1960-2012</footer>
+      </h-column>
+      
+      <h-column property="warranty" type="boolean" editable textAlign="center">
+        <header>Has Warranty?</header>
+        <footer>true/false</footer>
+      </h-column>
+      
+      <footer>In total there are ${datatable:totalCount} cars.</footer>
+    </h-datatable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="edit.dart"></script>
+</polymer-element>

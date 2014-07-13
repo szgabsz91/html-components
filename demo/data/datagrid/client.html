@@ -1,0 +1,42 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/panel/panel.html">
+<link rel="import" href="../../../../packages/html_components/data/datagrid.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datagrid-client-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="paginator">Paginator:</label>
+        <select id="paginator" class="form-control" value="{{paginator}}">
+          <option value="none">None</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-datagrid data="{{cars}}" paginatorPosition="{{paginator}}"
+                columns="3" rows="9" maxPageLinks="5"  rowsPerPageTemplate="9,12,15"
+                on-selected="{{onItemSelected}}">
+      <h-panel>
+        <header>${model}</header>
+        <div style="text-align: center">
+          <p>
+            <img src="../../../img/cars/${imagePath}" alt="${manufacturer}">
+          </p>
+          <p>${year}</p>
+          <p>${datagrid:selectButton}</p>
+        </div>
+      </h-panel>
+    </h-datagrid>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="client.dart"></script>
+</polymer-element>

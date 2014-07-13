@@ -1,40 +1,82 @@
 @media (min-width: 768px) {
-  #content {
+  body > .container > #content {
     margin-top: 100px;
   }
 }
 
 @media (max-width: 767px) {
-  #content {
+  body > .container > #content {
     margin-top: 50px;
   }
 }
 
-body /deep/ .jumbotron p {
+body > .container > #content > h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+body /deep/ .alert.alert-danger {
+  max-width: 325px;
+  text-align: center;
+  margin: 0 auto 50px auto;
+}
+
+body /deep/ .alert.alert-danger a {
+  color: inherit;
+  font-style: italic;
+}
+
+body home-demo::shadow .jumbotron p {
   margin: 20px 0;
 }
 
-body /deep/ h1 {
+body *::shadow h1 {
   margin-bottom: 50px !important;
 }
 
-body /deep/ h4 {
-  margin-bottom: 20px !important;
-}
-
-body /deep/ pre {
-  margin-top: 20px !important;
-}
-
-body /deep/ form.form-narrow {
+body /deep/ form {
   max-width: 300px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto !important;
 }
 
 body /deep/ label {
   margin-right: 20px;
 }
 
-body /deep/ form.margin-bottom {
-  margin-bottom: 50px !important;
+body /deep/ .car-item {
+  width: 200px;
+  height: 140px;
+  text-align: center;
+}
+
+body /deep/ table.movie-item tr td {
+  padding: 10px;
+  text-align: justify;
+}
+
+body /deep/ h-carousel h-tab {
+  display: block;
+  width: 600px;
+  height: 200px;
+}
+
+body /deep/ h-dialog form {
+  width: 500px;
+}
+
+body autocomplete-demo /deep/ h4 {
+  margin-top: 50px !important;
+  margin-bottom: 20px !important;
+}
+
+body /deep/ autocomplete-demo /deep/ img {
+  margin-right: 10px;
+}
+
+body /deep/ h-draggable {
+  margin: 25px 0;
+}
+
+body /deep/ h-notification-bar h1 {
+  margin: 50px 0;
 }

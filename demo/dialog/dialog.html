@@ -1,0 +1,45 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/dialog/dialog.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="dialog-demo" extends="showcase-item">
+  <template>
+    <h1>Dialog</h1>
+    
+    <form role="form">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{closable}}"> Closable
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{modal}}"> Modal
+        </label>
+      </div>
+      <button class="btn btn-primary" on-click="{{open}}">Open</button>
+    </form>
+    
+    <h-dialog id="dialog" closable="{{closable}}" modal="{{modal}}">
+      <header>Login</header>
+      <form role="form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" type="text" class="form-control" placeholder="Username" required value="{{user.username}}">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" class="form-control" placeholder="Password" required value="{{user.password}}">
+        </div>
+        <button type="submit" class="btn btn-primary" on-click="{{login}}">Login</button>
+      </form>
+    </h-dialog>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="dialog.dart"></script>
+</polymer-element>

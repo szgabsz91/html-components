@@ -4,11 +4,12 @@
 <polymer-element name="h-split-button">
   <template>
     <link rel="stylesheet" href="split_button.css">
+    <link rel="stylesheet" href="../resources/icons.css">
     
     <div id="split-button-container">
       <button on-mouseover="{{onButtonMouseOver}}" on-mouseout="{{onButtonMouseOut}}" on-click="{{onMainActionClicked}}">
-        <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
+        <template if="{{iconClass != null}}">
+          <span id="icon" class="{{iconClass}}"></span>
         </template>
         
         <span id="text">{{label}}</span>

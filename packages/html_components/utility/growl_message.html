@@ -1,4 +1,5 @@
 <link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="safe_html.html">
 
 <polymer-element name="h-growl-message">
   <template>
@@ -8,8 +9,12 @@
       <a id="close-thick" on-click="{{onClosing}}"></a>
       <a id="icon" class="{{severity}}"></a>
       <div id="message">
-        <span id="summary">{{summary}}</span>
-        <span id="detail">{{detail}}</span>
+        <span id="summary">
+          <h-safe-html content="{{summary}}"></h-safe-html>
+        </span>
+        <span id="detail">
+          <h-safe-html content="{{detail}}"></h-safe-html>
+        </span>
       </div>
     </div>
   </template>

@@ -1,0 +1,50 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/tree_node.html">
+<link rel="import" href="../../../../packages/html_components/data/tree.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="tree-icons-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{animating}}"> Animate
+        </label>
+      </div>
+    </form>
+    
+    <h-tree root="{{root}}" selection="{{selection}}" animating="{{animating}}"
+            on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}"
+            on-selected="{{onItemSelected}}" on-deselected="{{onItemDeselected}}">
+      <h-tree-node expandedIcon="folder-open" collapsedIcon="folder-collapsed">
+        ${name}
+      </h-tree-node>
+      
+      <h-tree-node type="document" normalIcon="document">
+        ${name}
+      </h-tree-node>
+      
+      <h-tree-node type="picture" normalIcon="image">
+        ${name}
+      </h-tree-node>
+      
+      <h-tree-node type="movie" normalIcon="video">
+        ${name}
+      </h-tree-node>
+    </h-tree>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="icons.dart"></script>
+</polymer-element>

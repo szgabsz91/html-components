@@ -1,0 +1,47 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/panel/panel.html">
+<link rel="import" href="../../../../packages/html_components/data/datagrid.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datagrid-server-demo" extends="showcase-item">
+  <template>
+    <div class="alert alert-danger" role="alert">
+      <b>Warning!</b>
+      Does not work without <a href="https://github.com/szgabsz91/html-components/blob/master/bin/services.dart" target="_blank">services.dart</a>
+    </div>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="paginator">Paginator:</label>
+        <select id="paginator" class="form-control" value="{{paginator}}">
+          <option value="none">None</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-datagrid source="http://localhost:9090/datagrid/cars" paginatorPosition="{{paginator}}"
+                columns="2" rows="6" maxPageLinks="5"  rowsPerPageTemplate="4,6,8"
+                on-selected="{{onItemSelected}}">
+      <h-panel>
+        <header>${model}</header>
+        <div style="text-align: center">
+          <p>
+            <img src="../../../img/cars/${imagePath}" alt="${manufacturer}">
+          </p>
+          <p>${year}</p>
+          <p>${datagrid:selectButton}</p>
+        </div>
+      </h-panel>
+    </h-datagrid>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="server.dart"></script>
+</polymer-element>

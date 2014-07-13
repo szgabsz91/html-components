@@ -1,0 +1,31 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/draggable.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="draggable-demo" extends="showcase-item">
+  <template>
+    <h1>Draggable</h1>
+    
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label for="axis">Direction:</label>
+        <select id="axis" class="form-control" value="{{axis}}">
+          <option value="xy">Both directions</option>
+          <option value="x">Horizontal</option>
+          <option value="y">Vertical</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-draggable axis="{{axis}}" on-dropped="{{onDraggableDropped}}">
+      <img src="../../img/nature/nature1.jpg" alt="Nature">
+    </h-draggable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="draggable.dart"></script>
+</polymer-element>

@@ -12,7 +12,7 @@
       <ul>
         <template repeat="{{tag in tags}}">
           <li class="strength-{{tag.strength}}">
-            <a href="{{tag.url}}" on-mouseover="{{onTagMouseOver}}" on-mouseout="{{onTagMouseOut}}" on-click="{{onTagClicked}}">{{tag.label}}</a>
+            <a href="{{tag.url}}" target="{{tag.target}}" on-mouseover="{{onTagMouseOver}}" on-mouseout="{{onTagMouseOut}}" on-click="{{onTagClicked}}">{{tag.label}}</a>
           </li>
         </template>
       </ul>

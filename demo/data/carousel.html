@@ -1,0 +1,28 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="carousel/client.html">
+<link rel="import" href="carousel/server.html">
+<link rel="import" href="carousel/tabs.html">
+<link rel="import" href="carousel/images.html">
+
+<polymer-element name="carousel-demo" extends="showcase-collection">
+  <template>
+    <h1>Carousel</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'client'}}">
+      <carousel-client-demo></carousel-client-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <carousel-server-demo></carousel-server-demo>
+    </template>
+    <template if="{{subpage == 'tabs'}}">
+      <carousel-tabs-demo></carousel-tabs-demo>
+    </template>
+    <template if="{{subpage == 'images'}}">
+      <carousel-images-demo></carousel-images-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="carousel.dart"></script>
+</polymer-element>

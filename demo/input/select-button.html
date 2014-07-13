@@ -1,0 +1,33 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/input/select_item.html">
+<link rel="import" href="../../../packages/html_components/input/select_button.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="select-button-demo" extends="showcase-item">
+  <template>
+    <h1>Select Button</h1>
+    
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-select-button selection="{{selection}}" on-selectionchanged="{{onSelectionChangedFired}}">
+      <h-select-item label="Option 1" value="1" selected></h-select-item>
+      <h-select-item label="Option 2" value="2" selected></h-select-item>
+      <h-select-item label="Option 3" value="3"></h-select-item>
+    </h-select-button>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="select-button.dart"></script>
+</polymer-element>

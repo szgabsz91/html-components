@@ -1,0 +1,25 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/menu/menu_item.html">
+<link rel="import" href="../../../packages/html_components/menu/menu_separator.html">
+<link rel="import" href="../../../packages/html_components/menu/split_button.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="split-button-demo" extends="showcase-item">
+  <template>
+    <h1>Split Button</h1>
+    
+    <h-split-button label="Save" iconClass="disk" on-selected="{{onMenuItemSelected}}">
+      <h-menu-item iconClass="arrowrefresh-1-w">Update</h-menu-item>
+      <h-menu-item iconClass="close">Delete</h-menu-item>
+      <h-menu-separator></h-menu-separator>
+      <h-menu-item url="//szgabsz91.github.io/html-components/#/menu/split-button" target="_blank" iconClass="extlink">HTML Components</h-menu-item>
+    </h-split-button>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="split-button.dart"></script>
+</polymer-element>

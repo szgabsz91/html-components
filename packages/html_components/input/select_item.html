@@ -4,8 +4,7 @@
   <template>
     <link rel="stylesheet" href="select_item.css">
     
-    <!-- class="{{ {'selected': selected} }}" -->
-    <div id="container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
+    <div id="container" class="{{ {'selected': selected} }}" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}" on-click="{{onItemClicked}}">
       <span>{{label}}</span>
     </div>
   </template>

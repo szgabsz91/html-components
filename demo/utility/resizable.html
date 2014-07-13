@@ -1,0 +1,41 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/resizable.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="resizable-demo" extends="showcase-item">
+  <template>
+    <h1>Resizable</h1>
+    
+    <form role="form">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{aspectRatio}}"> Keep aspect ratio
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{ghost}}"> Ghost
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{sizeConstraints}}"> Size constraints
+        </label>
+      </div>
+    </form>
+    
+    <h-resizable aspectRatio?="{{aspectRatio}}" ghost?="{{ghost}}"
+                 minWidth="{{minSize.width}}" minHeight="{{minSize.height}}"
+                 maxWidth="{{maxSize.width}}" maxHeight="{{maxSize.height}}" 
+                 on-resized="{{onResizableResized}}">
+      <img src="../../img/nature/nature1.jpg" alt="Nature">
+    </h-resizable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="resizable.dart"></script>
+</polymer-element>

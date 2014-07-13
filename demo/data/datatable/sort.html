@@ -1,0 +1,42 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/datatable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datatable-sort-demo" extends="showcase-item">
+  <template>
+    <h-datatable data="{{cars}}" paginatorPosition="bottom"
+                 rows="15" rowsPerPageTemplate="15,20,25" maxPageLinks="10" 
+                 on-sorted="{{onColumnSorted}}">
+      <header>List of Cars</header>
+      
+      <h-column property="model" sortable>
+        <header>Model</header>
+        <footer>8 digit code</footer>
+      </h-column>
+      
+      <h-column property="manufacturer" sortable>
+        <header>Manufacturer</header>
+      </h-column>
+      
+      <h-column property="year" sortable>
+        <header>Year</header>
+        <footer>1960-2012</footer>
+      </h-column>
+      
+      <h-column property="warranty" sortable textAlign="center">
+        <header>Warranty</header>
+        <footer>true/false</footer>
+      </h-column>
+      
+      <footer>In total there are ${datatable:totalCount} cars.</footer>
+    </h-datatable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="sort.dart"></script>
+</polymer-element>

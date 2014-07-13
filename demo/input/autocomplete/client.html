@@ -1,0 +1,36 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/input/autocomplete.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="autocomplete-client-demo" extends="showcase-item">
+  <template>
+    <h4>String suggestions</h4>
+    <h-autocomplete data="{{playerNames}}"
+                    maxResults="5" delay="1000"
+                    on-valuechanged="{{onValueChangedFired}}">
+    </h-autocomplete>
+    
+    <h4>Object suggestions without an item template</h4>
+    <h-autocomplete data="{{players}}" property="name"
+                    maxResults="5" delay="1000"
+                    on-valuechanged="{{onValueChangedFired}}">
+    </h-autocomplete>
+    
+    <h4>Object suggestions with an item template</h4>
+    <h-autocomplete data="{{players}}" property="name"
+                    maxResults="5" delay="1000"
+                    on-valuechanged="{{onValueChangedFired}}">
+      <span>
+        <img src="../../../img/players/${imagePath}" alt="${name}">
+        ${name} - ${number}
+      </span>
+    </h-autocomplete>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="client.dart"></script>
+</polymer-element>

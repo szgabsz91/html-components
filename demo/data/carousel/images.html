@@ -1,0 +1,18 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/carousel.html">
+
+<polymer-element name="carousel-images-demo" extends="showcase-item">
+  <template>
+    <h-carousel pageLinks="4" autoplayInterval="5000" visibleItems="1" circular>
+      <img src="../../../img/nature/nature1.jpg" alt="Nature 1">
+      <img src="../../../img/nature/nature2.jpg" alt="Nature 2">
+      <img src="../../../img/nature/nature3.jpg" alt="Nature 3">
+      <img src="../../../img/nature/nature4.jpg" alt="Nature 4">
+    </h-carousel>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="images.dart"></script>
+</polymer-element>

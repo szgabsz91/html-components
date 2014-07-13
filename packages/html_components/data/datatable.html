@@ -18,7 +18,7 @@
         </div>
       </template>
       
-      <template if="{{paginatorPosition == 'top'}}">
+      <template if="{{paginatorPosition == 'top' || paginatorPosition == 'both'}}">
         <h-paginator position="top" currentPage="{{currentPage}}" rows="{{rows}}"
                      rowsPerPage="{{rowsPerPage}}" maxPageLinks="{{maxPageLinks}}"
                      totalPages="{{totalPages}}" on-currentpagechanged="{{newPageRequested}}">
@@ -115,7 +115,7 @@
         </table>
       </div>
       
-      <template if="{{paginatorPosition == 'bottom'}}">
+      <template if="{{paginatorPosition == 'bottom' || paginatorPosition == 'both'}}">
         <h-paginator position="bottom" currentPage="{{currentPage}}" rows="{{rows}}"
                      rowsPerPage="{{rowsPerPage}}" maxPageLinks="{{maxPageLinks}}"
                      totalPages="{{totalPages}}" on-currentpagechanged="{{newPageRequested}}">

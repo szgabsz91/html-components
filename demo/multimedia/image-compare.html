@@ -1,0 +1,18 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/multimedia/image_compare.html">
+
+<polymer-element name="image-compare-demo" extends="showcase-item">
+  <template>
+    <h1>Image Compare</h1>
+    
+    <h-image-compare>
+      <img src="../../img/image-compare/xbox.png" alt="XBox 360" class="before">
+      <img src="../../img/image-compare/ps3.png" alt="PS3" class="after">
+    </h-image-compare>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="image-compare.dart"></script>
+</polymer-element>

@@ -1,0 +1,41 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/listbox.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="listbox-objects-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sidebar">Sidebar:</label>
+        <select id="sidebar" class="form-control" value="{{sidebar}}">
+          <option value="none">None</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-listbox data="{{players}}" selection="{{selection}}" sidebarPosition="{{sidebar}}" height="500"
+               on-selected="{{onItemSelected}}" on-reordered="{{onReordered}}">
+      <header>Players</header>
+      <div>
+        <img src="../../../img/players/${imagePath}" alt="${name}">
+        ${name} - ${number}
+      </div>
+    </h-listbox>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="objects.dart"></script>
+</polymer-element>

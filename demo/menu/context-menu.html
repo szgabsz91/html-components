@@ -1,0 +1,31 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/menu/menu_item.html">
+<link rel="import" href="../../../packages/html_components/menu/menu_separator.html">
+<link rel="import" href="../../../packages/html_components/menu/context_menu.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="context-menu-demo" extends="showcase-item">
+  <template>
+    <h1>Context Menu</h1>
+    
+    <h-context-menu on-selected="{{onMenuItemSelected}}">
+      <h-menu-item iconClass="arrowrefresh-1-w">Update</h-menu-item>
+      <h-menu-item iconClass="close">Delete</h-menu-item>
+      <h-menu-separator></h-menu-separator>
+      <h-menu-item url="//szgabsz91.github.io/html-components/#/menu/context-menu" target="_blank" iconClass="extlink">HTML Components</h-menu-item>
+    </h-context-menu>
+    
+    <h-context-menu attachedTo="image" on-selected="{{onMenuItemSelected}}">
+      <h-menu-item iconClass="close">Remove</h-menu-item>
+    </h-context-menu>
+    
+    <img id="image" src="../../img/nature/nature1.jpg" alt="Nature">
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="context-menu.dart"></script>
+</polymer-element>

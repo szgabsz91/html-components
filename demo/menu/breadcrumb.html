@@ -1,0 +1,24 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/menu/menu_item.html">
+<link rel="import" href="../../../packages/html_components/menu/breadcrumb.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="breadcrumb-demo" extends="showcase-item">
+  <template>
+    <h1>Breadcrumb</h1>
+    
+    <h-breadcrumb on-selected="{{onMenuItemSelected}}">
+      <h-menu-item iconClass="home">Home</h-menu-item>
+      <h-menu-item iconClass="document">Document</h-menu-item>
+      <h-menu-item>References</h-menu-item>
+      <h-menu-item iconClass="extlink" url="//szgabsz91.github.io/html-components/#/menu/breadcrumb" target="_blank">Google I/O</h-menu-item>
+    </h-breadcrumb>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="breadcrumb.dart"></script>
+</polymer-element>

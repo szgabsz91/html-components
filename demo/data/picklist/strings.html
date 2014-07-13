@@ -1,0 +1,40 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/picklist.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="picklist-strings-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{order}}"> Order
+        </label>
+      </div>
+    </form>
+    
+    <h-picklist data="{{players}}" selection="{{selection}}" order="{{order}}"
+                addLabel="Pick" addAllLabel="Pick All" removeLabel="Clear" removeAllLabel="Clear All"
+                on-picked="{{onPicked}}">
+      <header>
+        <i>Players</i>
+      </header>
+      <header>
+        <i>Picked Players</i>
+      </header>
+    </h-picklist>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="strings.dart"></script>
+</polymer-element>

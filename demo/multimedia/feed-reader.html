@@ -1,0 +1,23 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/multimedia/feed_reader.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="feed-reader-demo" extends="showcase-item">
+  <template>
+    <h1>Feed Reader</h1>
+    
+    <h-feed-reader url="{{url}}" maxItems="5" autoRefresh on-refreshed="{{onFeedReaderRefreshed}}">
+      <p>
+        <b>${title}</b>
+      </p>
+      ${description}
+    </h-feed-reader>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="feed-reader.dart"></script>
+</polymer-element>

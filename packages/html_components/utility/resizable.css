@@ -56,6 +56,7 @@
   overflow: hidden;
   background-repeat: no-repeat;
   background-image: url("../resources/icons.png");
+  background-position: -64px -224px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;

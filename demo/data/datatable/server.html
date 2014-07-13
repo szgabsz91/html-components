@@ -1,0 +1,45 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/datatable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datatable-server-demo" extends="showcase-item">
+  <template>
+    <div class="alert alert-danger" role="alert">
+      <b>Warning!</b>
+      Does not work without <a href="https://github.com/szgabsz91/html-components/blob/master/bin/services.dart" target="_blank">services.dart</a>
+    </div>
+    
+    <h-datatable source="http://localhost:9090/datatable/cars" paginatorPosition="top" rows="15">
+      <header>List of Cars</header>
+      
+      <h-column property="model">
+        <header>Model</header>
+        <footer>8 digit code</footer>
+      </h-column>
+      
+      <h-column property="manufacturer">
+        <header>Manufacturer</header>
+      </h-column>
+      
+      <h-column property="year">
+        <header>Year</header>
+        <footer>1960-2012</footer>
+      </h-column>
+      
+      <h-column property="warranty" textAlign="center">
+        <header>Warranty</header>
+        <footer>true/false</footer>
+      </h-column>
+      
+      <footer>In total there are ${datatable:totalCount} cars.</footer>
+    </h-datatable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="server.dart"></script>
+</polymer-element>

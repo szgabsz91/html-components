@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="treetable/client.html">
+<link rel="import" href="treetable/server.html">
+
+<polymer-element name="treetable-demo" extends="showcase-collection">
+  <template>
+    <h1>Treetable</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'client'}}">
+      <treetable-client-demo></treetable-client-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <treetable-server-demo></treetable-server-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="treetable.dart"></script>
+</polymer-element>

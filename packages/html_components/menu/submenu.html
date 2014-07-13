@@ -3,11 +3,12 @@
 <polymer-element name="h-submenu">
   <template>
     <link rel="stylesheet" href="submenu.css">
+    <link rel="stylesheet" href="../resources/icons.css">
     
     <div id="submenu-container" on-mouseover="{{onItemMouseOver}}" on-mouseout="{{onItemMouseOut}}">
       <a id="link" href="#" on-click="{{onLabelClicked}}">
-        <template if="{{icon != null}}">
-          <span id="icon" class="{{icon}}"></span>
+        <template if="{{iconClass != null}}">
+          <span id="icon" class="{{iconClass}}"></span>
         </template>
         
         <span id="text">{{label}}</span>

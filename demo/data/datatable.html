@@ -1,0 +1,40 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="datatable/selection.html">
+<link rel="import" href="datatable/sort.html">
+<link rel="import" href="datatable/filter.html">
+<link rel="import" href="datatable/edit.html">
+<link rel="import" href="datatable/expansion-row.html">
+<link rel="import" href="datatable/resizable-column.html">
+<link rel="import" href="datatable/server.html">
+
+<polymer-element name="datatable-demo" extends="showcase-collection">
+  <template>
+    <h1>Datatable</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'selection'}}">
+      <datatable-selection-demo></datatable-selection-demo>
+    </template>
+    <template if="{{subpage == 'sort'}}">
+      <datatable-sort-demo></datatable-sort-demo>
+    </template>
+    <template if="{{subpage == 'filter'}}">
+      <datatable-filter-demo></datatable-filter-demo>
+    </template>
+    <template if="{{subpage == 'edit'}}">
+      <datatable-edit-demo></datatable-edit-demo>
+    </template>
+    <template if="{{subpage == 'expansion-row'}}">
+      <datatable-expansion-row-demo></datatable-expansion-row-demo>
+    </template>
+    <template if="{{subpage == 'resizable-column'}}">
+      <datatable-resizable-column-demo></datatable-resizable-column-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <datatable-server-demo></datatable-server-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="datatable.dart"></script>
+</polymer-element>
