@@ -21,10 +21,10 @@ class TabComponent extends PolymerElement {
     super.attached();
     
     ContentElement contentElement = $['hidden'].querySelector('content');
-    List nodes = contentElement.getDistributedNodes();
+    List<Element> elements = contentElement.getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
     
-    if (nodes.isNotEmpty) {
-      content = nodes.first.parent.innerHtml;
+    if (elements.isNotEmpty) {
+      content = elements.first.parent.innerHtml;
     }
     
     $['hidden'].remove();

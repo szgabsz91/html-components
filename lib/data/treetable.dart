@@ -8,8 +8,6 @@ import 'treetable/data.dart';
 import 'treetable/template.dart';
 import '../common/null_tree_sanitizer.dart';
 
-// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
-
 @CustomTag('h-treetable')
 class TreetableComponent extends PolymerElement {
   
@@ -127,7 +125,7 @@ class TreetableComponent extends PolymerElement {
     }
   }
   
-  void _onMouseOverRow(MouseEvent event, var node) {
+  void _onMouseOverRow(MouseEvent event, TreeNode node) {
     if (selection == "none") {
       return;
     }
@@ -140,7 +138,7 @@ class TreetableComponent extends PolymerElement {
     target.classes.add("hover");
   }
   
-  void _onMouseOutRow(MouseEvent event, var node) {
+  void _onMouseOutRow(MouseEvent event, TreeNode node) {
     if (selection == "none") {
       return;
     }
@@ -149,7 +147,7 @@ class TreetableComponent extends PolymerElement {
     target.classes.remove("hover");
   }
   
-  void _onRowClicked(MouseEvent event, var node) {
+  void _onRowClicked(MouseEvent event, TreeNode node) {
     if (selection == 'none') {
       return;
     }
@@ -201,7 +199,7 @@ class TreetableComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('selected', detail: node.data));
   }
   
-  void _toggleNode(var node, MouseEvent event) {
+  void _toggleNode(TreeNode node, MouseEvent event) {
     SpanElement target = event.target;
     
     if (node.expanded) {
@@ -212,7 +210,7 @@ class TreetableComponent extends PolymerElement {
     }
   }
   
-  void _expandNode(var node, Element element) {
+  void _expandNode(TreeNode node, Element element) {
     element.classes
       ..remove("triangle-1-e")
       ..add("triangle-1-s");
@@ -250,7 +248,7 @@ class TreetableComponent extends PolymerElement {
     this.dispatchEvent(new CustomEvent('expanded', detail: node.data));
   }
   
-  void _collapseNode(var node, Element element) {
+  void _collapseNode(TreeNode node, Element element) {
     element.classes
       ..remove("triangle-1-s")
       ..add("triangle-1-e");
@@ -301,7 +299,7 @@ class TreetableComponent extends PolymerElement {
   void _insertTreeNodes(List treeNodes, Element previousElement, int level) {
     List<TableRowElement> newRows = [];
     
-    treeNodes.forEach((var treeNode) {
+    treeNodes.forEach((TreeNode treeNode) {
       TableRowElement row = new TableRowElement();
       row
         ..attributes["data-level"] = "$level"

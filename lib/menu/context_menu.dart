@@ -10,7 +10,9 @@ class ContextMenuComponent extends PolymerElement {
   @observable int top = 0;
   @observable int left = 0;
   
-  static List<String> _attachedIdList = [];
+  StreamSubscription<CustomEvent> _contextMenuListener;
+  StreamSubscription<CustomEvent> _targetListener;
+  StreamSubscription<CustomEvent> _documentListener;
   
   ContextMenuComponent.created() : super.created();
   
@@ -18,48 +20,57 @@ class ContextMenuComponent extends PolymerElement {
   void attached() {
     super.attached();
     
-    document.onContextMenu.listen((MouseEvent event) {
+    this._contextMenuListener = document.onContextMenu.listen((MouseEvent event) {
       if (!disabled) {
         event.preventDefault();
       }
     });
     
-    document.onMouseUp.listen((MouseEvent event) {
-      if (disabled) {
-        return;
-      }
-      
-      $['context-menu-container'].classes.add('hidden');
-      
-      if (event.button != 2) {
-        return;
-      }
-      
-      Element target = event.target;
-      String targetId = target.id;
-      
-      if (attachedTo != null && targetId != attachedTo ||
-          attachedTo == null && _attachedIdList.contains(targetId)) {
-        return;
-      }
-      
-      top = event.client.y;
-      left = event.client.x;
-      // In Chrome, top and left styles not updating
-      $['context-menu-container'].style
-        ..top = '${top}px'
-        ..left = '${left}px';
-      
-      $['context-menu-container'].classes.remove('hidden');
-    });
-    
     if (attachedTo != null) {
-      if (_attachedIdList.contains(attachedTo)) {
-        _attachedIdList.remove(attachedTo);
-      }
+      var target = document.querySelector('body /deep/ #${attachedTo}');
       
-      _attachedIdList.add(attachedTo);
+      if (target != null) {
+        this._targetListener = target.onMouseUp.listen(mouseUpListener);
+      }
     }
+    else {
+      this._documentListener = document.onMouseUp.listen(mouseUpListener);
+    }
+  }
+  
+  @override
+  void detached() {
+    super.detached();
+    
+    this._contextMenuListener.cancel();
+    this._contextMenuListener = null;
+    if (this._targetListener != null) {
+      this._targetListener.cancel();
+      this._targetListener = null;
+    }
+    if (this._documentListener != null) {
+      this._documentListener.cancel();
+      this._documentListener = null;
+    }
+  }
+  
+  void mouseUpListener(MouseEvent event) {
+    document.querySelectorAll('body /deep/ h-context-menu::shadow #context-menu-container').forEach((DivElement container) => container.classes.add('hidden'));
+    
+    if (disabled || event.button != 2) {
+      return;
+    }
+    
+    event
+      ..stopPropagation()
+      ..preventDefault();
+    
+    var contextMenu = $['context-menu-container'];
+    
+    contextMenu.style
+      ..top = '${event.client.y}px'
+      ..left = '${event.client.x}px';
+    contextMenu.classes.remove('hidden');
   }
   
 }

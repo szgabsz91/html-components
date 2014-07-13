@@ -120,6 +120,11 @@
   margin: 6px 7px 20px 0;
 }
 
+#severity {
+  padding: 0;
+  margin-bottom: 0;
+}
+
 .alert {
   background-position: 0 -144px;
 }

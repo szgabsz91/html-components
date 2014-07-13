@@ -1,0 +1,46 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/dialog/confirmation_dialog.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="confirmation-dialog-demo" extends="showcase-item">
+  <template>
+    <h1>Confirmation Dialog</h1>
+    
+    <form role="form">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{closable}}"> Closable
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{modal}}"> Modal
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="severity">Severity:</label>
+        <select id="severity" class="form-control" value="{{severity}}">
+          <option value="info">Info</option>
+          <option value="alert">Alert</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" on-click="{{open}}">Open</button>
+    </form>
+    
+    <h-confirmation-dialog id="confirmationDialog"
+                           modal="{{modal}}" closable="{{closable}}" severity="{{severity}}"
+                           on-buttonclicked="{{onButtonClicked}}">
+      <header>Initiating destroy process</header>
+      <span>Are you sure about destroying the world?</span>
+      <button>Yes sure</button>
+      <button>Not yet</button>
+    </h-confirmation-dialog>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="confirmation-dialog.dart"></script>
+</polymer-element>

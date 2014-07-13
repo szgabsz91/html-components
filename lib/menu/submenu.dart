@@ -5,7 +5,7 @@ import 'dart:html';
 class SubmenuComponent extends PolymerElement {
   
   @published String label;
-  @published String icon;
+  @published String iconClass;
   
   SubmenuComponent.created() : super.created();
   

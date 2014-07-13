@@ -87,3 +87,8 @@
 #detail {
   color: white;
 }
+
+#message /deep/ a {
+  color: #fff !important;
+  text-decoration: underline;
+}

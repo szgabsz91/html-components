@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="picklist/strings.html">
+<link rel="import" href="picklist/objects.html">
+
+<polymer-element name="picklist-demo" extends="showcase-collection">
+  <template>
+    <h1>Picklist</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'strings'}}">
+      <picklist-strings-demo></picklist-strings-demo>
+    </template>
+    <template if="{{subpage == 'objects'}}">
+      <picklist-objects-demo></picklist-objects-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="picklist.dart"></script>
+</polymer-element>

@@ -7,10 +7,10 @@ class ResizableComponent extends PolymerElement {
   
   @published bool aspectRatio = false;
   @published bool ghost = false;
-  @published int minWidth = 0;
-  @published int minHeight = 0;
-  @published int maxWidth = 9999;
-  @published int maxHeight = 9999;
+  @published int minWidth = null;
+  @published int minHeight = null;
+  @published int maxWidth = null;
+  @published int maxHeight = null;
   
   @observable int currentWidth = 0;
   @observable int currentHeight = 0;
@@ -105,12 +105,12 @@ class ResizableComponent extends PolymerElement {
   void _refreshWidth(int currentX) {
     int dx = currentX - _previousPoint.x;
     
-    if (currentWidth + dx > maxWidth || currentWidth + dx < minWidth) {
+    if ((maxWidth != null && currentWidth + dx > maxWidth) || (minWidth != null && currentWidth + dx < minWidth)) {
       return;
     }
     
-    if (aspectRatio && (currentWidth / ratio).floor() > maxHeight ||
-        aspectRatio && (currentWidth / ratio).floor() < minHeight) {
+    if ((maxHeight != null && aspectRatio && (currentWidth / ratio).floor() > maxHeight) ||
+        (minHeight != null && aspectRatio && (currentWidth / ratio).floor() < minHeight)) {
       return;
     }
     
@@ -126,12 +126,12 @@ class ResizableComponent extends PolymerElement {
   void _refreshHeight(int currentY) {
     int dy = currentY - _previousPoint.y;
     
-    if (currentHeight + dy > maxHeight || currentHeight + dy < minHeight) {
+    if ((maxHeight != null && currentHeight + dy > maxHeight) || (minHeight != null && currentHeight + dy < minHeight)) {
       return;
     }
     
-    if (aspectRatio && (currentHeight * ratio).floor() > maxWidth ||
-        aspectRatio && (currentHeight * ratio).floor() < minWidth) {
+    if ((maxWidth != null && aspectRatio && (currentHeight * ratio).floor() > maxWidth) ||
+        (minWidth != null && aspectRatio && (currentHeight * ratio).floor() < minWidth)) {
       return;
     }
     
@@ -150,8 +150,8 @@ class ResizableComponent extends PolymerElement {
     
     if (aspectRatio) {
       if (dx.abs() > dy.abs()) {
-        if (currentWidth + dx > maxWidth || currentWidth + dx < minWidth ||
-            (currentWidth / ratio).floor() > maxHeight || (currentWidth / ratio).floor() < minHeight) {
+        if ((maxWidth != null && currentWidth + dx > maxWidth) || (minWidth != null && currentWidth + dx < minWidth) ||
+            (maxHeight != null && (currentWidth / ratio).floor() > maxHeight) || (minHeight != null && (currentWidth / ratio).floor() < minHeight)) {
           return;
         }
         
@@ -159,8 +159,8 @@ class ResizableComponent extends PolymerElement {
         currentHeight = (currentWidth / ratio).floor();
       }
       else {
-        if (currentHeight + dy > maxHeight || currentHeight + dy < minHeight ||
-            (currentHeight * ratio).floor() > maxWidth || (currentHeight * ratio).floor() < minWidth) {
+        if ((maxHeight != null && currentHeight + dy > maxHeight) || (minHeight != null && currentHeight + dy < minHeight) ||
+            (maxWidth != null && (currentHeight * ratio).floor() > maxWidth) || (minWidth != null && (currentHeight * ratio).floor() < minWidth)) {
           return;
         }
         
@@ -169,8 +169,8 @@ class ResizableComponent extends PolymerElement {
       }
     }
     else {
-      if (currentWidth + dx > maxWidth || currentWidth + dx < minWidth ||
-          currentHeight + dy > maxHeight || currentHeight + dy < minHeight) {
+      if ((maxWidth != null && currentWidth + dx > maxWidth) || (minWidth != null && currentWidth + dx < minWidth) ||
+          (maxHeight != null && currentHeight + dy > maxHeight) || (minHeight != null && currentHeight + dy < minHeight)) {
         return;
       }
       

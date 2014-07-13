@@ -1,51 +1,17 @@
 name: html_components
-version: 0.3.0
+version: 0.4.0
 author: Gabor Szabo <szgabsz91@gmail.com>
 description: A reusable component library written in HTML and Dart using Polymer.dart.
 homepage: https://github.com/szgabsz91/html-components
 environment:
-  sdk: ">=1.5.1"
+  sdk: ">=1.5.3"
 dependencies:
   polymer: ">=0.11.0"
 dev_dependencies:
   unittest: 0.10.1+2
+  barback: ">=0.13.0"
 transformers:
 - polymer:
     entry_points:
     - example/index.html
-    - example/data_carousel.html
-    - example/data_datagrid.html
-    - example/data_datatable.html
-    - example/data_listbox.html
-    - example/data_picklist.html
-    - example/data_tagcloud.html
-    - example/data_tree.html
-    - example/data_treetable.html
-    - example/dialog_confirmation_dialog.html
-    - example/dialog_dialog.html
-    - example/input_autocomplete.html
-    - example/input_boolean_button.html
-    - example/input_masked_input.html
-    - example/input_rating.html
-    - example/input_select_button.html
-    - example/input_select_checkbox_menu.html
-    - example/menu_breadcrumb.html
-    - example/menu_context_menu.html
-    - example/menu_menu_button.html
-    - example/menu_menubar.html
-    - example/menu_split_button.html
-    - example/multimedia_feed_reader.html
-    - example/multimedia_gallery.html
-    - example/multimedia_image_compare.html
-    - example/multimedia_lightbox.html
-    - example/multimedia_photocam.html
-    - example/panel_accordion.html
-    - example/panel_panel.html
-    - example/panel_tabview.html
-    - example/utility_clock.html
-    - example/utility_draggable.html
-    - example/utility_growl.html
-    - example/utility_item_template.html
-    - example/utility_notification_bar.html
-    - example/utility_resizable.html
-    - example/utility_safe_html.html
+- html_components/src/showcase_transformer

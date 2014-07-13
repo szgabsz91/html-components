@@ -5,7 +5,7 @@ import 'dart:html';
 class SplitButtonComponent extends PolymerElement {
   
   @published String label = "";
-  @published String icon;
+  @published String iconClass;
   
   SplitButtonComponent.created() : super.created();
   

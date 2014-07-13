@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="accordion/dynamic.html">
+<link rel="import" href="accordion/static.html">
+
+<polymer-element name="accordion-demo" extends="showcase-collection">
+  <template>
+    <h1>Accordion</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'dynamic'}}">
+      <accordion-dynamic-demo></accordion-dynamic-demo>
+    </template>
+    <template if="{{subpage == 'static'}}">
+      <accordion-static-demo></accordion-static-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="accordion.dart"></script>
+</polymer-element>

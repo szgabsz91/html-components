@@ -1,0 +1,15 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/safe_html.html">
+
+<polymer-element name="safe-html-demo" extends="showcase-item">
+  <template>
+    <h1>Safe Html</h1>
+    
+    <h-safe-html content="{{content}}"></h-safe-html>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="safe-html.dart"></script>
+</polymer-element>

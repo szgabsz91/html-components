@@ -43,7 +43,7 @@ class FeedReaderComponent extends PolymerElement {
         ..clear()
         ..addAll(maxItems != null ? feed.items.take(maxItems) : feed.items);
       
-      if (autoRefresh) {
+      if (autoRefresh && feed.ttl != null) {
         new Future.delayed(new Duration(minutes: feed.ttl), onRefreshClicked);
       }
       

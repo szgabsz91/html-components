@@ -1,0 +1,17 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/html_components/input/select_item.html">
+<link rel="import" href="../../../packages/html_components/input/select_button.html">
+
+<polymer-element name="showcase-collection">
+  <template>
+    <link rel="stylesheet" href="collection.css">
+    
+    <h-select-button on-selectionchanged="{{changeHash}}">
+      <template repeat="{{item in items}}">
+        <h-select-item label="{{item.label}}" value="{{item.value}}" selected?="{{subpage == item.value}}"></h-select-item>
+      </template>
+    </h-select-button>
+  </template>
+  
+  <script type="application/dart" src="collection.dart"></script>
+</polymer-element>

@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="listbox/strings.html">
+<link rel="import" href="listbox/objects.html">
+
+<polymer-element name="listbox-demo" extends="showcase-collection">
+  <template>
+    <h1>Listbox</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'strings'}}">
+      <listbox-strings-demo></listbox-strings-demo>
+    </template>
+    <template if="{{subpage == 'objects'}}">
+      <listbox-objects-demo></listbox-objects-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="listbox.dart"></script>
+</polymer-element>

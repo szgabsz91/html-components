@@ -1,0 +1,39 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/tree.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="tree-server-demo" extends="showcase-item">
+  <template>
+    <div class="alert alert-danger" role="alert">
+      <b>Warning!</b>
+      Does not work without <a href="https://github.com/szgabsz91/html-components/blob/master/bin/services.dart" target="_blank">services.dart</a>
+    </div>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{animating}}"> Animate
+        </label>
+      </div>
+    </form>
+    
+    <h-tree source="http://localhost:9090/tree/string" selection="{{selection}}" animating="{{animating}}"
+            on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}"
+            on-selected="{{onItemSelected}}" on-deselected="{{onItemDeselected}}">
+    </h-tree>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="server.dart"></script>
+</polymer-element>

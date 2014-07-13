@@ -79,8 +79,14 @@ class CarouselComponent extends PolymerElement {
       List<ImageElement> images = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is ImageElement).toList(growable: false);
       
       if (images.isNotEmpty) {
-        itemWidth = images.first.width;
-        itemHeight = images.first.height;
+        void refreshImageWidth() {
+          itemWidth = images.first.width;
+          itemHeight = images.first.height;
+        }
+        images.first.onLoad.listen((_) {
+          refreshImageWidth();
+        });
+        refreshImageWidth();
         
         data = toObservable([]);
         

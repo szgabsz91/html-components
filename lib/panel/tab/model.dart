@@ -5,7 +5,6 @@ class TabModel extends Object with Observable {
   @observable bool selected = false;
   @observable bool disabled = false;
   @observable bool closable = false;
-  // TODO maybe this is not needed
   @observable bool closed = false;
   @observable String content = null;
   

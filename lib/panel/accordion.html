@@ -17,7 +17,7 @@
           <a href="#">{{tab.header}}</a>
         </h3>
         
-        <div class="{{ {'content': true} }}" style="max-height: {{!tab.selected ? '0' : 'none'}}; padding-top: {{tab.selected ? '5px' : '0'}}; padding-bottom: {{tab.selected ? '5px' : '0'}}">
+        <div class="content" style="max-height: {{!tab.selected ? '0' : 'none'}}; padding-top: {{tab.selected ? '5px' : '0'}}; padding-bottom: {{tab.selected ? '5px' : '0'}}">
           <h-safe-html content="{{tab.content}}"></h-safe-html>
         </div>
       </template>

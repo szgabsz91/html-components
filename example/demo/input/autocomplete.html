@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="autocomplete/client.html">
+<link rel="import" href="autocomplete/server.html">
+
+<polymer-element name="autocomplete-demo" extends="showcase-collection">
+  <template>
+    <h1>Autocomplete</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'client'}}">
+      <autocomplete-client-demo></autocomplete-client-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <autocomplete-server-demo></autocomplete-server-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="autocomplete.dart"></script>
+</polymer-element>

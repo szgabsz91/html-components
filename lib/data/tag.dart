@@ -8,10 +8,11 @@ class TagComponent extends PolymerElement {
   
   @published String label = '';
   @published String url = '#';
+  @published String target = '_self';
   @published int strength = 1;
   
   TagComponent.created() : super.created();
   
-  TagModel get model => new TagModel(label, url, strength);
+  TagModel get model => new TagModel(label, url, target, strength);
   
 }

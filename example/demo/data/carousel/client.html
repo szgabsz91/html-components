@@ -1,0 +1,27 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/carousel.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="carousel-client-demo" extends="showcase-item">
+  <template>
+    <h-carousel data="{{cars}}" visibleItems="3" pageLinks="5" on-selected="{{onItemSelected}}">
+      <header>Cars</header>
+      <div class="car-item">
+        <p>
+          <img src="../../../img/cars/${imagePath}" alt="${manufacturer}">
+        </p>
+        <p>${model}</p>
+        <p>${year}</p>
+        <p>${carousel:selectButton}</p>
+      </div>
+      <footer>In total there are ${carousel:totalCount} cars.</footer>
+    </h-carousel>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="client.dart"></script>
+</polymer-element>

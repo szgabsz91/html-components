@@ -35,9 +35,12 @@ class DialogComponent extends PolymerElement {
     $['hidden'].remove();
     
     hide();
-    
-    // Chrome stable CSS fix
-    $['content'].style.marginTop = '0';
+  }
+  
+  void modalChanged() {
+    if (modal && !hidden) {
+      $['overlay'].classes.remove('hidden');
+    }
   }
   
   void show() {

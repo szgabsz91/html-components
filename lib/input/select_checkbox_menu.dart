@@ -13,7 +13,6 @@ class SelectCheckboxMenuComponent extends PolymerElement {
   @observable List<SelectItemModel> items = toObservable([]);
   @observable List<SelectItemModel> visibleItems = toObservable([]);
   
-  // This could be implemented with a filter?
   @observable String get queryExpression => _queryExpression;
   void set queryExpression(String queryExpression) {
     _queryExpression = queryExpression;

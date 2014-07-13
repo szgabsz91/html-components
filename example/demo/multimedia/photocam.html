@@ -1,0 +1,31 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/multimedia/photocam.html">
+
+<polymer-element name="photocam-demo" extends="showcase-item">
+  <template>
+    <h1>Photocam</h1>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="effect">Effect:</label>
+        <select id="effect" class="form-control" value="{{effect}}">
+          <option value="">None</option>
+          <option value="blur">Blur</option>
+          <option value="grayscale">Grayscale</option>
+          <option value="sepia">Sepia</option>
+          <option value="invert">Invert</option>
+        </select>
+      </div>
+      <label class="checkbox">
+        <input type="checkbox" checked="{{audio}}"> Record audio
+      </label>
+    </form>
+    
+    <h-photocam audio="{{audio}}" effect="{{effect}}"></h-photocam>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="photocam.dart"></script>
+</polymer-element>

@@ -1,6 +1,8 @@
 library html_components;
 
 import 'common/null_tree_sanitizer.dart';
+import 'common/size.dart';
+import 'common/string_to_int.dart';
 import 'data/carousel.dart';
 import 'data/column.dart';
 import 'data/datagrid.dart';
@@ -48,6 +50,8 @@ import 'utility/resizable.dart';
 import 'utility/safe_html.dart';
 
 export 'common/null_tree_sanitizer.dart';
+export 'common/size.dart';
+export 'common/string_to_int.dart';
 export 'data/carousel.dart';
 export 'data/column.dart';
 export 'data/datagrid.dart';

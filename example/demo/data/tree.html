@@ -1,0 +1,24 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="tree/client.html">
+<link rel="import" href="tree/icons.html">
+<link rel="import" href="tree/server.html">
+
+<polymer-element name="tree-demo" extends="showcase-collection">
+  <template>
+    <h1>Tree</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'client'}}">
+      <tree-client-demo></tree-client-demo>
+    </template>
+    <template if="{{subpage == 'icons'}}">
+      <tree-icons-demo></tree-icons-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <tree-server-demo></tree-server-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="tree.dart"></script>
+</polymer-element>

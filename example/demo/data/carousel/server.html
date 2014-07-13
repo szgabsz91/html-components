@@ -1,0 +1,32 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/carousel.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="carousel-server-demo" extends="showcase-item">
+  <template>
+    <div class="alert alert-danger" role="alert">
+      <b>Warning!</b>
+      Does not work without <a href="https://github.com/szgabsz91/html-components/blob/master/bin/services.dart" target="_blank">services.dart</a>
+    </div>
+    
+    <h-carousel source="http://localhost:9090/carousel/cars/11" visibleItems="3" on-selected="{{onItemSelected}}">
+      <header>Cars</header>
+      <div class="car-item">
+        <p>
+          <img src="../../../img/cars/${imagePath}" alt="${manufacturer}">
+        </p>
+        <p>${model}</p>
+        <p>${year}</p>
+        <p>${carousel:selectButton}</p>
+      </div>
+      <footer>In total there are ${carousel:totalCount} cars.</footer>
+    </h-carousel>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="server.dart"></script>
+</polymer-element>

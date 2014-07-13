@@ -1,0 +1,20 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/notification_bar.html">
+
+<polymer-element name="notification-bar-demo" extends="showcase-item">
+  <template>
+    <h1>Notification Bar</h1>
+    
+    <h-notification-bar id="notification-bar">
+      <h1>HTML Components Rock!</h1>
+    </h-notification-bar>
+    
+    <button class="btn btn-success" on-click="{{onShowButtonClicked}}" disabled?="{{visible}}">Show</button>
+    <button class="btn btn-danger" on-click="{{onHideButtonClicked}}" disabled?="{{!visible}}">Hide</button>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="notification-bar.dart"></script>
+</polymer-element>

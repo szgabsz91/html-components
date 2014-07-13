@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.4.0
+* Updated to latest SDK (1.5.3) version
+* Examples updated as a single-page application
+* Code samples are now displayed in a tabview, after automatically downloading and transforming the necessary HTML and Dart files
+* All the demo components inherit from the new `showcase-item` or the `showcase-collection` component, and the showcase examples were rationalized
+* Added a simple and naive transformer so that the Dart files get copied to the build directory and they can be downloaded by the JS version of `showcase-item`
+* The `h-growl-message` component can now display arbitrary HTML content
+* The `h-resizable` component's size constraints can be reset by setting the individual attributes to `null`
+* The `h-growl` component now cancels listening to the global growl event if it gets removed from the DOM
+* Added a `Size` and a `StringToInt` class to the library
+* The `h-select-button` component now accepts a `template` element with the `repeat` attribute
+* The `h-feed-reader` component does not throw exception if the `ttl` field is null
+* The `h-context-menu` component can be attached to any element under any shadow root
+* The `h-tag` component has a new `target` attribute that can be used to open a new window (`_blank` target)
+* The `h-carousel` component listens to the `load` event of images in case they load after the component load
+* The `h-datagrid` and the `h-datatable` components' `paginatorPosition` attribute can be `both`
+* Some codes were removed because the bugs they had been related to were fixed in Polymer.dart
+* The icon CSS rules were moved to a separate file
+* CSS fix for menu item width
+* The `h-tree-node` component's `icon` attribute was renamed to `normalIcon` because of the Polymer transformer's behavior
+* The `h-menu-item`, `h-submenu` and `h-split-button` components' `icon` attribute was renamed to `iconClass` because of the Polymer transformer's behavior
+
 ## 0.3.0
 * Updated to latest SDK (1.5.1) and polymer (0.11.0) version
 * Renamed the web folder to example

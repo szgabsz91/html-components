@@ -1,0 +1,24 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/panel/tab.html">
+<link rel="import" href="../../../../packages/html_components/panel/accordion.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="accordion-dynamic-demo" extends="showcase-item">
+  <template>
+    <h-accordion on-selected="{{onAccordionSelected}}" on-deselected="{{onAccordionDeselected}}">
+      <template repeat="{{tab in tabs}}">
+        <h-tab header="{{tab.header}}" content="{{tab.content}}"
+               closable="{{tab.closable}}" disabled="{{tab.disabled}}"
+               selected="{{tab.selected}}">
+        </h-tab>
+      </template>
+    </h-accordion>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="dynamic.dart"></script>
+</polymer-element>

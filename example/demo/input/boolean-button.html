@@ -1,0 +1,42 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/input/boolean_button.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="boolean-button-demo" extends="showcase-item">
+  <template>
+    <h1>Boolean Button</h1>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="labelOn">Label On</label>
+        <input id="labelOn" type="text" class="form-control" value="{{labelOn}}">
+      </div>
+      <div class="form-group">
+        <label for="labelOff">Label Off</label>
+        <input id="labelOff" type="text" class="form-control" value="{{labelOff}}">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{showIcon}}"> Show icon
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked="{{pressed}}"> Pressed
+        </label>
+      </div>
+    </form>
+    
+    <h-boolean-button labelOn="{{labelOn}}" labelOff="{{labelOff}}"
+                      showIcon="{{showIcon}}" pressed="{{pressed}}"
+                      on-valuechanged="{{onValueChangedFired}}">
+    </h-boolean-button>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="boolean-button.dart"></script>
+</polymer-element>

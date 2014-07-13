@@ -1,0 +1,61 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/datatable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="datatable-selection-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="paginator">Paginator:</label>
+        <select id="paginator" class="form-control" value="{{paginator}}">
+          <option value="none">None</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-datatable data="{{cars}}" selection="{{selection}}" paginatorPosition="{{paginator}}"
+                 rows="15" rowsPerPageTemplate="15,20,25" maxPageLinks="10" 
+                 on-sorted="{{onColumnSorted}}" on-selected="{{onItemSelected}}">
+      <header>List of Cars</header>
+      
+      <h-column property="model">
+        <header>Model</header>
+        <footer>8 digit code</footer>
+      </h-column>
+      
+      <h-column property="manufacturer">
+        <header>Manufacturer</header>
+      </h-column>
+      
+      <h-column property="year">
+        <header>Year</header>
+        <footer>1960-2012</footer>
+      </h-column>
+      
+      <h-column property="warranty" textAlign="center">
+        <header>Warranty</header>
+        <footer>true/false</footer>
+      </h-column>
+      
+      <footer>In total there are ${datatable:totalCount} cars.</footer>
+    </h-datatable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="selection.dart"></script>
+</polymer-element>

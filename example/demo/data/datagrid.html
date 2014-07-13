@@ -1,0 +1,20 @@
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="datagrid/client.html">
+<link rel="import" href="datagrid/server.html">
+
+<polymer-element name="datagrid-demo" extends="showcase-collection">
+  <template>
+    <h1>Datagrid</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'client'}}">
+      <datagrid-client-demo></datagrid-client-demo>
+    </template>
+    <template if="{{subpage == 'server'}}">
+      <datagrid-server-demo></datagrid-server-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="datagrid.dart"></script>
+</polymer-element>

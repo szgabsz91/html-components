@@ -1,0 +1,15 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/item_template.html">
+
+<polymer-element name="item-template-demo" extends="showcase-item">
+  <template>
+    <h1>Item Template</h1>
+    
+    <h-item-template template="{{template}}" model="{{person}}"></h-item-template>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="item-template.dart"></script>
+</polymer-element>

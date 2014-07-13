@@ -8,6 +8,7 @@ class GrowlComponent extends PolymerElement {
   
   @published int lifetime = 0;
   @observable List<GrowlMessageModel> growlMessages = toObservable([]);
+  StreamSubscription<CustomEvent> _streamSubscription;
   
   GrowlComponent.created() : super.created();
   
@@ -22,13 +23,19 @@ class GrowlComponent extends PolymerElement {
       .forEach(addMessage);
     $['hidden'].remove();
     
-    window.on['growl'].listen((CustomEvent event) {
+    this._streamSubscription = window.on['growl'].listen((CustomEvent event) {
       addMessage(event.detail, prepend: true);
     });
   }
   
-  // Exception: type 'GrowlMessageModel' is not a subtype of type 'GrowlMessageModel' of 'growlMessage'.
-  void addMessage(var growlMessage, {bool prepend: false}) {
+  @override
+  void detached() {
+    super.detached();
+    
+    this._streamSubscription.cancel();
+  }
+  
+  void addMessage(GrowlMessageModel growlMessage, {bool prepend: false}) {
     if (prepend) {
       growlMessages.insert(0, growlMessage);
     }
@@ -43,8 +50,7 @@ class GrowlComponent extends PolymerElement {
     }
   }
   
-// Exception: type 'GrowlMessageModel' is not a subtype of type 'GrowlMessageModel' of 'growlMessage'.
-  void removeMessage(var growlMessage) {
+  void removeMessage(GrowlMessageModel growlMessage) {
     int index = growlMessages.indexOf(growlMessage);
     
     this.shadowRoot.querySelectorAll('h-growl-message')[index].onClosing();

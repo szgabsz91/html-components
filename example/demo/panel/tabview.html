@@ -1,0 +1,21 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/collection.html">
+<link rel="import" href="tabview/static.html">
+<link rel="import" href="tabview/dynamic.html">
+
+<polymer-element name="tabview-demo" extends="showcase-collection">
+  <template>
+    <h1>Tabview</h1>
+    
+    <shadow></shadow>
+    
+    <template if="{{subpage == 'dynamic'}}">
+      <tabview-dynamic-demo></tabview-dynamic-demo>
+    </template>
+    <template if="{{subpage == 'static'}}">
+      <tabview-static-demo></tabview-static-demo>
+    </template>
+  </template>
+  
+  <script type="application/dart" src="tabview.dart"></script>
+</polymer-element>

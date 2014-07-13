@@ -32,15 +32,6 @@ class BreadcrumbComponent extends PolymerElement {
       menuItem.setMenubarOrientation('horizontal');
       $['list'].children.add(menuItem);
       
-      // In Chrome the selected event isn't propagated
-      menuItem.on['selected'].listen((CustomEvent event) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        
-        this.dispatchEvent(new CustomEvent('selected', detail: event.detail));
-      });
-      
       if (i < menuItems.length - 1) {
         LIElement separatorElement = new LIElement()..classes.add('separator');
         $['list'].children.add(separatorElement);

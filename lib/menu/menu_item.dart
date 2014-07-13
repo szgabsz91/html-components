@@ -5,7 +5,7 @@ import 'dart:html';
 class MenuItemComponent extends PolymerElement {
   
   @published String url = '#';
-  @published String icon;
+  @published String iconClass;
   @published String label;
   @published String target = '_self';
   

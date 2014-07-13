@@ -1,0 +1,31 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/input/masked_input.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="masked-input-demo" extends="showcase-item">
+  <template>
+    <h1>Masked Input</h1>
+    
+    <form role="form">
+      <div class="form-group">
+        <label>99/99/9999</label>
+        <h-masked-input mask="99/99/9999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+      </div>
+      <div class="form-group">
+        <label>aaa-999</label>
+        <h-masked-input mask="aaa-999" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+      </div>
+      <div class="form-group">
+        <label>+3699/999-99-99</label>
+        <h-masked-input mask="+3699/999-99-99" placeholder="*" on-valuechanged="{{onValueChangedFired}}"></h-masked-input>
+      </div>
+    </form>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="masked-input.dart"></script>
+</polymer-element>

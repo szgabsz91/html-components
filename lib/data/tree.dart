@@ -8,8 +8,6 @@ import 'tree/tree_node.dart';
 
 export 'tree/tree_node.dart';
 
-// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
-
 @CustomTag('h-tree')
 class TreeComponent extends PolymerElement {
   
@@ -80,7 +78,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _toggleNode(var node, MouseEvent event) {
+  void _toggleNode(TreeNode node, MouseEvent event) {
     SpanElement target = event.target;
     
     if (node.expanded) {
@@ -91,7 +89,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _expandNode(var node, Element element) {
+  void _expandNode(TreeNode node, Element element) {
     this.dispatchEvent(new CustomEvent('expanded', detail: node.data));
     
     element.classes
@@ -212,7 +210,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _collapseNode(var node, Element element) {
+  void _collapseNode(TreeNode node, Element element) {
     this.dispatchEvent(new CustomEvent('collapsed', detail: node.data));
     
     element.classes
@@ -301,7 +299,7 @@ class TreeComponent extends PolymerElement {
     }
   }
   
-  void _onClicked(var node, MouseEvent event) {
+  void _onClicked(TreeNode node, MouseEvent event) {
     Element target = event.target;
     
     if (selection == "multiple") {
@@ -344,7 +342,7 @@ class TreeComponent extends PolymerElement {
   void _insertTreeNodes(Element parent, List treeNodes) {
     parent.children.clear();
     
-    treeNodes.forEach((var node) {
+    treeNodes.forEach((TreeNode node) {
       TreeTemplateManager templateManager = _templateManagers[node.type];
       TreeNodeModel treeNodeModel = _treeNodeModels[node.type];
       

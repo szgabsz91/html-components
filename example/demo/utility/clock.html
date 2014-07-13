@@ -1,0 +1,22 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/utility/clock.html">
+
+<polymer-element name="clock-demo" extends="showcase-item">
+  <template>
+    <h1>Clock</h1>
+    
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label for="size">Size:</label>
+        <input id="size" type="number" value="{{size | asInteger}}">
+      </div>
+    </form>
+    
+    <h-clock size="{{size}}"></h-clock>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="clock.dart"></script>
+</polymer-element>

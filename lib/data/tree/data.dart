@@ -3,22 +3,20 @@ import 'dart:async';
 import 'dart:convert';
 import 'tree_node.dart';
 
-// Uncaught Error: type 'TreeNode' is not a subtype of type 'TreeNode' of 'root'.
-
 abstract class TreeDataFetcher {
-  var _root;
+  TreeNode _root;
   
   TreeDataFetcher(this._root);
   
   get root => _root;
   
-  Future<List> fetchNodes(var parent);
+  Future<List> fetchNodes(TreeNode parent);
 }
 
 class TreeClientDataFetcher extends TreeDataFetcher {
-  TreeClientDataFetcher(var root) : super(root);
+  TreeClientDataFetcher(TreeNode root) : super(root);
   
-  Future<List> fetchNodes(var parent) {
+  Future<List> fetchNodes(TreeNode parent) {
     Completer completer = new Completer();
     
     if (parent != null) {
@@ -37,7 +35,7 @@ class TreeServerDataFetcher extends TreeDataFetcher {
   
   TreeServerDataFetcher(Uri this._serviceURL) : super(null);
   
-  Future<List> fetchNodes(var parent) {
+  Future<List> fetchNodes(TreeNode parent) {
     Completer completer = new Completer();
     
     HttpRequest request = new HttpRequest();
@@ -48,8 +46,7 @@ class TreeServerDataFetcher extends TreeDataFetcher {
         List result = [];
         
         for (Map<String, dynamic> item in mapList) {
-          var node = new TreeNode(item["data"], parent);
-          // TODO Place into constructor
+          TreeNode node = new TreeNode(item["data"], parent);
           node.isParent = item["isParent"];
           result.add(node);
         }

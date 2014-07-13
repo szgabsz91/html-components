@@ -1,0 +1,50 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/treetable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="treetable-client-demo" extends="showcase-item">
+  <template>
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-treetable root="{{root}}" selection="{{selection}}"
+                 on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}">
+      <header>Document Viewer</header>
+      
+      <h-column>
+        <header>Name</header>
+        <span>${name}</span>
+        <footer>Name</footer>
+      </h-column>
+      
+      <h-column textAlign="right">
+        <header>Size</header>
+        <span>${size}</span>
+        <footer>Size</footer>
+      </h-column>
+      
+      <h-column>
+        <header>Type</header>
+        <span>${type}</span>
+        <footer>Type</footer>
+      </h-column>
+      
+      <footer>Document Viewer</footer>
+    </h-treetable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="client.dart"></script>
+</polymer-element>

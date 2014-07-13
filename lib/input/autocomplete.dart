@@ -56,7 +56,7 @@ class AutocompleteComponent extends PolymerElement {
   void attached() {
     super.attached();
     
-    List<Node> children = $['hidden'].querySelector('content').getDistributedNodes();
+    List<Element> children = $['hidden'].querySelector('content').getDistributedNodes().where((Node node) => node is Element).toList(growable: false);
     
     if (children.isNotEmpty) {
       template = children.first.parent.innerHtml;
@@ -68,64 +68,36 @@ class AutocompleteComponent extends PolymerElement {
   }
   
   void onContainerKeyUp(KeyboardEvent event) {
-    switch (event.which) {
-      // Down arrow
-      /*case 40:
-        if (_highlightedElement != null) {
-          Element nextElement = _highlightedElement.nextElementSibling;
-          if (nextElement != null && nextElement.tagName == _highlightedElement.tagName) {
-            _onMouseOverSuggestion(nextElement);
-          }
-        }
-        else {
-          _onMouseOverSuggestion(_firstSuggestionElement);
-        }
-        break;
+    // Not enter, up or down arrow
+    if (![13, 38, 40].contains(event.which)) {
+      String query = value;
       
-      // Up arrow
-      case 38:
-        if (_highlightedElement != null) {
-          Element previousElement = _highlightedElement.previousElementSibling;
-          if (previousElement != null && previousElement.tagName == _highlightedElement.tagName) {
-            _onMouseOverSuggestion(previousElement);
-          }
-        }
-        break;
+      if (query == '') {
+        suggestions.clear();
+        $['suggestion-container'].classes.add('hidden');
+        return;
+      }
       
-      // Enter
-      case 13:
-        _onSuggestionClicked();
-        break;*/
-      
-      default:
-        String query = value;
-        
-        if (query == '') {
-          suggestions.clear();
-          $['suggestion-container'].classes.add('hidden');
+      new Future.delayed(new Duration(milliseconds: delay), () {
+        if (query != value) {
+          // Cancelled because query string changed
           return;
         }
         
-        new Future.delayed(new Duration(milliseconds: delay), () {
-          if (query != value) {
-            // Cancelled because query string changed
-            return;
+        _dataFetcher.fetchSuggestions(query).then((List<Object> suggestions) {
+          if ([CLIENT_OBJECT_NOTEMPLATE, SERVER_OBJECT_NOTEMPLATE].contains(_mode)) {
+            this.suggestions = toObservable(
+              suggestions.map((Object item) => reflection.getPropertyValue(item, property))
+                         .toList(growable: false)
+            );
+          }
+          else {
+            this.suggestions = toObservable(suggestions);
           }
           
-          _dataFetcher.fetchSuggestions(query).then((List<Object> suggestions) {
-            if ([CLIENT_OBJECT_NOTEMPLATE, SERVER_OBJECT_NOTEMPLATE].contains(_mode)) {
-              this.suggestions = toObservable(
-                suggestions.map((Object item) => reflection.getPropertyValue(item, property))
-                           .toList(growable: false)
-              );
-            }
-            else {
-              this.suggestions = toObservable(suggestions);
-            }
-            
-            $['suggestion-container'].classes.remove('hidden');
-          }).catchError((Object error) => print("An error occured: $error"));
-        });
+          $['suggestion-container'].classes.remove('hidden');
+        }).catchError((Object error) => print("An error occured: $error"));
+      });
     }
     
     if (![8, 16, 17, 18, 35, 36, 37, 39, 46].contains(event.which)) {

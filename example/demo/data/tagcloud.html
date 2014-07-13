@@ -1,0 +1,30 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../showcase/item.html">
+<link rel="import" href="../../../packages/html_components/data/tag.html">
+<link rel="import" href="../../../packages/html_components/data/tagcloud.html">
+<link rel="import" href="../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="tagcloud-demo" extends="showcase-item">
+  <template>
+    <h1>Tagcloud</h1>
+    
+    <h-tagcloud on-selected="{{onTagSelected}}">
+      <h-tag label="Transformers" strength="1"></h-tag>
+      <h-tag label="RIA" url="//szgabsz91.github.io/html-components/#/data/tagcloud" target="_blank" strength="3"></h-tag>
+      <h-tag label="AJAX" strength="2"></h-tag>
+      <h-tag label="jQuery" url="//szgabsz91.github.io/html-components/#/data/tagcloud" target="_blank" strength="5"></h-tag>
+      <h-tag label="NextGen" strength="4"></h-tag>
+      <h-tag label="JSF 2.0" url="//szgabsz91.github.io/html-components/#/data/tagcloud" target="_blank" strength="2"></h-tag>
+      <h-tag label="FCB" strength="5"></h-tag>
+      <h-tag label="Mobile" strength="3"></h-tag>
+      <h-tag label="Themes" url="//szgabsz91.github.io/html-components/#/data/tagcloud" target="_blank" strength="4"></h-tag>
+      <h-tag label="Rocks" url="//szgabsz91.github.io/html-components/#/data/tagcloud" target="_blank" strength="1"></h-tag>
+    </h-tagcloud>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="tagcloud.dart"></script>
+</polymer-element>

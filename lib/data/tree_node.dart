@@ -7,12 +7,12 @@ export 'tree_node/model.dart';
 class TreeNodeComponent extends PolymerElement {
   
   @published String type;
-  @published String icon;
+  @published String normalIcon;
   @published String collapsedIcon;
   @published String expandedIcon;
   
   TreeNodeComponent.created() : super.created();
   
-  TreeNodeModel get model => new TreeNodeModel(type, icon, collapsedIcon, expandedIcon);
+  TreeNodeModel get model => new TreeNodeModel(type, normalIcon, collapsedIcon, expandedIcon);
   
 }

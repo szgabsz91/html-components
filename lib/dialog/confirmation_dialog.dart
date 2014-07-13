@@ -52,12 +52,12 @@ class ConfirmationDialogComponent extends PolymerElement {
     $['hidden'].remove();
     
     hide();
-    
-    // Chrome stable CSS fix
-    $['content'].style.marginTop = '0px';
-    $['severity'].style
-      ..padding = '0'
-      ..marginBottom = '0';
+  }
+  
+  void modalChanged() {
+    if (modal && !hidden) {
+      $['overlay'].classes.remove('hidden');
+    }
   }
   
   void show() {

@@ -1,0 +1,51 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../showcase/item.html">
+<link rel="import" href="../../../../packages/html_components/data/column.html">
+<link rel="import" href="../../../../packages/html_components/data/treetable.html">
+<link rel="import" href="../../../../packages/html_components/utility/growl.html">
+
+<polymer-element name="treetable-server-demo" extends="showcase-item">
+  <template>
+    <div class="alert alert-danger" role="alert">
+      <b>Warning!</b>
+      Does not work without <a href="https://github.com/szgabsz91/html-components/blob/master/bin/services.dart" target="_blank">services.dart</a>
+    </div>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="selection">Selection:</label>
+        <select id="selection" class="form-control" value="{{selection}}">
+          <option value="single">Single</option>
+          <option value="multiple">Multiple</option>
+        </select>
+      </div>
+    </form>
+    
+    <h-treetable source="http://localhost:9090/treetable/documents" selection="{{selection}}"
+                 on-expanded="{{onItemExpanded}}" on-collapsed="{{onItemCollapsed}}" on-selected="{{onItemSelected}}" 
+                 on-columnresized="{{onColumnResized}}">
+      <header>Document Viewer</header>
+      
+      <h-column resizable>
+        <header>Name</header>
+        <span>${name}</span>
+      </h-column>
+      
+      <h-column textAlign="right" resizable>
+        <header>Size</header>
+        <span>${size}</span>
+      </h-column>
+      
+      <h-column resizable>
+        <header>Type</header>
+        <span>${type}</span>
+      </h-column>
+    </h-treetable>
+    
+    <h-growl lifetime="5000"></h-growl>
+    
+    <shadow></shadow>
+  </template>
+  
+  <script type="application/dart" src="server.dart"></script>
+</polymer-element>

@@ -16,39 +16,41 @@ class SelectButtonComponent extends PolymerElement {
   void attached() {
     super.attached();
     
-    List<SelectItemComponent> selectItems = $['container'].querySelector('content').getDistributedNodes().where((Node node) => node is SelectItemComponent).toList(growable: false);
-    
-    bool foundSelected = false;
-    
-    selectItems.forEach((SelectItemComponent selectItem) {
-      selectItem.style
-        ..display = 'inline-block'
-        ..marginRight = '-4px';
+    scheduleMicrotask(() {
+      List<SelectItemComponent> selectItems = $['container'].querySelector('content').getDistributedNodes().where((Node node) => node is SelectItemComponent).toList(growable: false);
       
-      if (selection == 'single') {
-        if (foundSelected) {
-          selectItem.selected = false;
-        }
-        else if (selectItem.selected) {
-          foundSelected = true;
-          _selectedItems.add(selectItem);
-        }
-      }
-      else {
-        if (selectItem.selected) {
-          _selectedItems.add(selectItem);
-        }
-      }
+      bool foundSelected = false;
       
-      selectItem.on['valueChanged'].listen((Event event) {
-        event.preventDefault();
+      selectItems.forEach((SelectItemComponent selectItem) {
+        selectItem.style
+          ..display = 'inline-block'
+          ..marginRight = '-4px';
         
-        onItemValueChange(selectItem);
+        if (selection == 'single') {
+          if (foundSelected) {
+            selectItem.selected = false;
+          }
+          else if (selectItem.selected) {
+            foundSelected = true;
+            _selectedItems.add(selectItem);
+          }
+        }
+        else {
+          if (selectItem.selected) {
+            _selectedItems.add(selectItem);
+          }
+        }
+        
+        selectItem.on['valueChanged'].listen((Event event) {
+          event.preventDefault();
+          
+          onItemValueChange(selectItem);
+        });
       });
+      
+      selectItems.first.setLeftCornerRounded();
+      selectItems.last.setRightCornerRounded();
     });
-    
-    selectItems.first.setLeftCornerRounded();
-    selectItems.last.setRightCornerRounded();
   }
   
   List<SelectItemModel> get selectedItems => _selectedItems.map((SelectItemComponent component) => component.model).toList(growable: false);
