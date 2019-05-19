@@ -1,5 +1,4 @@
 # HTML Components
-===============
 
 [![Build Status](https://drone.io/github.com/szgabsz91/html-components/status.png)](https://drone.io/github.com/szgabsz91/html-components/latest)
 
